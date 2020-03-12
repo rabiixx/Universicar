@@ -58,39 +58,33 @@ public class FormularioCrear extends AppCompatActivity {
         final Calendar cal = Calendar.getInstance();
         final DatePicker datePicker = (DatePicker)findViewById(R.id.datePicker1);
         final TimePicker timePicker = (TimePicker)findViewById(R.id.timePicker1);
-        time.setIs24HourView(true);
+        timePicker.setIs24HourView(true);
         final Button submitBtn = (Button)findViewById(R.id.submit);
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                int hour, minute;
-                String am_pm;
-                if (Build.VERSION.SDK_INT >= 23 ){
+                final int hour, minute;
+
+                if (Build.VERSION.SDK_INT >= 23 ) {
                     hour = timePicker.getHour();
                     minute = timePicker.getMinute();
-                }
-                else{
+                } else{
                     hour = timePicker.getCurrentHour();
                     minute = timePicker.getCurrentMinute();
                 }
-                if (1!=1) {
-                    // Alerta de Javascript
-                    Toast.makeText(getApplicationContext(), "Rellene todos los campos enano", Toast.LENGTH_LONG).show();
-                } else {
 
+                cal.set(Calendar.YEAR, datePicker.getYear());
+                cal.set(Calendar.MONTH, datePicker.getMonth());
+                cal.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+                cal.set(Calendar.HOUR, hour);
+                cal.set(Calendar.MINUTE, minute);
 
-                    cal.set(Calendar.YEAR, picker.getYear());
-                    cal.set(Calendar.MONTH, picker.getMonth());
-                    cal.set(Calendar.DAY_OF_MONTH, picker.getDayOfMonth());
+                Viaje viaje = new Viaje("Valencia", "Italia");
+                viaje.setFecha(cal.getTime());
+                //viaje.setConductor(ParseUser.getCurrentUser());
+                viaje.saveInBackground();
 
-
-                    Viaje viaje = new Viaje("Valencia", "Italia");
-                    viaje.setFecha(cal.getTime());
-                    //viaje.setConductor(ParseUser.getCurrentUser());
-                    viaje.saveInBackground();
-
-                }
             }
         });
 
