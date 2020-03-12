@@ -58,9 +58,9 @@ public class Viaje extends ParseObject {
         put("origen", origen);
     }
 
-    /*public String getDestino() {
-        return destino;
-    }*/
+    public String getDestino() {
+        return getString("destino");
+    }
 
     private void setDestino(String destino) {
         put("destino", destino);

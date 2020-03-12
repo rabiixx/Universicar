@@ -1,7 +1,5 @@
 package com.example.intento2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-//import com.example.intento2.ui.login.LoginActivity;
-
-import com.example.intento2.ui.login.LoginActivity;
-
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 

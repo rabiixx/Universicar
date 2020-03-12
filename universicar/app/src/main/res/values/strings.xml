@@ -34,4 +34,5 @@
     <string name="Precio" />
     <string name="precio">Precio</string>
     <string name="numero_asientos">Numero Asientos</string>
+    <string name="lista_viajes">Viajes</string>
 </resources>
