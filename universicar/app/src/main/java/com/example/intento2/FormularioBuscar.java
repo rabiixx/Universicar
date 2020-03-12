@@ -14,7 +14,7 @@ public class FormularioBuscar extends AppCompatActivity {
         setContentView(R.layout.activity_formulario_buscar);
 
         //SPINNER ORIGEN
-        Spinner spinnerOrigen = (Spinner) findViewById(R.id.spinner_origen_buscar);
+        Spinner spinnerOrigen = findViewById(R.id.spinner_origen_buscar);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.barrios_pamplona, android.R.layout.simple_spinner_item);
@@ -24,7 +24,7 @@ public class FormularioBuscar extends AppCompatActivity {
         spinnerOrigen.setAdapter(adapter);
 
         //SPINNER DESTINO
-        Spinner spinnerDestino = (Spinner) findViewById(R.id.spinner_destino_buscar);
+        Spinner spinnerDestino = findViewById(R.id.spinner_destino_buscar);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter2 =  ArrayAdapter.createFromResource(this,
                 R.array.barrios_pamplona, android.R.layout.simple_spinner_item);

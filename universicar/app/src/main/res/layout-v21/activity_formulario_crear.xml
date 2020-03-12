@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/oranje"
     tools:context=".FormularioCrear">
 
     <TextView
@@ -23,17 +24,66 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:datePickerMode="calendar"
+        android:background="@color/white"
         tools:targetApi="lollipop" />
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TimePicker
+            android:id="@+id/timePicker1"
+            android:layout_width="250dp"
+            android:layout_height="137dp"
+            android:timePickerMode="spinner" />
 
 
-    <TimePicker
-        android:id="@+id/timePicker1"
-        android:layout_width="266dp"
-        android:layout_height="146dp"
-        android:layout_gravity="center"
-        android:timePickerMode="spinner" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="15dp"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/precio"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/price"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:autofillHints="price"
+                android:inputType="number"
+                android:text=""
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:id="@+id/txtAsientos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/numero_asientos"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/nAsientos"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:autofillHints="price"
+                android:inputType="number"
+                android:text=""
+                tools:ignore="LabelFor" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -23,7 +23,7 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration);
 
-        TextView login = (TextView)findViewById(R.id.lnkLogin);
+        TextView login = findViewById(R.id.lnkLogin);
         login.setMovementMethod(LinkMovementMethod.getInstance());
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +35,7 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
-        Button submit = (Button)findViewById(R.id.btnLogin);
+        Button submit = findViewById(R.id.btnLogin);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

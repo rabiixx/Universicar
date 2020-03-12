@@ -31,4 +31,7 @@
     <string name="login">Login</string>
     <string name="already_registered_login_here">Already Registered? Login here</string>
     <string name="email">Email</string>
+    <string name="Precio" />
+    <string name="precio">Precio</string>
+    <string name="numero_asientos">Numero Asientos</string>
 </resources>

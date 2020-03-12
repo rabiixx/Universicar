@@ -35,55 +35,66 @@ public class FormularioCrear extends AppCompatActivity {
         setContentView(R.layout.activity_formulario_crear);
 
         //SPINNER ORIGEN
-        Spinner spinnerOrigen = (Spinner) findViewById(R.id.spinner_origen_crear);
+        final Spinner srcSpinner = findViewById(R.id.spinner_origen_crear);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.barrios_pamplona, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinnerOrigen.setAdapter(adapter);
+        srcSpinner.setAdapter(adapter);
 
         //SPINNER DESTINO
-        Spinner spinnerDestino = (Spinner) findViewById(R.id.spinner_destino_crear);
+        final Spinner destSpinner = findViewById(R.id.spinner_destino_crear);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter2 =  ArrayAdapter.createFromResource(this,
                 R.array.barrios_pamplona, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinnerDestino.setAdapter(adapter2);
+        destSpinner.setAdapter(adapter2);
 
 
         final Calendar cal = Calendar.getInstance();
-        final DatePicker datePicker = (DatePicker)findViewById(R.id.datePicker1);
-        final TimePicker timePicker = (TimePicker)findViewById(R.id.timePicker1);
+        final DatePicker datePicker = findViewById(R.id.datePicker1);
+        final Button submitBtn = findViewById(R.id.submit);
+        final EditText price = (EditText)findViewById(R.id.price);
+        final EditText nAsientos = (EditText)findViewById(R.id.nAsientos);
+        final TimePicker timePicker = findViewById(R.id.timePicker1);
         timePicker.setIs24HourView(true);
-        final Button submitBtn = (Button)findViewById(R.id.submit);
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 final int hour, minute;
 
-                if (Build.VERSION.SDK_INT >= 23 ) {
-                    hour = timePicker.getHour();
-                    minute = timePicker.getMinute();
-                } else{
-                    hour = timePicker.getCurrentHour();
-                    minute = timePicker.getCurrentMinute();
+                if (price.getText().toString().isEmpty() || nAsientos.getText().toString().isEmpty()){
+                    Toast.makeText(FormularioCrear.this, "Rellene todos los campos", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    if (Build.VERSION.SDK_INT >= 23 ) {
+                        hour = timePicker.getHour();
+                        minute = timePicker.getMinute();
+                    } else{
+                        hour = timePicker.getCurrentHour();
+                        minute = timePicker.getCurrentMinute();
+                    }
+
+                    cal.set(Calendar.YEAR, datePicker.getYear());
+                    cal.set(Calendar.MONTH, datePicker.getMonth());
+                    cal.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+                    cal.set(Calendar.HOUR, hour);
+                    cal.set(Calendar.MINUTE, minute);
+
+                    Viaje viaje = new Viaje(srcSpinner.getSelectedItem().toString(), destSpinner.getSelectedItem().toString());
+                    viaje.setFecha(cal.getTime());
+                    viaje.setPrecio(Integer.parseInt(price.getText().toString()));
+                    viaje.setnPlazasDisp(Integer.parseInt(price.getText().toString()));
+                    //viaje.setConductor(ParseUser.getCurrentUser());
+                    viaje.saveInBackground();
+
                 }
 
-                cal.set(Calendar.YEAR, datePicker.getYear());
-                cal.set(Calendar.MONTH, datePicker.getMonth());
-                cal.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
-                cal.set(Calendar.HOUR, hour);
-                cal.set(Calendar.MINUTE, minute);
-
-                Viaje viaje = new Viaje("Valencia", "Italia");
-                viaje.setFecha(cal.getTime());
-                //viaje.setConductor(ParseUser.getCurrentUser());
-                viaje.saveInBackground();
 
             }
         });
