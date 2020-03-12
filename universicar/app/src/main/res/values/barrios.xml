@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="barrios_pamplona">
+        <item>Barañain</item>
+        <item>Zizur Mayor</item>
+        <item>Casco Antiguo</item>
+        <item>Ansoain</item>
+        <item>Beriain</item>
+        <item>Arrosadia</item>
+    </string-array>
+</resources>
