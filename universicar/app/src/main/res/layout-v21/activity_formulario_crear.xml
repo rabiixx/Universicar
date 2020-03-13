@@ -46,8 +46,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginEnd="15dp"
-            android:weightSum="2">
+            android:layout_marginEnd="15dp">
+
+
 
             <TextView
                 android:id="@+id/txtPrice"
@@ -57,13 +58,22 @@
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/price"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:autofillHints="price"
-                android:inputType="number"
-                android:text=""
-                tools:ignore="LabelFor" />
+                 android:id="@+id/price"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:ems="10"
+                 android:inputType="numberDecimal"
+                 android:autofillHints=""
+                android:focusableInTouchMode="true"/>
+
+
+
+           <!--  <EditText
+                 android:id="@+id/price"
+                 android:layout_height="match_parent"
+                 android:layout_width="wrap_content"
+                 android:ems="10"
+                 android:inputType="numberDecimal" />-->
 
             <TextView
                 android:id="@+id/txtAsientos"
@@ -76,12 +86,11 @@
                 android:id="@+id/nAsientos"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:autofillHints="price"
-                android:inputType="number"
-                android:text=""
-                tools:ignore="LabelFor" />
+                android:ems="10"
+                android:inputType="numberDecimal" />
 
         </LinearLayout>
+
 
 
     </LinearLayout>

@@ -58,8 +58,8 @@ public class FormularioCrear extends AppCompatActivity {
         final Calendar cal = Calendar.getInstance();
         final DatePicker datePicker = findViewById(R.id.datePicker1);
         final Button submitBtn = findViewById(R.id.submit);
-        final EditText price = (EditText)findViewById(R.id.price);
-        final EditText nAsientos = (EditText)findViewById(R.id.nAsientos);
+       // final EditText price = (EditText)findViewById(R.id.price);
+        //final EditText nAsientos = (EditText)findViewById(R.id.nAsientos);
         final TimePicker timePicker = findViewById(R.id.timePicker1);
         timePicker.setIs24HourView(true);
 
@@ -68,9 +68,9 @@ public class FormularioCrear extends AppCompatActivity {
             public void onClick(View v) {
                 final int hour, minute;
 
-                if (price.getText().toString().isEmpty() || nAsientos.getText().toString().isEmpty()){
+                /*if (price.getText().toString().isEmpty() || nAsientos.getText().toString().isEmpty()){
                     Toast.makeText(FormularioCrear.this, "Rellene todos los campos", Toast.LENGTH_SHORT).show();
-                } else {
+                } else {*/
 
                     if (Build.VERSION.SDK_INT >= 23 ) {
                         hour = timePicker.getHour();
@@ -88,12 +88,12 @@ public class FormularioCrear extends AppCompatActivity {
 
                     Viaje viaje = new Viaje(srcSpinner.getSelectedItem().toString(), destSpinner.getSelectedItem().toString());
                     viaje.setFecha(cal.getTime());
-                    viaje.setPrecio(Integer.parseInt(price.getText().toString()));
-                    viaje.setnPlazasDisp(Integer.parseInt(price.getText().toString()));
+                   // viaje.setPrecio(Integer.parseInt(price.getText().toString()));
+                   // viaje.setnPlazasDisp(Integer.parseInt(price.getText().toString()));
                     //viaje.setConductor(ParseUser.getCurrentUser());
                     viaje.saveInBackground();
 
-                }
+                //}
 
 
             }
