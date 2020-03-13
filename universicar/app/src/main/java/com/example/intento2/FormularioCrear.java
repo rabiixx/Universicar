@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Application;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -59,7 +60,8 @@ public class FormularioCrear extends AppCompatActivity {
         final DatePicker datePicker = findViewById(R.id.datePicker1);
         final Button submitBtn = findViewById(R.id.submit);
        // final EditText price = (EditText)findViewById(R.id.price);
-        //final EditText nAsientos = (EditText)findViewById(R.id.nAsientos);
+        final EditText nAsientos = (EditText)findViewById(R.id.nAsientos);
+        nAsientos.setInputType(InputType.TYPE_CLASS_NUMBER);
         //final TimePicker timePicker = findViewById(R.id.timePicker1);
         //timePicker.setIs24HourView(true);
 
