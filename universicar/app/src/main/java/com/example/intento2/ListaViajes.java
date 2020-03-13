@@ -1,10 +1,17 @@
 package com.example.intento2;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.intento2.Models.Viaje;
@@ -23,22 +30,16 @@ public class ListaViajes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_viajes);
 
-        @SuppressWarnings("unchecked")
-        List<Viaje> viaje = (List<Viaje>) getIntent().getSerializableExtra("list");
+        @SuppressWarnings("unchecked") final List<Viaje> viajes = (List<Viaje>) getIntent().getSerializableExtra("list");
 
-        //ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
+        //Toast.makeText(ListaViajes.this, viajes.get(2).getDestino(), Toast.LENGTH_SHORT).show();
 
+        //ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);ç
         //query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
 
-        final ArrayList<String> activities = new ArrayList<String>();
-
-        activities.add(viaje.get(0).getDestino());
-        activities.add(viaje.get(1).getDestino());
-        activities.add(viaje.get(2).getDestino());
-
         final ListView myListView = findViewById(R.id.travelList);
-        final ArrayAdapter myAdapter = new ArrayAdapter<>(ListaViajes.this, android.R.layout.simple_list_item_1, activities);
-        myListView.setAdapter(myAdapter);
+        CustomAdapter customAdapter = new CustomAdapter(this, viajes);
+        myListView.setAdapter(customAdapter);
 
      /*   query.getInBackground(travelId, new GetCallback<Viaje>() {
             @Override
@@ -51,5 +52,6 @@ public class ListaViajes extends AppCompatActivity {
                 }
             }
         });*/
+
     }
 }
