@@ -32,68 +32,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:layout_marginTop="20dp"
+        android:weightSum="2"
+        android:orientation="horizontal">
 
         <TimePicker
             android:id="@+id/timePicker1"
-            android:layout_width="250dp"
-            android:layout_height="137dp"
-            android:timePickerMode="spinner" />
-
-
-        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="137dp"
+            android:timePickerMode="spinner"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginEnd="15dp">
+            android:ems="10"
+            android:hint="@string/precio"
+            android:inputType="numberDecimal" />
 
-
-
-            <TextView
-                android:id="@+id/txtPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/precio"
-                android:textAlignment="center" />
-
-            <EditText
-                 android:id="@+id/price"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:ems="10"
-                 android:inputType="numberDecimal"
-                 android:autofillHints=""
-                android:focusableInTouchMode="true"/>
-
-
-
-           <!--  <EditText
-                 android:id="@+id/price"
-                 android:layout_height="match_parent"
-                 android:layout_width="wrap_content"
-                 android:ems="10"
-                 android:inputType="numberDecimal" />-->
-
-            <TextView
-                android:id="@+id/txtAsientos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/numero_asientos"
-                android:textAlignment="center" />
-
-            <EditText
-                android:id="@+id/nAsientos"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:ems="10"
-                android:inputType="numberDecimal" />
-
-        </LinearLayout>
-
-
+        <EditText
+            android:id="@+id/nAsientos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/nAsientos"
+            android:inputType="numberDecimal" />
 
     </LinearLayout>
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"

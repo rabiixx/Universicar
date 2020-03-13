@@ -60,8 +60,8 @@ public class FormularioCrear extends AppCompatActivity {
         final Button submitBtn = findViewById(R.id.submit);
        // final EditText price = (EditText)findViewById(R.id.price);
         //final EditText nAsientos = (EditText)findViewById(R.id.nAsientos);
-        final TimePicker timePicker = findViewById(R.id.timePicker1);
-        timePicker.setIs24HourView(true);
+        //final TimePicker timePicker = findViewById(R.id.timePicker1);
+        //timePicker.setIs24HourView(true);
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -72,19 +72,19 @@ public class FormularioCrear extends AppCompatActivity {
                     Toast.makeText(FormularioCrear.this, "Rellene todos los campos", Toast.LENGTH_SHORT).show();
                 } else {*/
 
-                    if (Build.VERSION.SDK_INT >= 23 ) {
+                    /*if (Build.VERSION.SDK_INT >= 23 ) {
                         hour = timePicker.getHour();
                         minute = timePicker.getMinute();
                     } else{
                         hour = timePicker.getCurrentHour();
                         minute = timePicker.getCurrentMinute();
-                    }
+                    }*/
 
                     cal.set(Calendar.YEAR, datePicker.getYear());
                     cal.set(Calendar.MONTH, datePicker.getMonth());
                     cal.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
-                    cal.set(Calendar.HOUR, hour);
-                    cal.set(Calendar.MINUTE, minute);
+                    //cal.set(Calendar.HOUR, hour);
+                    //cal.set(Calendar.MINUTE, minute);
 
                     Viaje viaje = new Viaje(srcSpinner.getSelectedItem().toString(), destSpinner.getSelectedItem().toString());
                     viaje.setFecha(cal.getTime());
