@@ -72,7 +72,7 @@ public class FormularioBuscar extends AppCompatActivity {
                             } else {
                                 Toast.makeText(FormularioBuscar.this, "NOT NULL 1", Toast.LENGTH_SHORT).show();
                             }*/
-                            i.putExtra("result", (Serializable) viajeList.get(2));
+                            i.putExtra("list", (Serializable) viajeList);
                             startActivity(i);
                         } else {
                             //Toast.makeText(FormularioBuscar.this,"Search Failure" , Toast.LENGTH_SHORT).show();

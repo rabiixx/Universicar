@@ -13,6 +13,7 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListaViajes extends AppCompatActivity {
 
@@ -22,23 +23,18 @@ public class ListaViajes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_viajes);
 
-        Viaje viaje = (Viaje) getIntent().getSerializableExtra("result");
-
-        if (viaje == null) {
-            Toast.makeText(ListaViajes.this, " NULL", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(ListaViajes.this, "NOT NULL", Toast.LENGTH_SHORT).show();
-        }
+        @SuppressWarnings("unchecked")
+        List<Viaje> viaje = (List<Viaje>) getIntent().getSerializableExtra("list");
 
         //ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
 
         //query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
 
         final ArrayList<String> activities = new ArrayList<String>();
-        activities.add("Manzana");
-        activities.add("Pera");
-        activities.add("Platano");
-        activities.add(viaje.getDestino());
+
+        activities.add(viaje.get(0).getDestino());
+        activities.add(viaje.get(1).getDestino());
+        activities.add(viaje.get(2).getDestino());
 
         final ListView myListView = findViewById(R.id.travelList);
         final ArrayAdapter myAdapter = new ArrayAdapter<>(ListaViajes.this, android.R.layout.simple_list_item_1, activities);
