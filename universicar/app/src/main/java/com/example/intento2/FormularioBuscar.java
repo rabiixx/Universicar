@@ -64,12 +64,12 @@ public class FormularioBuscar extends AppCompatActivity {
                     public void done(List<Viaje> viajeList, ParseException e) {
                         if (e == null) {
                             String viajeId = viajeList.get(1).getObjectId();
-                            Toast.makeText(FormularioBuscar.this, viajeId, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(FormularioBuscar.this, viajeId, Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(FormularioBuscar.this, ListaViajes.class);
                             i.putExtra("travel_id", viajeList.get(2).getObjectId());
                             startActivity(i);
                         } else {
-                            Toast.makeText(FormularioBuscar.this,"Search Failure" , Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(FormularioBuscar.this,"Search Failure" , Toast.LENGTH_SHORT).show();
                             Log.d("Viaje", "Error" + e.getMessage());
                         }
                     }

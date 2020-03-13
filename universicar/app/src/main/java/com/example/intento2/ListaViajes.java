@@ -1,6 +1,5 @@
 package com.example.intento2;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -21,22 +20,29 @@ public class ListaViajes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mis_viajes);
+        setContentView(R.layout.activity_lista_viajes);
 
-        String travelId = getIntent().getStringExtra("travel_id");
-        Toast.makeText(ListaViajes.this, travelId, Toast.LENGTH_SHORT).show();
+        final String travelId = getIntent().getStringExtra("travel_id");
         ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
 
         query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
 
+        String[] activities = {"Buscar Viaje", "Crear Viaje", "Mis Viajes", "Login", "Register"};
+
+        ListView myListView = findViewById(R.id.travelList);
+        ArrayAdapter myAdapter = new ArrayAdapter<>(ListaViajes.this, android.R.layout.simple_list_item_1, activities);
+        myListView.setAdapter(myAdapter);
+
+
         query.getInBackground(travelId, new GetCallback<Viaje>() {
             @Override
             public void done(Viaje viaje, ParseException e) {
-                ArrayList<String> travelList = new ArrayList<>();
-                travelList.add(viaje.getDestino());
-                ListView myListView = findViewById(R.id.travelList);
-                ArrayAdapter adapter = new ArrayAdapter<String>(ListaViajes.this, android.R.layout.simple_list_item_1, travelList);
-                myListView.setAdapter(adapter);
+                if (e == null) {
+                   /* myAdapter.add(viaje.getDestino());
+                    myAdapter.add("Ruben");
+                    //Toast.makeText(ListaViajes.this, myTravelList.get(0), Toast.LENGTH_SHORT).show();
+                    myAdapter.notifyDataSetChanged();*/
+                }
             }
         });
     }
