@@ -22,28 +22,38 @@ public class ListaViajes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_viajes);
 
-        final String travelId = getIntent().getStringExtra("travel_id");
-        ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
+        Viaje viaje = (Viaje) getIntent().getSerializableExtra("result");
 
-        query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
+        if (viaje == null) {
+            Toast.makeText(ListaViajes.this, " NULL", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(ListaViajes.this, "NOT NULL", Toast.LENGTH_SHORT).show();
+        }
 
-        String[] activities = {"Buscar Viaje", "Crear Viaje", "Mis Viajes", "Login", "Register"};
+        //ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
 
-        ListView myListView = findViewById(R.id.travelList);
-        ArrayAdapter myAdapter = new ArrayAdapter<>(ListaViajes.this, android.R.layout.simple_list_item_1, activities);
+        //query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
+
+        final ArrayList<String> activities = new ArrayList<String>();
+        activities.add("Manzana");
+        activities.add("Pera");
+        activities.add("Platano");
+        activities.add(viaje.getDestino());
+
+        final ListView myListView = findViewById(R.id.travelList);
+        final ArrayAdapter myAdapter = new ArrayAdapter<>(ListaViajes.this, android.R.layout.simple_list_item_1, activities);
         myListView.setAdapter(myAdapter);
 
-
-        query.getInBackground(travelId, new GetCallback<Viaje>() {
+     /*   query.getInBackground(travelId, new GetCallback<Viaje>() {
             @Override
             public void done(Viaje viaje, ParseException e) {
                 if (e == null) {
-                   /* myAdapter.add(viaje.getDestino());
-                    myAdapter.add("Ruben");
-                    //Toast.makeText(ListaViajes.this, myTravelList.get(0), Toast.LENGTH_SHORT).show();
-                    myAdapter.notifyDataSetChanged();*/
+                    //myAdapter.add(viaje.getDestino());
+                    activities.add("Ruben");
+                    Toast.makeText(ListaViajes.this, "hola", Toast.LENGTH_SHORT).show();
+                    myAdapter.notifyDataSetChanged();
                 }
             }
-        });
+        });*/
     }
 }

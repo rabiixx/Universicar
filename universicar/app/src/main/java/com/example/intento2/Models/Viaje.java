@@ -4,12 +4,13 @@ import com.parse.ParseObject;
 import com.parse.ParseClassName;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 @ParseClassName("Viaje")
-public class Viaje extends ParseObject {
+public class Viaje extends ParseObject implements Serializable {
 
     // Default Constructor
     public Viaje() {
