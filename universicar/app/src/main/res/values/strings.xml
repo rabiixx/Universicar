@@ -32,11 +32,13 @@
     <string name="already_registered_login_here">Already Registered? Login here</string>
     <string name="email">Email</string>
     <string name="precio">Precio</string>
-    <string name="nAsientos">Numero Asientos</string>
+    <string name="nAsientos">Numero De Asientos</string>
     <string name="numero_asientos">Numero Asientos</string>
     <string name="lista_viajes">Viajes</string>
     <string name="viajes_disponibles">Viajes Disponibles</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="srcPlaceCreate">srcPlaceCreate</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

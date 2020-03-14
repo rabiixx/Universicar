@@ -34,7 +34,7 @@ public class Viaje extends ParseObject implements Serializable {
 
     public String getFecha() {
         Date fecha = getDate("fecha");
-        String myFormat = "dd/MM/yy";
+        String myFormat = "dd/MM/yy hh:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
         return (sdf.format(fecha));
     }

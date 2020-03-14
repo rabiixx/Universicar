@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="barrios_pamplona">
+        <item>UPNA</item>
+        <item>UNAV</item>
         <item>Barañain</item>
         <item>Zizur Mayor</item>
         <item>Casco Antiguo</item>
         <item>Ansoain</item>
         <item>Beriain</item>
         <item>Arrosadia</item>
+        <item>Zizur Menor</item>
+        <item>Villava</item>
+        <item>Burlada</item>
+        <item>Iturrama</item>
     </string-array>
 </resources>

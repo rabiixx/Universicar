@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/crearViaje"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".FormularioCrear">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView2"
@@ -19,22 +13,22 @@
         android:textAlignment="center"
         android:textSize="36sp" />
 
-
-    <CalendarView
-        android:id="@+id/calendarView"
+    <TimePicker
+        android:id="@+id/timePicker1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp" />
+        android:timePickerMode="clock"
+        android:headerBackground="#FF9800"
+        android:numbersSelectorColor="#FF9800"/>
+
 
     <Button
-        android:id="@+id/submit1"
+        android:id="@+id/submit2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/blue"
         android:text="@string/crear" />
-
-
 
 </LinearLayout>

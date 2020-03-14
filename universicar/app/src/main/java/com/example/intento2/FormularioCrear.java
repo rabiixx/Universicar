@@ -3,12 +3,14 @@ package com.example.intento2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Application;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.intento2.Models.Viaje;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
@@ -29,77 +32,108 @@ import java.util.Locale;
 
 public class FormularioCrear extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_crear);
 
-        //SPINNER ORIGEN
-        final Spinner srcSpinner = findViewById(R.id.spinner_origen_crear);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.barrios_pamplona, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        srcSpinner.setAdapter(adapter);
-
-        //SPINNER DESTINO
-        final Spinner destSpinner = findViewById(R.id.spinner_destino_crear);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter2 =  ArrayAdapter.createFromResource(this,
-                R.array.barrios_pamplona, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        destSpinner.setAdapter(adapter2);
-
-
+        // Calendario
         final Calendar cal = Calendar.getInstance();
-        final DatePicker datePicker = findViewById(R.id.datePicker1);
-        final Button submitBtn = findViewById(R.id.submit);
-       // final EditText price = (EditText)findViewById(R.id.price);
-        final EditText nAsientos = (EditText)findViewById(R.id.nAsientos);
-        nAsientos.setInputType(InputType.TYPE_CLASS_NUMBER);
-        //final TimePicker timePicker = findViewById(R.id.timePicker1);
-        //timePicker.setIs24HourView(true);
+        final CalendarView calendarView = (CalendarView)findViewById(R.id.calendarView);
+        calendarView.setMinDate(calendarView.getDate());
 
-        submitBtn.setOnClickListener(new View.OnClickListener() {
+        /* Guardamos la fecha del viaje */
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
-            public void onClick(View v) {
-                final int hour, minute;
-
-                /*if (price.getText().toString().isEmpty() || nAsientos.getText().toString().isEmpty()){
-                    Toast.makeText(FormularioCrear.this, "Rellene todos los campos", Toast.LENGTH_SHORT).show();
-                } else {*/
-
-                    /*if (Build.VERSION.SDK_INT >= 23 ) {
-                        hour = timePicker.getHour();
-                        minute = timePicker.getMinute();
-                    } else{
-                        hour = timePicker.getCurrentHour();
-                        minute = timePicker.getCurrentMinute();
-                    }*/
-
-                    cal.set(Calendar.YEAR, datePicker.getYear());
-                    cal.set(Calendar.MONTH, datePicker.getMonth());
-                    cal.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
-                    //cal.set(Calendar.HOUR, hour);
-                    //cal.set(Calendar.MINUTE, minute);
-
-                    Viaje viaje = new Viaje(srcSpinner.getSelectedItem().toString(), destSpinner.getSelectedItem().toString());
-                    viaje.setFecha(cal.getTime());
-                   // viaje.setPrecio(Integer.parseInt(price.getText().toString()));
-                   // viaje.setnPlazasDisp(Integer.parseInt(price.getText().toString()));
-                    //viaje.setConductor(ParseUser.getCurrentUser());
-                    viaje.saveInBackground();
-
-                //}
-
-
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month);
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             }
         });
+        findViewById(R.id.submit1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.activity_create_travel2);
 
+                final TimePicker timePicker = (TimePicker)findViewById(R.id.timePicker1);
+                timePicker.setIs24HourView(true);
+
+                findViewById(R.id.submit2).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        /* Guardamos la hora del viaje */
+                        if (Build.VERSION.SDK_INT >= 23 ) {
+                            cal.set(Calendar.HOUR, timePicker.getHour());
+                            cal.set(Calendar.MINUTE, timePicker.getMinute());
+
+                        } else{
+                            cal.set(Calendar.HOUR, timePicker.getCurrentHour());
+                            cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+                        }
+
+                        setContentView(R.layout.activity_create_travel3);
+
+                        //Source Spinner
+                        final Spinner srcSpinner = findViewById(R.id.spinner_origen_crear);
+                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(FormularioCrear.this,
+                                R.array.barrios_pamplona, android.R.layout.simple_spinner_item);
+                        // Specify the layout to use when the list of choices appears
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        srcSpinner.setAdapter(adapter);
+
+                        // Destination Spinner
+                        final Spinner destSpinner = findViewById(R.id.spinner_destino_crear);
+                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        ArrayAdapter<CharSequence> adapter2 =  ArrayAdapter.createFromResource(FormularioCrear.this,
+                                R.array.barrios_pamplona, android.R.layout.simple_spinner_item);
+                        // Specify the layout to use when the list of choices appears
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        destSpinner.setAdapter(adapter2);
+
+                        findViewById(R.id.submit3).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                 final EditText price = (EditText)findViewById(R.id.price);
+                                 final EditText nAsientos = (EditText)findViewById(R.id.nAsientos);
+
+                                if (price.getText().toString().isEmpty() || nAsientos.getText().toString().isEmpty()){
+                                    Toast.makeText(FormularioCrear.this, "Rellene todos los campos", Toast.LENGTH_SHORT).show();
+                                } else {
+
+                                    Viaje viaje = new Viaje(srcSpinner.getSelectedItem().toString(), destSpinner.getSelectedItem().toString());
+                                    viaje.setFecha(cal.getTime());
+                                    viaje.setPrecio(Integer.parseInt(price.getText().toString()));
+                                    viaje.setnPlazasDisp(Integer.parseInt(price.getText().toString()));
+                                    //viaje.setConductor(ParseUser.getCurrentUser());
+                                    viaje.saveInBackground();
+                                    Toast.makeText(FormularioCrear.this, viaje.getFecha(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(FormularioCrear.this, MainActivity.class);
+                                    startActivity(intent);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
