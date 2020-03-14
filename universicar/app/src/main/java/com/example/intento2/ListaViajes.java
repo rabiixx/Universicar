@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,18 @@ public class ListaViajes extends AppCompatActivity {
 
         final ListView myListView = findViewById(R.id.travelList);
         CustomAdapter customAdapter = new CustomAdapter(this, viajes);
+
+//        String[] carTypes = {"Compacto", "Deportivo", "Descapotable", "Familiar", "Todoterrno", "Biplaza"};
+//        int[] carTypesIcons = {
+//                R.drawable.ic_car_compacto_24dp, R.drawable.ic_car_deportivo_24dp, R.drawable.ic_car_descapotable_24dp,
+//                R.drawable.ic_car_familiar_24dp, R.drawable.ic_car_todoterrenno_24dp, R.drawable.ic_car_biplaza_24dp
+//        };
+//
+//        ColorsAdapter carTypesAdapter = new ColorsAdapter(this, carTypesIcons, carTypes);
+
+
+
+        //final ColorsAdapter carBrandAdapter = new ColorsAdapter(this, carBrandIcons, carBrand);
         myListView.setAdapter(customAdapter);
 
      /*   query.getInBackground(travelId, new GetCallback<Viaje>() {

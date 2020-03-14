@@ -1,34 +1,22 @@
 package com.example.intento2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Application;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.intento2.Models.Viaje;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class FormularioCrear extends AppCompatActivity {
 
@@ -111,7 +99,7 @@ public class FormularioCrear extends AppCompatActivity {
                                     viaje.setFecha(cal.getTime());
                                     viaje.setPrecio(Integer.parseInt(price.getText().toString()));
                                     viaje.setnPlazasDisp(Integer.parseInt(price.getText().toString()));
-                                    //viaje.setConductor(ParseUser.getCurrentUser());
+                                    viaje.setConductor(ParseUser.getCurrentUser());
                                     viaje.saveInBackground();
                                     Toast.makeText(FormularioCrear.this, viaje.getFecha(), Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(FormularioCrear.this, MainActivity.class);

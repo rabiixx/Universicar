@@ -13,8 +13,16 @@ import java.util.List;
 
 public class CustomAdapter extends ArrayAdapter<Viaje> {
 
+    List<Viaje> viajes;
+
     CustomAdapter(Context context,  List<Viaje> viajes) {
         super(context, 0, viajes);
+        this.viajes = viajes;
+    }
+
+    @Override
+    public int getCount() {
+        return viajes.size();
     }
 
     @Override

@@ -1,35 +1,52 @@
 package com.example.intento2.Models;
 
-public class Coche {
-    private int nPlazas;
-    private String marca;
-    private String modelo;
-    private int estadoVehiculo;
-    private String color;
-    private String descripcion;
+import java.util.Date;
+import com.parse.ParseObject;
+import com.parse.ParseClassName;
+import com.parse.ParseUser;
 
-    public int getnPlazas() {
-        return nPlazas;
-    }
+@ParseClassName("Coche")
+public class Coche extends ParseObject {
 
-    public void setnPlazas(int nPlazas) {
-        this.nPlazas = nPlazas;
-    }
-
-    public String getMarca() {
-        return marca;
+    public Coche() {
+        super();
     }
 
     public void setMarca(String marca) {
-        this.marca = marca;
+        put("marca", marca);
     }
 
-    public String getModelo() {
-        return modelo;
+    public String getMarca() { return getString("marca"); }
+
+    public void setTipoCoche(String tipo) {
+        put("tipo", tipo);
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public String getTipoCoche() { return getString("tipo"); }
+
+    public void setColor(String color) {
+        put("color", color);
+    }
+
+    public String getColor() {
+        return getString("color");
+    }
+
+       /*public Conductor getConductor() {
+        return conductor;
+    }*/
+
+    public void setConductor(ParseUser conductor) {
+        put("Conductor", conductor);
+    }
+
+
+   /* public int getNPlazas() {
+        return nPlazas;
+    }
+
+    public void setNPlazas(int nPlazas) {
+        this.nPlazas = nPlazas;
     }
 
     public int getEstadoVehiculo() {
@@ -40,13 +57,7 @@ public class Coche {
         this.estadoVehiculo = estadoVehiculo;
     }
 
-    public String getColor() {
-        return color;
-    }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
 
     public String getDescripcion() {
         return descripcion;
@@ -54,5 +65,6 @@ public class Coche {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
+    }*/
 }
+
