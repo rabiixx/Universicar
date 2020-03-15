@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String[] activities = {"Buscar Viaje", "Crear Viaje", "Mis Viajes", "Login", "Register", "Añadir Vehiculo"};
+    private String[] activities = {"Buscar Viaje", "Crear Viaje", "Mis Viajes", "Login", "Register", "Añadir Vehiculo", "Mostrar Viaje"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(listaIntent);
                 } else if (position == 5){
                     listaIntent = new Intent(MainActivity.this, AddVehicleActivity.class);
+                    startActivity(listaIntent);
+                } else {
+                    listaIntent = new Intent(MainActivity.this, MostrarViaje.class);
                     startActivity(listaIntent);
                 }
             }

@@ -40,6 +40,7 @@ public class FormularioCrear extends AppCompatActivity {
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             }
         });
+
         findViewById(R.id.submit1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

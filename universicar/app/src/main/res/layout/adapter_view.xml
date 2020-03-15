@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/layout_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,10 +17,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableStart="@drawable/ic_place_black_24dp"
+            android:fontFamily="sans-serif-condensed"
             android:padding="15dp"
-            android:textSize="18sp"
-            android:fontFamily="sans-serif-condensed" />
-
+            android:text="Barañain"
+            android:textColor="@color/black"
+            android:drawablePadding="10dp"
+            android:textSize="23sp" />
 
         <TextView
             android:id="@+id/txtDest"
@@ -27,19 +30,49 @@
             android:layout_height="match_parent"
             android:drawableStart="@drawable/ic_place_black_24dp"
             android:padding="15dp"
-            android:textSize="18sp"
+            android:text="Burlada"
+            android:textColor="@color/black"
+            android:drawablePadding="10dp"
+            android:textSize="23sp"
             android:fontFamily="sans-serif-condensed" />
 
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical">
+
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:drawableStart="@drawable/ic_account_circle_black_24dp"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@color/black"
+                android:text="rabiixx"
+                android:drawablePadding="10dp"
+                android:layout_gravity=""
+                android:padding="15dp"
+                android:textSize="23sp" />
+
+            <TextView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableEnd="@drawable/ic_euro_symbol_black_24dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:padding="15dp"
+            android:text="50"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textSize="23sp" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
-
-
-<!--    android:text="Venezuela"-->
-<!--        <TextView-->
-<!--            android:id="@+id/txtDest"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:drawableStart="@drawable/ic_place_black_24dp"-->
-<!--            android:text="" />-->
-
 
 </LinearLayout>

@@ -24,17 +24,21 @@ public class Viaje extends ParseObject implements Serializable {
         setDestino(destino);
     }
 
-    /*public Conductor getConductor() {
-        return conductor;
-    }*/
+    public ParseUser getConductor() {
+        return getParseUser("Conductor");
+    }
 
     public void setConductor(ParseUser conductor) {
         put("Conductor", conductor);
     }
 
+
+
+
+
     public String getFecha() {
         Date fecha = getDate("fecha");
-        String myFormat = "dd/MM/yy hh:mm";
+        String myFormat = "dd/MM/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
         return (sdf.format(fecha));
     }
@@ -43,12 +47,11 @@ public class Viaje extends ParseObject implements Serializable {
         put("fecha", fecha);
     }
 
-    public Integer getHoraSalida() {
-        return getInt("hora");
-    }
-
-    public void setHoraSalida(String horaSalida) {
-        put("horaSalida", horaSalida);
+    public String getHoraSalida() {
+        Date fecha = getDate("fecha");
+        String myFormat = "hh:mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+        return (sdf.format(fecha));
     }
 
     public String getOrigen() {
@@ -81,7 +84,9 @@ public class Viaje extends ParseObject implements Serializable {
 //        this.estado = estado;
 //    }
 
-    public int getPrecio() { return getInt("precio"); }
+    public int getPrecio() {
+        return getInt("precio");
+    }
 
     public void setPrecio(int precio) { put("precio", precio); }
 }

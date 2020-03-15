@@ -58,7 +58,7 @@ public class FormularioBuscar extends AppCompatActivity {
                 ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
 
                 // Define query conditions
-                query.whereEqualTo("origen", "UPNA");
+                query.whereEqualTo("origen", "Barañain");
 
                 query.findInBackground(new FindCallback<Viaje>() {
                     @Override

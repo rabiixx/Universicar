@@ -1,11 +1,13 @@
 package com.example.intento2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -21,6 +23,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,21 +42,22 @@ public class ListaViajes extends AppCompatActivity {
         //ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);ç
         //query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
 
-        final ListView myListView = findViewById(R.id.travelList);
+        final ListView listaViajes = findViewById(R.id.travelList);
         CustomAdapter customAdapter = new CustomAdapter(this, viajes);
-
-//        String[] carTypes = {"Compacto", "Deportivo", "Descapotable", "Familiar", "Todoterrno", "Biplaza"};
-//        int[] carTypesIcons = {
-//                R.drawable.ic_car_compacto_24dp, R.drawable.ic_car_deportivo_24dp, R.drawable.ic_car_descapotable_24dp,
-//                R.drawable.ic_car_familiar_24dp, R.drawable.ic_car_todoterrenno_24dp, R.drawable.ic_car_biplaza_24dp
-//        };
-//
-//        ColorsAdapter carTypesAdapter = new ColorsAdapter(this, carTypesIcons, carTypes);
+        listaViajes.setAdapter(customAdapter);
 
 
+        listaViajes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Viaje viaje = (Viaje) listaViajes.getItemAtPosition(position);
+                //Toast.makeText(ListaViajes.this, "Selected :" + " " + viaje.getOrigen()+", "+ viaje.getDestino(), Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(ListaViajes.this, MostrarViaje.class);
+                i.putExtra("viaje", (Serializable) viaje);
+                startActivity(i);
 
-        //final ColorsAdapter carBrandAdapter = new ColorsAdapter(this, carBrandIcons, carBrand);
-        myListView.setAdapter(customAdapter);
+            }
+        });
 
      /*   query.getInBackground(travelId, new GetCallback<Viaje>() {
             @Override

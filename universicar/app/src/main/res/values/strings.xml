@@ -5,9 +5,11 @@
     <string name="primer_apellido">Primer apellido</string>
     <string name="nombre2">Nombre</string>
     <string name="destino">Destino</string>
+    <string name="Destino2">Destino:</string>
     <string name="origen">origen</string>
     <string name="numero_de_telefono">numero de telefono</string>
     <string name="Origen">Origen</string>
+    <string name="Origen2">Origen:</string>
     <string name="buscar">Buscar</string>
     <string name="fecha">Fecha</string>
     <string name="hora">Hora</string>
@@ -42,6 +44,7 @@
     <string name="vehicle_brand_desc">¿Cual es la marca de tu coche?</string>
     <string name="vehicle_type_desc">¿Que tipo de coche tienes?</string>
     <string name="vehicle_color_desc">¿De que color es?</string>
+    <string name="info_viaje">Informacion sobre viaje</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -53,4 +56,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_maps">Map</string>
     <string name="anadir_coche">Añadir Coche</string>
+    <string name="conductor">Conductor</string>
+    <string name="reservar">Reservar</string>
 </resources>

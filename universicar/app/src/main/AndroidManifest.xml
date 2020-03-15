@@ -35,6 +35,8 @@
         <activity android:name=".testActivity" />
         <activity android:name=".ListaViajes" android:label="Lista Viajes" />
         <activity android:name=".AddVehicleActivity" android:label="Add Vehicle" />
+        <activity android:name=".MostrarViaje" android:label="Add Vehicle" />
+
 
 
 

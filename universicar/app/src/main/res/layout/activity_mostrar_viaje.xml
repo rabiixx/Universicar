@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MostrarViaje">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@color/blue">
+
+        <ImageButton
+            android:id="@+id/button"
+            android:layout_width="55dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/blue"
+            android:clickable="true"
+            android:src="@drawable/ic_keyboard_backspace_white_24dp"
+            android:focusable="true"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="@string/info_viaje"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:layout_gravity="center_vertical"
+            tools:ignore="RtlCompat" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="160dp"
+            android:drawablePadding="10dp"
+            android:textAlignment="textStart"
+            android:text="@string/Origen2"
+            android:textColor="@color/black"
+            android:drawableStart="@drawable/ic_place_red_24dp"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/origenInfoViaje"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:text="Barañain"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+    <TextView
+        android:layout_height="match_parent"
+        android:layout_width="160dp"
+        android:textAlignment="textStart"
+        android:drawablePadding="10dp"
+        android:text="@string/Destino2"
+        android:textColor="@color/black"
+        android:drawableStart="@drawable/ic_place_red_24dp"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/destinoInfoViaje"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:textAlignment="textEnd"
+        android:text="Burlada"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+</LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="160dp"
+            android:textAlignment="textStart"
+            android:drawablePadding="10dp"
+            android:text="@string/fecha"
+            android:textColor="@color/black"
+            android:drawableStart="@drawable/ic_calendar_30dp"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/fechaInfoViaje"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:text="10/12/2020"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="160dp"
+            android:textAlignment="textStart"
+            android:drawablePadding="10dp"
+            android:text="@string/hora"
+            android:textColor="@color/black"
+            android:drawableStart="@drawable/ic_clock_30dp"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/horaInfoViaje"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:text="10:15 AM"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="160dp"
+            android:drawablePadding="10dp"
+            android:text="@string/conductor"
+            android:textColor="@color/black"
+            android:textAlignment="textStart"
+            android:drawableStart="@drawable/ic_account_circle_blue_30dp"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/conductorInfoViaje"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:text="rabiixx"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+
+        <TextView
+            android:id="@+id/plazasInfoViaje"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/ic_car_seat_30dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:text="3 Plazas"
+            android:drawablePadding="10dp"
+            android:layout_gravity=""
+            android:textSize="23sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/precioInfoViaje"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableEnd="@drawable/ic_euro_symbol_black_24dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="50"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="23sp" />
+
+            <TextView
+                android:layout_height="0dp"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="por plaza"
+                android:textSize="18sp"
+                tools:ignore="RtlCompat" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <!-- COCHE + COLOR + ICONO-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/cocheInfoViaje"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:text="Citroen"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textAllCaps = "true"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/colorInfoViaje"
+                android:layout_height="0dp"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Blanco"
+                android:textSize="18sp"
+                tools:ignore="NestedWeights,RtlCompat" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/carIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_car_compacto_60dp"/>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/submitInfoViaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/blue"
+        android:drawableEnd="@drawable/ic_add_white_24dp"
+        android:text="@string/reservar" />
+
+
+
+
+</LinearLayout>
