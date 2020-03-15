@@ -9,9 +9,11 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.parse.ParseUser;
+
 public class MainActivity extends AppCompatActivity {
 
-    private String[] activities = {"Buscar Viaje", "Crear Viaje", "Mis Viajes", "Login", "Register", "Añadir Vehiculo", "Mostrar Viaje"};
+    private String[] activities = {"Buscar Viaje", "Crear Viaje", "Mis Viajes", "Login", "Register", "Añadir Vehiculo", "Mostrar Viaje", "Logout"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +49,12 @@ public class MainActivity extends AppCompatActivity {
                 } else if (position == 5){
                     listaIntent = new Intent(MainActivity.this, AddVehicleActivity.class);
                     startActivity(listaIntent);
-                } else {
+                } else if (position == 6) {
                     listaIntent = new Intent(MainActivity.this, MostrarViaje.class);
                     startActivity(listaIntent);
+                } else {
+                    ParseUser.logOut();
+                    ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
                 }
             }
         });

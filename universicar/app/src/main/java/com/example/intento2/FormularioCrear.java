@@ -99,9 +99,12 @@ public class FormularioCrear extends AppCompatActivity {
                                     Viaje viaje = new Viaje(srcSpinner.getSelectedItem().toString(), destSpinner.getSelectedItem().toString());
                                     viaje.setFecha(cal.getTime());
                                     viaje.setPrecio(Integer.parseInt(price.getText().toString()));
-                                    viaje.setnPlazasDisp(Integer.parseInt(price.getText().toString()));
+                                    viaje.setNPlazas(Integer.parseInt(nAsientos.getText().toString()));
+                                    viaje.setNPlazasDisp(Integer.parseInt(nAsientos.getText().toString()) - 1);
                                     viaje.setConductor(ParseUser.getCurrentUser());
+                                    viaje.addPasajero(ParseUser.getCurrentUser());
                                     viaje.saveInBackground();
+
                                     Toast.makeText(FormularioCrear.this, viaje.getFecha(), Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(FormularioCrear.this, MainActivity.class);
                                     startActivity(intent);

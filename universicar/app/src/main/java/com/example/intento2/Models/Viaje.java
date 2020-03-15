@@ -1,7 +1,9 @@
 package com.example.intento2.Models;
 
+import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseClassName;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.io.Serializable;
@@ -31,10 +33,6 @@ public class Viaje extends ParseObject implements Serializable {
     public void setConductor(ParseUser conductor) {
         put("Conductor", conductor);
     }
-
-
-
-
 
     public String getFecha() {
         Date fecha = getDate("fecha");
@@ -70,11 +68,31 @@ public class Viaje extends ParseObject implements Serializable {
         put("destino", destino);
     }
 
-    public int getnPlazasDisp() {
+    public int getNPlazas() {
+        return getInt("nPlazas");
+    }
+
+    public void setNPlazas(int nPlazas) { put("nPlazas", nPlazas); }
+
+    public int getNPlazasDisp() {
         return getInt("nPlazasDisp");
     }
 
-    public void setnPlazasDisp(int nPlazasDisp) { put("nPlazasDisp", nPlazasDisp); }
+    public void setNPlazasDisp(int nPlazasDisp) { put("nPlazasDisp", nPlazasDisp); }
+
+    public ParseRelation<ParseUser> getPasajeros() {
+        return getRelation("pasajeros");
+    }
+
+    public void addPasajero(ParseUser pasajero) {
+        getPasajeros().add(pasajero);
+        saveInBackground();
+    }
+
+    public void removePasajero(ParseUser pasajero) {
+        getPasajeros().remove(pasajero);
+        saveInBackground();
+    }
 
 //    public String[] getEstado() {
 //        return estado;

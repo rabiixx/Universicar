@@ -8,6 +8,9 @@ import com.parse.ParseUser;
 @ParseClassName("Coche")
 public class Coche extends ParseObject {
 
+    public static final String USER_ID_KEY = "userId";
+
+
     public Coche() {
         super();
     }
@@ -32,9 +35,9 @@ public class Coche extends ParseObject {
         return getString("color");
     }
 
-       /*public Conductor getConductor() {
-        return conductor;
-    }*/
+    public ParseUser getConductor() {
+        return getParseUser("Conductor");
+    }
 
     public void setConductor(ParseUser conductor) {
         put("Conductor", conductor);

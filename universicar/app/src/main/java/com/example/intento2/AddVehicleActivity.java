@@ -15,6 +15,7 @@ import com.example.intento2.Models.Palette;
 import com.example.intento2.Models.Viaje;
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 
@@ -89,6 +90,8 @@ public class AddVehicleActivity extends AppCompatActivity {
                 coche.setMarca(brand);
                 coche.setTipoCoche(carType);
                 coche.setColor(carColor);
+                coche.setConductor(ParseUser.getCurrentUser());
+                //coche.put(USER_ID_KEY, ParseUser.getCurrentUser().getObjectId());
                 coche.saveInBackground();
             }
         });
