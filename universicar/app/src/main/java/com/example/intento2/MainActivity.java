@@ -13,7 +13,7 @@ import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String[] activities = {"Buscar Viaje", "Crear Viaje", "Mis Viajes", "Login", "Register", "Añadir Vehiculo", "Mostrar Viaje", "Logout"};
+    private String[] activities = {"Buscar Viaje", "Crear Viaje", "Mis Viajes", "Login", "Register", "Añadir Vehiculo", "Mostrar Viaje", "Logout", "Bottom Nav"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +52,12 @@ public class MainActivity extends AppCompatActivity {
                 } else if (position == 6) {
                     listaIntent = new Intent(MainActivity.this, MostrarViaje.class);
                     startActivity(listaIntent);
-                } else {
+                } else if (position == 7) {
                     ParseUser.logOut();
                     ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+                } else {
+                    listaIntent = new Intent(MainActivity.this, BottomNavActivity.class);
+                    startActivity(listaIntent);
                 }
             }
         });

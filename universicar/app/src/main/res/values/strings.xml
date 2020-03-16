@@ -58,4 +58,7 @@
     <string name="anadir_coche">Añadir Coche</string>
     <string name="conductor">Conductor</string>
     <string name="reservar">Reservar</string>
+    <string name="text_viajes">Viajes</string>
+    <string name="textbuscar">Buscar</string>
+    <string name="text_crear">Crear</string>
 </resources>

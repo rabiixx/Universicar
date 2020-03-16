@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.intento2.Models.Viaje;
@@ -15,6 +18,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MisViajes extends AppCompatActivity {
@@ -22,25 +26,39 @@ public class MisViajes extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mis_viajes);
+        setContentView(R.layout.activity_lista_viajes);
 
+        ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
 
-        viaje.getPasajeros().getQuery().findInBackground(new FindCallback<ParseUser>() {
+        // Define query conditions
+        query.whereEqualTo("pasajeros", ParseUser.getCurrentUser());
+
+        query.findInBackground(new FindCallback<Viaje>() {
             @Override
-            public void done(List<ParseUser> pasajeros, com.parse.ParseException e) {
+            public void done(List<Viaje> viajes, ParseException e) {
                 if (e == null) {
-                    viaje.addPasajero(ParseUser.getCurrentUser());
-                    viaje.setNPlazasDisp(viaje.getNPlazasDisp() - 1);
-                    viaje.saveInBackground();
+                    Toast.makeText(MisViajes.this, String.valueOf(viajes.size()), Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(MostrarViaje.this, "Reserva Realizada", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MostrarViaje.this, MainActivity.class);
-                    startActivity(intent);
+                    final ListView listaViajes = findViewById(R.id.travelList);
+                    CustomAdapter customAdapter = new CustomAdapter(MisViajes.this, viajes);
+                    listaViajes.setAdapter(customAdapter);
+
+                    listaViajes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                            Viaje viaje = (Viaje) listaViajes.getItemAtPosition(position);
+                            //Toast.makeText(ListaViajes.this, "Selected :" + " " + viaje.getOrigen()+", "+ viaje.getDestino(), Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(MisViajes.this, MostrarViaje.class);
+                            i.putExtra("viaje", (Serializable) viaje);
+                            startActivity(i);
+
+                        }
+                    });
                 } else {
-                    Log.d("Pasajeros", "Error: " + e.getMessage());
+                    Toast.makeText(MisViajes.this,"Search Failure" , Toast.LENGTH_SHORT).show();
+                    Log.d("Viaje", "Error" + e.getMessage());
                 }
             }
-
         });
 
 

@@ -7,92 +7,105 @@
     android:orientation="vertical"
     tools:context=".FormularioBuscar">
 
-    <TextView
-        android:id="@+id/textView3"
+
+
+    <CalendarView
+        android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/red"
-        android:fontFamily="cursive"
-        android:text="@string/Buscar_Viaje"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="36sp" />
-
-    <DatePicker
-        android:id="@+id/datePicker1"
-        android:layout_width="361dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:datePickerMode="calendar"
-        android:background="@color/white"
-        tools:targetApi="lollipop" />
-
+        android:layout_marginTop="50dp" />
 
 
     <LinearLayout
-        android:layout_width="229dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <TextView
-            android:layout_width="61dp"
+            android:id="@+id/srcPlace"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/Origen"
+            android:drawableRight="@drawable/ic_place_red_24dp"/>
+
+        <TextView
+            android:id="@+id/destPlace"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/destino" />
 
-        <Spinner
-            android:id="@+id/searchDestPlace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:ignore="InvalidId" />
-
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="229dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="61dp"
-            android:layout_height="wrap_content"
-            android:text="@string/Origen" />
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <Spinner
-            android:id="@+id/searchSrcPlace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="229dp"
+        android:id="@+id/origenBuscarViaje"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:layout_marginStart="20dp"
+        android:padding="20dp"/>
 
-        <EditText
-            android:id="@+id/date"
-            android:layout_width="112dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/fecha"
-            android:importantForAutofill="no"
-            android:inputType="date" />
-
-        <EditText
-            android:id="@+id/hour"
+        <Spinner
+            android:id="@+id/destinoBuscarViaje"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/hora"
-            android:importantForAutofill="no"
-            android:inputType="time" />
+            android:layout_marginStart="20dp"
+            android:padding="20dp"/>
+
+        <!--        <Spinner-->
+<!--            android:id="@+id/destinoBuscarViaje"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:padding="20dp" />-->
 
     </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/horaBuscarViaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="10"
+        android:hint="Hora"/>
 
     <Button
         android:id="@+id/searchSubmitBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="@string/buscar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="vertical" >
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
+            app:menu="@menu/bottom_nav_items"/>
+
+    </LinearLayout>
 
 </LinearLayout>
