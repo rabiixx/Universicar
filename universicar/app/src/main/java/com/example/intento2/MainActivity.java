@@ -10,9 +10,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseInstallation;
@@ -117,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
                     new BottomNavigationView.OnNavigationItemSelectedListener() {
                         @Override
                         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                            Fragment selectedFragment = null;
+
                             switch (item.getItemId()) {
                                 case R.id.buscarMenu:
                                     startActivity(new Intent(MainActivity.this, FormularioBuscar.class));
@@ -125,12 +129,13 @@ public class MainActivity extends AppCompatActivity {
                                     startActivity(new Intent(MainActivity.this, FormularioCrear.class));
                                     break;
                                 case R.id.perfilMenu:
-                                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                    startActivity(new Intent(MainActivity.this, PerfilActivity.class));
                                     break;
                                 case R.id.misViajesMenu:
                                     startActivity(new Intent(MainActivity.this, MisViajes.class));
                                     break;
                             }
+
                             return true;
                         }
                     });

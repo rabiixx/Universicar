@@ -14,7 +14,7 @@
 
     <application
         android:name=".ParseApplication"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_logo"
         android:label="@string/universicar"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -39,6 +39,7 @@
         <activity android:name=".MostrarViaje" android:label="Add Vehicle" />
         <activity android:name=".BottomNavActivity" android:label="Add Vehicle" />
         <activity android:name=".TravelNotFoundActivity" android:label="Add Vehicle" />
+        <activity android:name=".PerfilActivity" android:label="User Admin)" />
 
         <meta-data
             android:name="preloaded_fonts"

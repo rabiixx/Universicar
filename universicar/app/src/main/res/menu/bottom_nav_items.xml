@@ -25,7 +25,7 @@
         android:id="@+id/misViajesMenu"
         android:enabled="true"
         android:icon="@drawable/ic_road_black_35dp"
-        android:title="Mis Viajes"
+        android:title="@string/mis_viajes"
         app:showAsAction="ifRoom" />
 
     <item
