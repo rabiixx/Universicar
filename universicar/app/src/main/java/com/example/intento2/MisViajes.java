@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.intento2.Models.Viaje;
@@ -17,6 +20,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
+
+import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,6 +34,18 @@ public class MisViajes extends AppCompatActivity {
         setContentView(R.layout.activity_lista_viajes);
 
         ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
+
+        TextView title = (TextView)findViewById(R.id.titleListaViaje);
+        title.setText("Mis Viajes");
+
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtnListaViajes);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         // Define query conditions
         query.whereEqualTo("pasajeros", ParseUser.getCurrentUser());

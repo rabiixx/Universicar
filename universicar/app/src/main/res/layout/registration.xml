@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
-        android:text="@string/login" />
+        android:text="@string/registrarse" />
 
     <TextView android:id="@+id/lnkLogin"
         android:layout_width="match_parent"
@@ -94,18 +94,5 @@
         android:gravity="center"
         android:textSize="20sp"
         android:textColor="#3F51B5" />
-
-    <Button
-        android:id="@+id/sdf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="20dp"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/blue"
-        android:layout_gravity="center_horizontal"
-        android:text="¿Ya tienes una cuenta? Iniciar Sesion" />
-
-
 
 </LinearLayout>

@@ -67,23 +67,14 @@ public class FormularioCrear extends AppCompatActivity {
 
                         //Source Spinner
                         final Spinner srcSpinner = findViewById(R.id.spinner_origen_crear);
-                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        final Spinner destSpinner = findViewById(R.id.spinner_destino_crear);
+
                         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(FormularioCrear.this,
                                 R.array.barrios_pamplona, android.R.layout.simple_spinner_item);
-                        // Specify the layout to use when the list of choices appears
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        // Apply the adapter to the spinner
-                        srcSpinner.setAdapter(adapter);
 
-                        // Destination Spinner
-                        final Spinner destSpinner = findViewById(R.id.spinner_destino_crear);
-                        // Create an ArrayAdapter using the string array and a default spinner layout
-                        ArrayAdapter<CharSequence> adapter2 =  ArrayAdapter.createFromResource(FormularioCrear.this,
-                                R.array.barrios_pamplona, android.R.layout.simple_spinner_item);
-                        // Specify the layout to use when the list of choices appears
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        // Apply the adapter to the spinner
-                        destSpinner.setAdapter(adapter2);
+                        srcSpinner.setAdapter(adapter);
+                        destSpinner.setAdapter(adapter);
 
                         findViewById(R.id.submit3).setOnClickListener(new View.OnClickListener() {
                             @Override

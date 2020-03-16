@@ -37,9 +37,8 @@ public class FormularioBuscar extends AppCompatActivity {
         setContentView(R.layout.activity_formulario_buscar);
 
 
-        final Spinner srcSpinner = findViewById(R.id.destinoBuscarViaje);
-
-        final Spinner destSpinner = findViewById(R.id.origenBuscarViaje);
+        final Spinner srcSpinner = findViewById(R.id.origenBuscarViaje);
+        final Spinner destSpinner = findViewById(R.id.destinoBuscarViaje);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.barrios_pamplona, android.R.layout.simple_spinner_item);
@@ -101,7 +100,6 @@ public class FormularioBuscar extends AppCompatActivity {
             }
         });
 
-
         Button searchSubmitBtn = (Button)findViewById(R.id.searchSubmitBtn);
 
         searchSubmitBtn.setOnClickListener(new View.OnClickListener() {
@@ -110,13 +108,18 @@ public class FormularioBuscar extends AppCompatActivity {
                 String srcPlace = srcSpinner.getSelectedItem().toString();
                 String destPlace = destSpinner.getSelectedItem().toString();
 
-                Toast.makeText(FormularioBuscar.this, cal.getTime().toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(FormularioBuscar.this, cal.getTime().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(FormularioBuscar.this, srcPlace, Toast.LENGTH_SHORT).show();
+                Toast.makeText(FormularioBuscar.this, destPlace, Toast.LENGTH_SHORT).show();
 
                 // Define the class to query
                 ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
 
                 // Define query conditions
-                query.whereEqualTo("origen", "sdfs");
+                query.whereEqualTo("origen", srcPlace);
+                query.whereEqualTo("destino", destPlace);
+                query.whereGreaterThanOrEqualTo("fecha", cal.getTime());
+                query.addAscendingOrder("fecha");
 
                 query.findInBackground(new FindCallback<Viaje>() {
                     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +46,15 @@ public class PerfilActivity extends AppCompatActivity {
         ParseUser user = ParseUser.getCurrentUser();
 
         username.setText(user.getUsername());
+
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtnPerfil);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
 

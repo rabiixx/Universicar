@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -70,6 +71,14 @@ public class AddVehicleActivity extends AppCompatActivity {
         carColorSpinner.setAdapter(colorAdapter);
 
 
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtnAddCar);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
         Button addCar = (Button)findViewById(R.id.addCar);
