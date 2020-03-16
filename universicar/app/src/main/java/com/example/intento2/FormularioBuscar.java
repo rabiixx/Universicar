@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -48,19 +49,21 @@ public class FormularioBuscar extends AppCompatActivity {
         srcSpinner.setAdapter(adapter);
         destSpinner.setAdapter(adapter);
 
-
-
-
-
-
         final EditText horaEditText = (EditText)findViewById(R.id.horaBuscarViaje);
         horaEditText.requestFocus();
-
-
 
         // Calendario
         final CalendarView calendarView = (CalendarView)findViewById(R.id.calendarView);
         calendarView.setMinDate(calendarView.getDate());
+
+        ImageButton backBtn = (ImageButton)findViewById(R.id.backBtnBuscarViaje);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         /* Guardamos la fecha del viaje */
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -85,7 +88,11 @@ public class FormularioBuscar extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker timePicker, int sHour, int sMinute) {
-                                horaEditText.setText(sHour + ":" + sMinute);
+                                if (sMinute < 10)
+                                    horaEditText.setText(sHour + ":0" + sMinute);
+                                else
+                                    horaEditText.setText(sHour + ":" + sMinute);
+
                                 cal.set(Calendar.HOUR, sHour);
                                 cal.set(Calendar.MINUTE, sMinute);
                             }
@@ -112,24 +119,22 @@ public class FormularioBuscar extends AppCompatActivity {
                 ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
 
                 // Define query conditions
-                query.whereEqualTo("origen", "Barañain");
+                query.whereEqualTo("origen", "sdfs");
 
                 query.findInBackground(new FindCallback<Viaje>() {
                     @Override
                     public void done(List<Viaje> viajeList, ParseException e) {
                         if (e == null) {
-                            String viajeId = viajeList.get(0).getObjectId();
-                            //Toast.makeText(FormularioBuscar.this, viajeList.get(1).getClassName(), Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(FormularioBuscar.this, ListaViajes.class);
-                          /*  if (viajeList.get(1) == null) {
-                                Toast.makeText(FormularioBuscar.this, " NULL 1", Toast.LENGTH_SHORT).show();
+                            if (viajeList.isEmpty()) {
+                                Intent i = new Intent(FormularioBuscar.this, TravelNotFoundActivity.class);
+                                startActivity(i);
                             } else {
-                                Toast.makeText(FormularioBuscar.this, "NOT NULL 1", Toast.LENGTH_SHORT).show();
-                            }*/
-                            i.putExtra("list", (Serializable) viajeList);
-                            startActivity(i);
+                                Intent i = new Intent(FormularioBuscar.this, ListaViajes.class);
+                                i.putExtra("list", (Serializable) viajeList);
+                                startActivity(i);
+                            }
                         } else {
-                            //Toast.makeText(FormularioBuscar.this,"Search Failure" , Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FormularioBuscar.this,e.getMessage() , Toast.LENGTH_SHORT).show();
                             Log.d("Viaje", "Error" + e.getMessage());
                         }
                     }

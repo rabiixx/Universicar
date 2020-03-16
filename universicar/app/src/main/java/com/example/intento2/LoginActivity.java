@@ -22,6 +22,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (ParseUser.getCurrentUser() != null) { // start with existing user
+            Toast.makeText(LoginActivity.this, "ajshbjdhb", Toast.LENGTH_SHORT).show();
+        } else { // If not logged in, login as a new anonymous user
+            login();
+        }
+    }
+
+    void login() {
+        
         Button submit = (Button)findViewById(R.id.login);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,14 +52,12 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
                             }
                         }
                     });
                 }
             }
         });
-
     }
 
 }

@@ -20,14 +20,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
-        <activity android:name=".MainActivity" >
+        <activity android:name=".LoginActivity" android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
 
-        <activity android:name=".LoginActivity" android:label="@string/title_activity_login" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".RegistrationActivity" android:label="Registration" />
         <activity android:name=".FormularioCrear" />
         <activity android:name=".FormularioBuscar" />
@@ -37,9 +38,11 @@
         <activity android:name=".AddVehicleActivity" android:label="Add Vehicle" />
         <activity android:name=".MostrarViaje" android:label="Add Vehicle" />
         <activity android:name=".BottomNavActivity" android:label="Add Vehicle" />
+        <activity android:name=".TravelNotFoundActivity" android:label="Add Vehicle" />
 
-
-
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
 
     </application>

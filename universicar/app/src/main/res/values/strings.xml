@@ -61,4 +61,6 @@
     <string name="text_viajes">Viajes</string>
     <string name="textbuscar">Buscar</string>
     <string name="text_crear">Crear</string>
+    <string name="travel_not_found">Aún no hay viajes disponibles para este día</string>
+    <string name="viajes_no_disponibles">Viajes no disponibles</string>
 </resources>
