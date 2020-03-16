@@ -63,4 +63,8 @@
     <string name="text_crear">Crear</string>
     <string name="travel_not_found">Aún no hay viajes disponibles para este día</string>
     <string name="viajes_no_disponibles">Viajes no disponibles</string>
+    <string name="iniciar_sesion">Iniciar Sesion</string>
+    <string name="todav_a_no_tienes_una_cuenta_registrate">¿Todavía no tienes una cuenta?Registrate</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="perfil">Perfil</string>
 </resources>

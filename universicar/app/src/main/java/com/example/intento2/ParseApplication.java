@@ -6,6 +6,7 @@ import com.example.intento2.Models.Coche;
 import com.example.intento2.Models.Viaje;
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 public class ParseApplication extends Application {
 
@@ -23,6 +24,7 @@ public class ParseApplication extends Application {
                 //.clientKey(null)  // set explicitly unless clientKey is explicitly configured on Parse server
                 //.clientBuilder(builder)
                 .server("https://rabiixxserver.herokuapp.com/parse/").build());
+        ParseUser.enableAutomaticUser();
 
 
 

@@ -3,15 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@color/blue">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/salsa"
+            android:text="@string/registrarse"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            tools:ignore="RtlCompat" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/loginscrn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="80dp"
+        android:fontFamily="@font/salsa"
         android:text="@string/registration"
         android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"/>
+        android:textStyle="bold" />
     <TextView
         android:id="@+id/fstTxt"
         android:layout_width="wrap_content"
@@ -59,14 +81,31 @@
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
         android:text="@string/login" />
+
     <TextView android:id="@+id/lnkLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="@string/already_registered_login_here"
+        android:textAlignment="center"
+        android:text="¿Ya tienes una cuenta? Iniciar Sesion"
         android:gravity="center"
         android:textSize="20sp"
         android:textColor="#3F51B5" />
+
+    <Button
+        android:id="@+id/sdf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/blue"
+        android:layout_gravity="center_horizontal"
+        android:text="¿Ya tienes una cuenta? Iniciar Sesion" />
+
+
+
 </LinearLayout>

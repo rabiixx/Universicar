@@ -29,8 +29,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
             }
         });
 
@@ -56,6 +55,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     public void done(ParseException e) {
                         if (e == null) {
                             Toast.makeText(RegistrationActivity.this, "Register Success", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                         } else {
                             Toast.makeText(RegistrationActivity.this, "Register Failure", Toast.LENGTH_SHORT).show();
                         }
