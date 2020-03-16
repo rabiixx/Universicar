@@ -110,9 +110,6 @@ public class FormularioBuscar extends AppCompatActivity {
                 String srcPlace = srcSpinner.getSelectedItem().toString();
                 String destPlace = destSpinner.getSelectedItem().toString();
 
-
-
-
                 Toast.makeText(FormularioBuscar.this, cal.getTime().toString(), Toast.LENGTH_SHORT).show();
 
                 // Define the class to query

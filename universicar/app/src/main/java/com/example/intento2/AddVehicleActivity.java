@@ -1,5 +1,6 @@
 package com.example.intento2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -77,14 +78,9 @@ public class AddVehicleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-              //  Toast.makeText(AddVehicleActivity.this, carBrandSpinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-             //   Toast.makeText(AddVehicleActivity.this, carTypeSpinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-              //  Toast.makeText(AddVehicleActivity.this, carColorSpinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-
                 final String brand = carBrandSpinner.getSelectedItem().toString();
                 final String carType = carTypeSpinner.getSelectedItem().toString();
                 final String carColor = carColorSpinner.getSelectedItem().toString();
-
 
                 Coche coche = new Coche();
                 coche.setMarca(brand);
@@ -93,6 +89,10 @@ public class AddVehicleActivity extends AppCompatActivity {
                 coche.setConductor(ParseUser.getCurrentUser());
                 //coche.put(USER_ID_KEY, ParseUser.getCurrentUser().getObjectId());
                 coche.saveInBackground();
+                Toast.makeText(AddVehicleActivity.this, "Coche añadido correctamente", Toast.LENGTH_SHORT).show();
+
+                onBackPressed();
+                //startActivity(new Intent(AddVehicleActivity.this, PerfilActivity));
             }
         });
     }

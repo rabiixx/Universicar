@@ -46,12 +46,12 @@
         android:layout_marginStart="100sp" />
     <EditText
         android:id="@+id/emailLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:drawableStart="@drawable/ic_email_black_24dp"
         android:drawablePadding="7dp"
-        android:layout_marginStart="100dp"
+        android:layout_gravity="center_horizontal"
         android:ems="10"
         android:autofillHints="email"
         android:inputType="textEmailAddress"
@@ -64,12 +64,12 @@
         android:layout_marginStart="100dp" />
     <EditText
         android:id="@+id/pwdLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:drawableStart="@drawable/ic_lock_black_24dp"
         android:drawablePadding="7dp"
-        android:layout_marginStart="100dp"
+        android:layout_gravity="center_horizontal"
         android:inputType="textPassword"
         android:ems="10"
         android:autofillHints="password"
