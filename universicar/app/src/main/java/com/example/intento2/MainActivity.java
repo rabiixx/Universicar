@@ -31,48 +31,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btn =  (Button)findViewById(R.id.test);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, testActivity.class));
+            }
+        });
 
-        //ListView myListView = findViewById(R.id.list);
-//        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, activities);
-//        myListView.setAdapter(adapter);
-//
-//
-//        //Set an item click listener for ListView
-//        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent listaIntent;
-//                if (position == 0) {
-//                    listaIntent = new Intent(MainActivity.this, FormularioBuscar.class);
-//                    startActivity(listaIntent);
-//                } else if (position == 1) {
-//                    listaIntent = new Intent(MainActivity.this, FormularioCrear.class);
-//                    startActivity(listaIntent);
-//                } else if (position == 2) {
-//                    listaIntent = new Intent(MainActivity.this, MisViajes.class);
-//                    startActivity(listaIntent);
-//                } else if (position == 3) {
-//                    listaIntent = new Intent(MainActivity.this, LoginActivity.class);
-//                    startActivity(listaIntent);
-//                } else if (position == 4) {
-//                    listaIntent = new Intent(MainActivity.this, RegistrationActivity.class);
-//                    startActivity(listaIntent);
-//                } else if (position == 5){
-//                    listaIntent = new Intent(MainActivity.this, AddVehicleActivity.class);
-//                    startActivity(listaIntent);
-//                } else if (position == 6) {
-//                    listaIntent = new Intent(MainActivity.this, MostrarViaje.class);
-//                    startActivity(listaIntent);
-//                } else if (position == 7) {
-//                    ParseUser.logOut();
-//                    ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
-//                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//                } else {
-//                    listaIntent = new Intent(MainActivity.this, BottomNavActivity.class);
-//                    startActivity(listaIntent);
-//                }
-//            }
-//        });
     }
 
 

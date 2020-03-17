@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.intento2" >
-
+    package="com.example.intento2">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -11,6 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".ParseApplication"
@@ -18,34 +19,46 @@
         android:label="@string/universicar"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-
-        <activity android:name=".MainActivity" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".LoginActivity" android:label="Sign In" />
-        <activity android:name=".RegistrationActivity" android:label="Registration" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="Sign In" />
+        <activity
+            android:name=".RegistrationActivity"
+            android:label="Registration" />
         <activity android:name=".FormularioCrear" />
         <activity android:name=".FormularioBuscar" />
         <activity android:name=".MisViajes" />
         <activity android:name=".testActivity" />
-        <activity android:name=".ListaViajes" android:label="Lista Viajes" />
-        <activity android:name=".AddVehicleActivity" android:label="Add Vehicle" />
-        <activity android:name=".MostrarViaje" android:label="Add Vehicle" />
-        <activity android:name=".BottomNavActivity" android:label="Add Vehicle" />
-        <activity android:name=".TravelNotFoundActivity" android:label="Add Vehicle" />
-        <activity android:name=".PerfilActivity" android:label="User Admin)" />
+        <activity
+            android:name=".ListaViajes"
+            android:label="Lista Viajes" />
+        <activity
+            android:name=".AddVehicleActivity"
+            android:label="Add Vehicle" />
+        <activity
+            android:name=".MostrarViaje"
+            android:label="Add Vehicle" />
+        <activity
+            android:name=".BottomNavActivity"
+            android:label="Add Vehicle" />
+        <activity
+            android:name=".TravelNotFoundActivity"
+            android:label="Add Vehicle" />
+        <activity
+            android:name=".PerfilActivity"
+            android:label="User Admin)" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-
     </application>
 
 </manifest>
