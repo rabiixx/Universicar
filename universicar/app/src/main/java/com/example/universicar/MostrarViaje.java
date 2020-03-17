@@ -1,4 +1,4 @@
-package com.example.intento2;
+package com.example.universicar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.intento2.Models.Coche;
-import com.example.intento2.Models.Viaje;
+import com.example.universicar.Models.Coche;
+import com.example.universicar.Models.Viaje;
 import com.parse.FindCallback;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;

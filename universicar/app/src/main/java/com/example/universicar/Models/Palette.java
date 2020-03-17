@@ -1,4 +1,4 @@
-package com.example.intento2.Models;
+package com.example.universicar.Models;
 
 public class Palette {
 

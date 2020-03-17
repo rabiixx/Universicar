@@ -1,9 +1,9 @@
-package com.example.intento2;
+package com.example.universicar;
 
 import android.app.Application;
 
-import com.example.intento2.Models.Coche;
-import com.example.intento2.Models.Viaje;
+import com.example.universicar.Models.Coche;
+import com.example.universicar.Models.Viaje;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;

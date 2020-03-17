@@ -37,27 +37,40 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:orientation="vertical"
-        android:background="@color/blue">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/carIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:id="@+id/profileImage"
+            android:layout_width="match_parent"
+            android:layout_height="182dp"
             android:layout_gravity="center"
-            android:gravity="center_vertical"
-            android:src="@drawable/ic_account_circle_white_100dp"/>
+            android:src="@drawable/ic_account_circle_white_100dp"
+            android:foreground="@drawable/rounded_fg"
+            android:clickable="true"/>
 
         <TextView
             android:id="@+id/usernamePerfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="23sp"
+            android:padding="7dp"
+            android:text="asdas"
+            android:background="@color/blue"
             android:textColor="@color/black"
             android:fontFamily="@font/salsa"
             android:gravity="center"/>
+
+<!--        <ImageView-->
+<!--            android:id="@+id/update_imageView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="182dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:src="@drawable/defavatar"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:foreground="@drawable/rounded_fg"/>-->
 
     </LinearLayout>
 

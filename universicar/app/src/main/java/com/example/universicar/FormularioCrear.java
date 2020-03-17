@@ -1,4 +1,4 @@
-package com.example.intento2;
+package com.example.universicar;
 
 import android.content.Intent;
 import android.os.Build;
@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.intento2.Models.Viaje;
+import com.example.universicar.Models.Viaje;
 import com.parse.ParseUser;
 
 import java.util.Calendar;

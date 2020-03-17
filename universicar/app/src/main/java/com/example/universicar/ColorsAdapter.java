@@ -1,20 +1,12 @@
-package com.example.intento2;
+package com.example.universicar;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.intento2.Models.Palette;
-
-import java.util.ArrayList;
 
 public class ColorsAdapter extends BaseAdapter {
 

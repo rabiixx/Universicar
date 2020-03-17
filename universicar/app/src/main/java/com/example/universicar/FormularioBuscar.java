@@ -1,4 +1,4 @@
-package com.example.intento2;
+package com.example.universicar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +16,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.intento2.Models.Viaje;
+import com.example.universicar.Models.Viaje;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;

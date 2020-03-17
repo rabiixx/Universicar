@@ -1,4 +1,4 @@
-package com.example.intento2;
+package com.example.universicar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.LogInCallback;
 import com.parse.ParseUser;
-
-import java.text.ParseException;
 
 public class LoginActivity extends AppCompatActivity {
 

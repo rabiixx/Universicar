@@ -1,31 +1,18 @@
-package com.example.intento2;
+package com.example.universicar;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.intento2.Models.Viaje;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
+import com.example.universicar.Models.Viaje;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListaViajes extends AppCompatActivity {

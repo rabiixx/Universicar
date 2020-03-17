@@ -1,4 +1,4 @@
-package com.example.intento2;
+package com.example.universicar;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.intento2.Models.Viaje;
+import com.example.universicar.Models.Viaje;
 import com.parse.ParseUser;
 
 import java.util.List;

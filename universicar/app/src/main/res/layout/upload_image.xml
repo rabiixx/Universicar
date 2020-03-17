@@ -4,10 +4,17 @@
     android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/btnChooseImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose" />
+
+    <Button
         android:id="@+id/btnUploadImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="Upload" />
+
 
     <ImageView
         android:id="@+id/imgView"

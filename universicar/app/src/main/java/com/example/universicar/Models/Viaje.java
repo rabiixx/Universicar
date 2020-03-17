@@ -1,6 +1,5 @@
-package com.example.intento2.Models;
+package com.example.universicar.Models;
 
-import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseClassName;
 import com.parse.ParseRelation;

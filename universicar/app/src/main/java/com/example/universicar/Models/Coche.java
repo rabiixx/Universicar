@@ -1,6 +1,5 @@
-package com.example.intento2.Models;
+package com.example.universicar.Models;
 
-import java.util.Date;
 import com.parse.ParseObject;
 import com.parse.ParseClassName;
 import com.parse.ParseUser;

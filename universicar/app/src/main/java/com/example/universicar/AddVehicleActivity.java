@@ -1,10 +1,7 @@
-package com.example.intento2;
+package com.example.universicar;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -12,14 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.intento2.Models.Coche;
-import com.example.intento2.Models.Palette;
-import com.example.intento2.Models.Viaje;
-import com.parse.Parse;
-import com.parse.ParseObject;
+import com.example.universicar.Models.Coche;
 import com.parse.ParseUser;
-
-import java.util.ArrayList;
 
 public class AddVehicleActivity extends AppCompatActivity {
     @Override
