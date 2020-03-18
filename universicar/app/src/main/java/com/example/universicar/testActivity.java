@@ -34,7 +34,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.parse.Parse;
 import com.parse.ParseFile;
-import com.parse.ParseImageView;
+//import com.parse.ParseImageView;
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 
@@ -49,6 +49,7 @@ public class testActivity extends AppCompatActivity {
 
     File photoFile;
     Imagen imagen;
+    Uri photoURI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class testActivity extends AppCompatActivity {
 
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this, "com.example.universicar.fileprovider", photoFile);
+                photoURI = FileProvider.getUriForFile(this, "com.example.universicar.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
@@ -124,11 +125,12 @@ public class testActivity extends AppCompatActivity {
                     imagen = new Imagen();
                     imagen.setMedia(parseFile);
                     imagen.saveInBackground();
-                    ParseImageView iv = (ParseImageView) findViewById(R.id.imageView);
-                    iv.setParseFile(imagen.getMedia());
-                    iv.loadInBackground();
+                    ImageView iv = (ImageView) findViewById(R.id.imgView);
+//                    iv.setParseFile(imagen.getMedia());
+//                    iv.loadInBackground();
+                    Picasso.get().load(photoURI).fit().centerInside().into(iv);
 
-//                    iv.setImageURI(Uri.parse(cameraFilePath));
+                    iv.setImageURI(Uri.parse(cameraFilePath));
                     break;
             }
     }
