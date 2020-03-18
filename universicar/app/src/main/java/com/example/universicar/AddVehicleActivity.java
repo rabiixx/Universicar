@@ -22,11 +22,6 @@ public class AddVehicleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_vehicle);
 
-        final Coche coche = (Coche) getIntent().getSerializableExtra("coche");
-        if (coche != null) {
-
-
-        }
 
         final Spinner carBrandSpinner = (Spinner)findViewById(R.id.brandSpinner);
         String[] carBrand = {"Audi", "BMW", "Chevrolet", "Citroen", "Ferrari", "Fiat", "Ford",
@@ -43,11 +38,6 @@ public class AddVehicleActivity extends AppCompatActivity {
         final ColorsAdapter carBrandAdapter = new ColorsAdapter(this, carBrandIcons, carBrand);
 
         carBrandSpinner.setAdapter(carBrandAdapter);
-
-       // carBrandSpinner.setSelection(getIndex(carBrandSpinner, "Audi"));
-        int index = Arrays.asList(carBrand).indexOf("Hyundai");
-        Toast.makeText(this, String.valueOf(index), Toast.LENGTH_SHORT).show();
-        carBrandSpinner.setSelection(index);
 
 
 
@@ -75,6 +65,21 @@ public class AddVehicleActivity extends AppCompatActivity {
         //colorAdapter.setDropDownViewResource(R.layout.colors_adapter);
 
         carColorSpinner.setAdapter(colorAdapter);
+
+        final Coche coche = (Coche) getIntent().getSerializableExtra("coche");
+        if (coche != null) {
+            int index;
+
+            index = Arrays.asList(carBrand).indexOf(coche.getMarca());
+            carBrandSpinner.setSelection(index);
+
+            index = Arrays.asList(carTypes).indexOf(coche.getTipoCoche());
+            carTypeSpinner.setSelection(index);
+
+            index = Arrays.asList(colors).indexOf(coche.getColor());
+            carColorSpinner.setSelection(index);
+
+        }
 
 
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtnAddCar);

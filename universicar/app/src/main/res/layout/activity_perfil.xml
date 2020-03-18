@@ -138,7 +138,8 @@
     <ListView
         android:id="@+id/carListProfile"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:smoothScrollbar="true" />
 
 
 </LinearLayout>

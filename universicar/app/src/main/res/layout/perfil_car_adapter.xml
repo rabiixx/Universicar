@@ -1,75 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/cocheLayoutInfoViaje"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_weight="1">
+
+
+        <ImageView
+            android:id="@+id/carIconProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_car_compacto_80dp" />
 
         <LinearLayout
-            android:id="@+id/cocheLayoutInfoViaje"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
-
-            <ImageView
-                android:id="@+id/carIconProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:gravity="center_vertical"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/ic_car_compacto_80dp"
-                android:onClick="changeColor"/>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/carBrandProfile"
+                android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:text="Citroen"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:fontFamily="@font/salsa"
+                android:textAllCaps = "true" />
+
+            <TextView
+                android:id="@+id/carColorProfile"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/carBrandProfile"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="Citroen"
-                    android:textColor="@color/black"
-                    android:textSize="28sp"
-                    android:fontFamily="@font/salsa"
-                    android:textAllCaps = "true" />
-
-                <TextView
-                    android:id="@+id/carColorProfile"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="Blanco"
-                    android:textSize="21sp" />
-
-            </LinearLayout>
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Blanco"
+                android:textSize="21sp" />
 
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/moreOptions"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_more_vert_black_30p"
-            android:onClick="showPopup"
-            android:layout_marginBottom="35dp"
-            android:background="@color/white" />
-
     </LinearLayout>
 
-
-
+    <ImageButton
+        android:id="@+id/moreOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:onClick="showPopup"
+        android:src="@drawable/ic_more_vert_black_30p"
+        android:layout_marginBottom="35dp"
+        android:background="@color/white" />
 
 
 </LinearLayout>

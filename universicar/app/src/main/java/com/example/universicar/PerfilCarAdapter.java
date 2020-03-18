@@ -1,4 +1,4 @@
-package com.example.universicar.Models;
+package com.example.universicar;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.universicar.R;
+import com.example.universicar.Models.Coche;
 
 import java.util.List;
 
@@ -108,10 +108,11 @@ public class PerfilCarAdapter extends BaseAdapter {
                 break;
         }
 
-
         //icon.setColorFilter(convertView.getContext().getResources().getColor(colorId));
         brand.setText(coches.get(position).getMarca());
         color.setText(coches.get(position).getColor());
+
+
 
         return convertView;
 

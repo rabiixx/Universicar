@@ -9,8 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -27,8 +25,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.universicar.Models.Coche;
-import com.example.universicar.Models.PerfilCarAdapter;
-import com.example.universicar.Models.Viaje;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,7 +36,6 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -70,8 +65,6 @@ public class PerfilActivity extends AppCompatActivity {
 
         profilePhoto = (ImageView)findViewById(R.id.profileImage);
 
-
-
         user = ParseUser.getCurrentUser();
 
         loadProfilePhoto();
@@ -92,7 +85,7 @@ public class PerfilActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
 
                         if (options[item].equals("Hacer Foto")) {
-                            Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                            Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             startActivityForResult(takePicture, CAMERA_CODE);
                         } else if (options[item].equals("Escoge desde la galeria")) {
                             @SuppressLint("IntentReset") Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -156,7 +149,7 @@ public class PerfilActivity extends AppCompatActivity {
 
         query.findInBackground(new FindCallback<Coche>() {
 
-            final ListView carList = findViewById(R.id.carListProfile);
+            final ListView carList = (ListView) findViewById(R.id.carListProfile);
 
             @Override
             public void done(List<Coche> coches, com.parse.ParseException e) {
@@ -166,12 +159,13 @@ public class PerfilActivity extends AppCompatActivity {
                     } else {
                         PerfilCarAdapter customAdapter = new PerfilCarAdapter(PerfilActivity.this, coches);
                         carList.setAdapter(customAdapter);
+
                         //loadCarSettings();
                         carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                                 Coche coche = (Coche) carList.getItemAtPosition(position);
-                                //Toast.makeText(ListaViajes.this, "Selected :" + " " + viaje.getOrigen()+", "+ viaje.getDestino(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PerfilActivity.this, "Selected :" , Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(PerfilActivity.this, AddVehicleActivity.class);
                                 i.putExtra("coche", (Serializable) coche);
                                 startActivity(i);
@@ -265,18 +259,11 @@ public class PerfilActivity extends AppCompatActivity {
 
     }
 
-
     public void showPopup(View view) {
         PopupMenu popup = new PopupMenu(this, view);
-        popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
+        //popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
         popup.getMenuInflater().inflate(R.menu.popup_menu_perfil, popup.getMenu());
         popup.show();
-    }
-
-
-    public void changeColor(View view) {
-        ImageView iv = (ImageView)findViewById(R.id.carIconProfile);
-        iv.setColorFilter(iv.getContext().getResources().getColor(R.color.blue));
     }
 
 }
