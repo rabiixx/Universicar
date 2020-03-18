@@ -8,10 +8,17 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,16 +26,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.universicar.Models.Coche;
+import com.example.universicar.Models.PerfilCarAdapter;
+import com.example.universicar.Models.Viaje;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.parse.FindCallback;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 public class PerfilActivity extends AppCompatActivity {
@@ -38,6 +52,7 @@ public class PerfilActivity extends AppCompatActivity {
     private static final int GALLERY_CODE = 603;
     private Uri filePath;
     private ImageView profilePhoto;
+    private ImageButton moreOptions;
 
     // Firebase
     FirebaseStorage storage;
@@ -54,6 +69,9 @@ public class PerfilActivity extends AppCompatActivity {
         storageReference = storage.getReference();
 
         profilePhoto = (ImageView)findViewById(R.id.profileImage);
+
+
+
         user = ParseUser.getCurrentUser();
 
         loadProfilePhoto();
@@ -126,6 +144,45 @@ public class PerfilActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+
+
+        /* LISTA COCHES USUARIO */
+
+        /* Consultamos los coches que tiene el usuario correspondiente */
+        ParseQuery<Coche> query = ParseQuery.getQuery(Coche.class);
+
+        query.whereEqualTo("Conductor", user);
+
+        query.findInBackground(new FindCallback<Coche>() {
+
+            final ListView carList = findViewById(R.id.carListProfile);
+
+            @Override
+            public void done(List<Coche> coches, com.parse.ParseException e) {
+                if (e == null) {
+                    if (coches.isEmpty()) {
+                        carList.setVisibility(LinearLayout.GONE);
+                    } else {
+                        PerfilCarAdapter customAdapter = new PerfilCarAdapter(PerfilActivity.this, coches);
+                        carList.setAdapter(customAdapter);
+                        //loadCarSettings();
+                        carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                                Coche coche = (Coche) carList.getItemAtPosition(position);
+                                //Toast.makeText(ListaViajes.this, "Selected :" + " " + viaje.getOrigen()+", "+ viaje.getDestino(), Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(PerfilActivity.this, AddVehicleActivity.class);
+                                i.putExtra("coche", (Serializable) coche);
+                                startActivity(i);
+                            }
+                        });
+                    }
+                } else {
+                    Log.d("Coche", "Error: " + e.getMessage());
+                }
+            }
+        });
     }
 
 
@@ -190,24 +247,39 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
 
-public void loadProfilePhoto() {
-    // Get the image stored on Firebase via "User id/Images/Profile Pic.jpg".
-    storageReference.child("images").child(user.getUsername() + "Profile").getDownloadUrl()
-        .addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).fit().centerInside().into(profilePhoto);
-            }
-        })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                profilePhoto.setImageResource(R.drawable.defavatar);
-            }
-        });
+    public void loadProfilePhoto() {
+        // Get the image stored on Firebase via "User id/Images/Profile Pic.jpg".
+        storageReference.child("images").child(user.getUsername() + "Profile").getDownloadUrl()
+            .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).fit().centerInside().into(profilePhoto);
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    profilePhoto.setImageResource(R.drawable.defavatar);
+                }
+            });
+
+    }
+
+
+    public void showPopup(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
+        popup.getMenuInflater().inflate(R.menu.popup_menu_perfil, popup.getMenu());
+        popup.show();
+    }
+
+
+    public void changeColor(View view) {
+        ImageView iv = (ImageView)findViewById(R.id.carIconProfile);
+        iv.setColorFilter(iv.getContext().getResources().getColor(R.color.blue));
+    }
 
 }
 
 
 
-}

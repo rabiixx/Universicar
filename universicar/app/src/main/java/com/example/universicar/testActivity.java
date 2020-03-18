@@ -72,8 +72,6 @@ public class testActivity extends AppCompatActivity {
         });
 
 
-
-
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

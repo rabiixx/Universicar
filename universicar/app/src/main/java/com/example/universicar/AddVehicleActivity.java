@@ -10,7 +10,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.universicar.Models.Coche;
+import com.example.universicar.Models.Viaje;
 import com.parse.ParseUser;
+
+import java.util.Arrays;
 
 public class AddVehicleActivity extends AppCompatActivity {
     @Override
@@ -18,6 +21,12 @@ public class AddVehicleActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_vehicle);
+
+        final Coche coche = (Coche) getIntent().getSerializableExtra("coche");
+        if (coche != null) {
+
+
+        }
 
         final Spinner carBrandSpinner = (Spinner)findViewById(R.id.brandSpinner);
         String[] carBrand = {"Audi", "BMW", "Chevrolet", "Citroen", "Ferrari", "Fiat", "Ford",
@@ -34,6 +43,12 @@ public class AddVehicleActivity extends AppCompatActivity {
         final ColorsAdapter carBrandAdapter = new ColorsAdapter(this, carBrandIcons, carBrand);
 
         carBrandSpinner.setAdapter(carBrandAdapter);
+
+       // carBrandSpinner.setSelection(getIndex(carBrandSpinner, "Audi"));
+        int index = Arrays.asList(carBrand).indexOf("Hyundai");
+        Toast.makeText(this, String.valueOf(index), Toast.LENGTH_SHORT).show();
+        carBrandSpinner.setSelection(index);
+
 
 
         final Spinner carTypeSpinner = (Spinner)findViewById(R.id.typeSpinner);

@@ -4,8 +4,10 @@ import com.parse.ParseObject;
 import com.parse.ParseClassName;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
+
 @ParseClassName("Coche")
-public class Coche extends ParseObject {
+public class Coche extends ParseObject implements Serializable {
 
     public static final String USER_ID_KEY = "userId";
 
