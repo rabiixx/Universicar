@@ -17,8 +17,6 @@ import com.parse.SaveCallback;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private String[] activities = {"Buscar Viaje", "Crear Viaje", "Mis Viajes", "Login", "Register", "Añadir Vehiculo", "Mostrar Viaje", "Logout", "Bottom Nav"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -29,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, testActivity.class));
+                startActivity(new Intent(MainActivity.this, RatingActivity.class));
             }
         });
 

@@ -1,11 +1,9 @@
 package com.example.universicar;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -26,40 +25,37 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.example.universicar.Models.Coche;
-import com.example.universicar.Models.Imagen;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.parse.ui.widget.ParseImageView;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class PerfilActivity extends AppCompatActivity {
+
+public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
+
+    static final int CAMERA_REQUEST_CODE = 1;
+    static final int GALLERY_REQUEST_CODE = 2;
+    final String TAG = "debug";
 
     private ParseUser user;
-    private Uri filePath;
     private ImageButton moreOptions;
-    File photoFile;
-    Imagen imagen;
-    Uri photoURI;
-
-    // Firebase
-    FirebaseStorage storage;
-    StorageReference storageReference;
+    private File profileImageFile;
+    private TextView username;
+    private String defaultImagePath;
+    ParseImageView profileImagePIV;
+    Uri URI;
 
 
     @Override
@@ -67,46 +63,37 @@ public class PerfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
-        // Firebase Init
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
+        ParseUser user = ParseUser.getCurrentUser();
+        profileImagePIV = (ParseImageView)findViewById(R.id.imagenPerfil);
 
-        ParseImageView piv = (ParseImageView)findViewById(R.id.imagenPerfil);
+        if (user.getParseFile("imagenPerfil") != null) {
+            profileImagePIV.setParseFile(user.getParseFile("imagenPerfil"));
+            profileImagePIV.loadInBackground();
+        }
 
-        piv.setOnClickListener(new View.OnClickListener() {
+        username = (TextView)findViewById(R.id.usernamePerfil);
+        username.setText(user.getUsername());
+
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtnPerfil);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                final CharSequence[] options = { "Hacer Foto", "Escoge desde la galeria", "Cancelar" };
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(PerfilActivity.this);
-                builder.setTitle("Escoge tu foto de perfil");
-                builder.setIcon(R.drawable.ic_calendar_30dp);
-
-                builder.setItems(options, new DialogInterface.OnClickListener() {
-
-                    @SuppressLint("IntentReset")
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-
-                        if (options[item].equals("Hacer Foto")) {
-                            captureFromCamera();
-                        } else if (options[item].equals("Escoge desde la galeria")) {
-                            captureFromGallery();
-                        } else if (options[item].equals("Cancelar")) {
-                            dialog.dismiss();
-                        }
-                    }
-                });
-                builder.show();
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
 
 
+        profileImagePIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               loadProfileImage();
+            }
+        });
+
+
+
         user = ParseUser.getCurrentUser();
-
-//        loadProfilePhoto();
-
-
 
         Button btnLogout = (Button)findViewById(R.id.logoutPerfil);
 
@@ -127,23 +114,6 @@ public class PerfilActivity extends AppCompatActivity {
                 startActivity(new Intent(PerfilActivity.this, AddVehicleActivity.class));
             }
         });
-
-        final TextView username = (TextView)findViewById(R.id.usernamePerfil);
-
-        ParseUser user = ParseUser.getCurrentUser();
-
-        username.setText(user.getUsername());
-
-        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtnPerfil);
-
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
-
 
         /* LISTA COCHES USUARIO */
 
@@ -182,53 +152,98 @@ public class PerfilActivity extends AppCompatActivity {
                 }
             }
         });
+
+//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+
+        Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.defavatar);
+
+//        boolean doSave = true;
+//        if (!dir.exists()) {
+//            Log.i(TAG, "BUGUGUGUGUGU");
+//            doSave = dir.mkdirs();
+//        }
+//
+//        if (doSave) {
+            saveBitmapToFile( getExternalFilesDir(Environment.DIRECTORY_PICTURES),"defaultProfileImage.png",bm,Bitmap.CompressFormat.PNG,100);
+//        }
+//        else {
+//            Log.e("app","Couldn't create target directory.");
+//        }
+
+
     }
 
 
-    /* Getting back selected images */
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if(resultCode != RESULT_CANCELED) {
-//            switch (requestCode) {
-//                case CAMERA_CODE:
-//                    if (resultCode == RESULT_OK && data != null) {
-//                        filePath =  data.getData();
-//                        Bitmap selectedImage = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
-//                    }
-//                    break;
-//                case GALLERY_CODE:
-//                    if (resultCode == RESULT_OK && data != null && data.getData() != null) {
-//                        filePath =  data.getData();
-//                        uploadImage();
-//                    }
-//                    break;
-//            }
-//        }
-//    }
+    public boolean saveBitmapToFile(File dir, String fileName, Bitmap bm, Bitmap.CompressFormat format, int quality) {
+
+        File imageFile = new File(dir,fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(imageFile);
+
+            bm.compress(format,quality,fos);
+
+            fos.close();
+
+            return true;
+        }
+        catch (IOException e) {
+            Log.e("app",e.getMessage());
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
 
 
-    static final int CAMERA_REQUEST_CODE = 1;
-    static final int GALLERY_REQUEST_CODE = 2;
+    public void loadProfileImage() {
+        final CharSequence[] options = { "Hacer Foto", "Escoge desde la galeria", "Cancelar" };
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(PerfilActivity.this);
+        builder.setTitle("Escoge tu foto de perfil");
+        builder.setIcon(R.drawable.ic_calendar_30dp);
+
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+
+            @SuppressLint("IntentReset")
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+
+                if (options[item].equals("Hacer Foto")) {
+                    captureFromCamera();
+                } else if (options[item].equals("Escoge desde la galeria")) {
+                    captureFromGallery();
+                } else if (options[item].equals("Cancelar")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
 
     private void captureFromCamera() {
+
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
+
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            photoFile = null;
+
+            profileImageFile = null;
             try {
-                photoFile = createImageFile();
+                profileImageFile = createImageFile();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
 
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                photoURI = FileProvider.getUriForFile(this, "com.example.universicar.fileprovider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            if (profileImageFile != null) {
+                Uri profileImageURI = FileProvider.getUriForFile(this, "com.example.universicar.fileprovider", profileImageFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, profileImageURI);
                 startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
             }
         }
@@ -236,21 +251,13 @@ public class PerfilActivity extends AppCompatActivity {
 
     private void captureFromGallery() {
 
-        //Create an Intent with action as ACTION_PICK
-        Intent intent= new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent= new Intent(Intent.ACTION_PICK);
 
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-
-
-        // Sets the type as image/*. This ensures only components of type image are selected
         intent.setType("image/*");
 
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-//        String[] mimeTypes = {"image/jpeg", "image/png"};
-//        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        String[] mimeTypes = {"image/jpeg", "image/png", "image/jpg"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
 
-        // Launching the Intent
         startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
 
@@ -262,85 +269,58 @@ public class PerfilActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK ){
-            ParseFile parseFile;
-//            Toast.makeText(this, "ONACTIVITYRESULT", Toast.LENGTH_SHORT).show();
-
 
             switch (requestCode) {
                 case CAMERA_REQUEST_CODE:
-                    Toast.makeText(this, cameraFilePath, Toast.LENGTH_LONG).show();
 
-                    parseFile = new ParseFile(photoFile);
-                    imagen = new Imagen();
-                    imagen.setMedia(parseFile);
-                    imagen.saveInBackground();
-                    ParseImageView iv1 = (ParseImageView) findViewById(R.id.imagenPerfil);
-                    iv1.setParseFile(imagen.getMedia());
-                    iv1.loadInBackground();
-//                    Picasso.get().load(photoURI).fit().centerInside().into(iv);
-//                    iv.setImageURI(Uri.parse(cameraFilePath));
+                    ParseFile parseFile = new ParseFile(profileImageFile);
+//                    profileImage = new Imagen();
+//                    profileImage.setMedia(parseFile);
+
+                    user = ParseUser.getCurrentUser();
+                    user.put("imagenPerfil", parseFile);
+                    user.saveInBackground();
+
+                    profileImagePIV = (ParseImageView) findViewById(R.id.imagenPerfil);
+
+                    profileImagePIV.setParseFile(user.getParseFile("imagenPerfil"));
+                    profileImagePIV.loadInBackground();
+
                     break;
                 case GALLERY_REQUEST_CODE:
-                    // Here, thisActivity is the current activity
-                    if (ContextCompat.checkSelfPermission(PerfilActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(this, "NO TENEMOS PERMISOS DE READ", Toast.LENGTH_SHORT).show();
-                    }
 
-                    if (ContextCompat.checkSelfPermission(PerfilActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(this, "NO TENEMOS PERMISOS DE WRITE", Toast.LENGTH_SHORT).show();
-                    }
-                    
-
-                    //data.getData return the content URI for the selected Image
                     Uri selectedImage = data.getData();
-
-//                    String imagepath = getPath(selectedImage);
 
                     String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
-                    // Get the cursor
                     Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
 
-                    // Move to first row
                     cursor.moveToFirst();
-                    //Get the column index of MediaStore.Images.Media.DATA
+
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    //Gets the String value in the column
-                    String imgDecodableString = cursor.getString(columnIndex);
+
+                    String imgpath = cursor.getString(columnIndex);
                     cursor.close();
-                    File f = new File(imgDecodableString);
-//                    "/storage/emulated/0/Pictures/Screenshots/Screenshot_20200319-133133_UNIVERSICAR.png"
-                    //File f = new File("file:///storage/emulated/0/Android/data/com.example.universicar/files/Pictures/JPEG_20200319_141022_753250698868564349.jpg");
-//                    File photoFile2 = new File(imagepath);
-                    parseFile = (ParseFile) new ParseFile(f);
-                    imagen = new Imagen();
-                    imagen.setMedia(parseFile);
-                    final String TAG = "universicar";
-                    Log.i(TAG, "HOLA");
 
+                    profileImageFile = new File(imgpath);
+                    parseFile = new ParseFile(profileImageFile);
 
-//                    imagen.saveInBackground();
+//                    try {
+//                        parseFile.save();
+//                        profileImage.setMedia(parseFile);
+//                        img.save();
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
+                    user = ParseUser.getCurrentUser();
+                    user.put("imagenPerfil", parseFile);
+                    user.saveInBackground();
 
-                    imagen.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            Log.i(TAG, "??????");
-                            if (e == null) {
-                                Log.i(TAG, "SAVED");
-                            } else {
-                                Log.i(TAG, "NOT SAVED");
-                                Log.i(TAG, e.getMessage());
-                            }
-                        }
-                    });
+                    profileImagePIV = (ParseImageView) findViewById(R.id.imagenPerfil);
 
-                    Log.i(TAG, "??????");
+                    profileImagePIV.setParseFile(user.getParseFile("imagenPerfil"));
+                    profileImagePIV.loadInBackground();
 
-
-
-                    ParseImageView iv2 = (ParseImageView) findViewById(R.id.imagenPerfil);
-                    iv2.setParseFile(imagen.getMedia());
-                    iv2.loadInBackground();
                     break;
 
             }
@@ -349,19 +329,101 @@ public class PerfilActivity extends AppCompatActivity {
 
 
 
-//    public String getPath(Uri uri) {
-//        Bitmap yourSelectedImage;
-//        String[] projection = { MediaStore.Images.Media.DATA };
-//        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//        cursor.moveToFirst();
-//        int columnIndex = cursor.getColumnIndex(projection[0]);
-//        String filePath = cursor.getString(columnIndex);
-//        cursor.close();
-//        yourSelectedImage = BitmapFactory.decodeFile(filePath);
-//        return cursor.getString(column_index);
+
+    public void showPopup(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        //popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
+        popup.getMenuInflater().inflate(R.menu.popup_menu_perfil, popup.getMenu());
+        popup.show();
+    }
+
+
+
+
+    private String cameraFilePath;
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+        String imageFileName = "JPEG_" + timeStamp + "_";
+
+        //This is the directory in which the file will be created. This is the default location of Camera photos
+
+//        File storageDir = new File(Environment.getExternalStoragePublicDirectory(nvironment.DIRECTORY_DCIM), "Camera");
+
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        cameraFilePath = "file://" + image.getAbsolutePath();
+        return image;
+    }
+
+//    public void showPopup2(View view) {
+//        PopupMenu popup = new PopupMenu(this, view);
+//        popup.getMenuInflater().inflate(R.menu.popup_menu_perfil, popup.getMenu());
+//        popup.show();
+//        popup.setOnMenuItemClickListener(PerfilActivity.this);
+//
 //    }
 
+
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.editMenu:
+                loadProfileImage();
+                return true;
+            case R.id.deleteMenu:
+
+                Log.i(TAG, getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File.separator + "defaultProfileImage.png");
+
+                profileImageFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File.separator + "defaultProfileImage.png");
+                ParseFile parseFile2 = new ParseFile(profileImageFile);
+
+                user = ParseUser.getCurrentUser();
+                user.put("imagenPerfil", parseFile2);
+                user.saveInBackground();
+
+                profileImagePIV = (ParseImageView) findViewById(R.id.imagenPerfil);
+
+                profileImagePIV.setParseFile(user.getParseFile("imagenPerfil"));
+                profileImagePIV.loadInBackground();
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public void showPopup2(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.popup_menu_perfil);
+        popup.show();
+    }
+
+
+
+
+
+
+}
+
+
+
+
+
+/* UPLOAD IMAGES WITH FIREBASE STORAGE AND PICCASSO */
+
+
+    // Firebase
+//    FirebaseStorage storage;
+//    StorageReference storageReference;
+
+// Firebase Init
+//        storage = FirebaseStorage.getInstance();
+//                storageReference = storage.getReference();
 
 
 //    public void uploadImage() {
@@ -416,38 +478,9 @@ public class PerfilActivity extends AppCompatActivity {
 //                }
 //            });
 //
+
+
 //    }
-
-    public void showPopup(View view) {
-        PopupMenu popup = new PopupMenu(this, view);
-        //popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
-        popup.getMenuInflater().inflate(R.menu.popup_menu_perfil, popup.getMenu());
-        popup.show();
-    }
-
-
-
-
-    private String cameraFilePath;
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-
-        String imageFileName = "JPEG_" + timeStamp + "_";
-
-        //This is the directory in which the file will be created. This is the default location of Camera photos
-
-//        File storageDir = new File(Environment.getExternalStoragePublicDirectory(nvironment.DIRECTORY_DCIM), "Camera");
-
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-
-        cameraFilePath = "file://" + image.getAbsolutePath();
-        return image;
-    }
-
-}
-
-
+//                    Picasso.get().load(photoURI).fit().centerInside().into(iv);
+//                    iv.setImageURI(Uri.parse(cameraFilePath));
 

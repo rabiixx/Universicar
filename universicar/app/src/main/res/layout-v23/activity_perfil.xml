@@ -27,101 +27,59 @@
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/salsa"
             android:text="@string/perfil"
-            android:layout_marginLeft="108dp"
+            android:layout_marginStart="108dp"
             android:textColor="@color/white"
             android:textSize="30sp" />
-
     </LinearLayout>
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/profileImage"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="182dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:src="@drawable/ic_account_circle_white_100dp"-->
-<!--            android:foreground="@drawable/rounded_fg"-->
-<!--            android:clickable="true"/>-->
-
-        <com.parse.ui.widget.ParseImageView
-            android:id="@+id/imagenPerfil"
-            android:layout_width="match_parent"
-            android:layout_height="182dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_account_circle_white_100dp"
-            android:foreground="@drawable/rounded_fg"
-            android:clickable="true"
-            android:focusable="true" />
-
-
-        <TextView
-            android:id="@+id/usernamePerfil"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="23sp"
-            android:padding="7dp"
-            android:text="asdas"
-            android:background="@color/blue"
-            android:textColor="@color/black"
-            android:fontFamily="@font/salsa"
-            android:gravity="center"/>
+            android:orientation="horizontal"
+            android:background="@color/blue">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/update_imageView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="182dp"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:src="@drawable/defavatar"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            android:foreground="@drawable/rounded_fg"/>-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
 
-    </LinearLayout>
+                <com.parse.ui.widget.ParseImageView
+                    android:id="@+id/imagenPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:foreground="@drawable/rounded_fg"
+                    android:layout_gravity="center"
+                    android:src="@drawable/defavatar"
+                    android:clickable="true"
+                    android:focusable="true" />
 
+                <TextView
+                    android:id="@+id/usernamePerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="23sp"
+                    android:padding="7dp"
+                    android:background="@color/blue"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/salsa"
+                    android:gravity="center"/>
 
-    <TextView
-        android:id="@+id/plazasInfoViaje"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="13dp"
-        android:drawableStart="@drawable/ic_car_seat_30dp"
-        android:fontFamily="sans-serif-condensed"
-        android:textColor="@color/black"
-        android:text="3 Plazas"
-        android:drawablePadding="10dp"
-        android:layout_gravity=""
-        android:textSize="23sp" />
+            </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/plazasInfoViaje2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="13dp"
-            android:drawableStart="@drawable/ic_car_seat_30dp"
-            android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/black"
-            android:text="3 Plazas"
-            android:layout_weight="1"
-            android:drawablePadding="10dp"
-            android:layout_gravity=""
-            android:textSize="23sp" />
+            <ImageButton
+                android:id="@+id/moreOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="showPopup2"
+                android:src="@drawable/ic_more_vert_white_30dp"
+                android:layout_marginBottom="40dp"
+                android:background="@color/blue" />
 
     </LinearLayout>
-
-
 
 
     <Button

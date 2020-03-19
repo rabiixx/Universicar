@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/one"
+        android:id="@+id/editMenu"
         android:title="Editar" />
     <item
-        android:id="@+id/two"
+        android:id="@+id/deleteMenu"
         android:title="Eliminar"/>
     <item
-        android:id="@+id/three"
+        android:id="@+id/cancelMenu"
         android:title="Cancelar"/>
 </menu>

@@ -27,7 +27,6 @@ public class Imagen extends ParseObject {
     }
 
     public void setMedia(ParseFile parseFile) {
-
         Log.i(TAG, "HACK2: " + parseFile.toString());
         put("imagenPerfil", parseFile);
 
