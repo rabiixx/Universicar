@@ -2,48 +2,27 @@ package com.example.universicar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import com.example.universicar.Models.Imagen;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.parse.Parse;
 import com.parse.ParseFile;
-//import com.parse.ParseImageView;
-import com.parse.ParseUser;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
-import java.util.UUID;
+
+import com.parse.ui.widget.ParseImageView;
 
 public class testActivity extends AppCompatActivity {
 
@@ -62,6 +41,15 @@ public class testActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 captureFromCamera();
+            }
+        });
+        
+        ParseImageView piv = (ParseImageView)findViewById(R.id.imgView);
+        
+        piv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(testActivity.this, "JHWSDBHJSDHJ", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -93,7 +81,6 @@ public class testActivity extends AppCompatActivity {
     }
 
 
-
     private String cameraFilePath;
     private File createImageFile() throws IOException {
         // Create an image file name
@@ -111,7 +98,6 @@ public class testActivity extends AppCompatActivity {
 
         cameraFilePath = "file://" + image.getAbsolutePath();
         return image;
-
     }
 
     @Override
@@ -125,16 +111,14 @@ public class testActivity extends AppCompatActivity {
                     imagen = new Imagen();
                     imagen.setMedia(parseFile);
                     imagen.saveInBackground();
-                    ImageView iv = (ImageView) findViewById(R.id.imgView);
-//                    iv.setParseFile(imagen.getMedia());
-//                    iv.loadInBackground();
-                    Picasso.get().load(photoURI).fit().centerInside().into(iv);
-
-                    iv.setImageURI(Uri.parse(cameraFilePath));
+                    ParseImageView iv = (ParseImageView) findViewById(R.id.imgView);
+                    iv.setParseFile(imagen.getMedia());
+                    iv.loadInBackground();
+//                    Picasso.get().load(photoURI).fit().centerInside().into(iv);
+//                    iv.setImageURI(Uri.parse(cameraFilePath));
                     break;
             }
     }
-
 
 }
 

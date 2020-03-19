@@ -34,6 +34,7 @@
     </LinearLayout>
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,21 +49,17 @@
 <!--            android:foreground="@drawable/rounded_fg"-->
 <!--            android:clickable="true"/>-->
 
-<!--        <com.parse.ui.widget.ParseImageView-->
-<!--            android:id="@+id/imagenPerfil"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="182dp" />-->
-
         <com.parse.ui.widget.ParseImageView
             android:id="@+id/imagenPerfil"
             android:layout_width="match_parent"
-            android:layout_height="300dp"/>
+            android:layout_height="182dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_account_circle_white_100dp"
+            android:foreground="@drawable/rounded_fg"
+            android:clickable="true"
+            android:focusable="true" />
 
-<!--        android:foreground="@drawable/rounded_fg"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:src="@drawable/ic_account_circle_white_100dp"-->
-<!--        android:clickable="true"-->
-<!--        android:focusable="true"-->
+
         <TextView
             android:id="@+id/usernamePerfil"
             android:layout_width="match_parent"
