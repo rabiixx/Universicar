@@ -410,6 +410,8 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
 
 }
 
+//https://medium.com/@sriramaripirala/android-10-open-failed-eacces-permission-denied-da8b630a89df
+
 
 
 
