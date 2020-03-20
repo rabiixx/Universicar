@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
@@ -25,6 +26,13 @@
     <style name="ToggleButton" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="colorButtonNormal">@color/red</item>
         <item name="android:textColor">@color/oranje</item>
+    </style>
+
+
+    <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_stars</item>
+        <item name="android:minHeight">5dip</item>
+        <item name="android:maxHeight">40dip</item>
     </style>
 
 </resources>

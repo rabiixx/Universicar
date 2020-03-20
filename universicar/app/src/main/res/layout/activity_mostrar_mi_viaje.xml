@@ -70,27 +70,27 @@
         android:layout_height="wrap_content"
         android:padding="15dp">
 
-    <TextView
-        android:layout_height="match_parent"
-        android:layout_width="160dp"
-        android:textAlignment="textStart"
-        android:drawablePadding="10dp"
-        android:text="@string/Destino2"
-        android:textColor="@color/black"
-        android:drawableStart="@drawable/ic_place_red_24dp"
-        android:textSize="24sp" />
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="160dp"
+            android:textAlignment="textStart"
+            android:drawablePadding="10dp"
+            android:text="@string/Destino2"
+            android:textColor="@color/black"
+            android:drawableStart="@drawable/ic_place_red_24dp"
+            android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/destinoInfoViaje"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:textAlignment="textEnd"
-        android:text="Burlada"
-        android:textColor="@color/black"
-        android:textSize="24sp" />
+        <TextView
+            android:id="@+id/destinoInfoViaje"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:text="Burlada"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
-</LinearLayout>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -274,14 +274,14 @@
 
 
     <Button
-        android:id="@+id/submitInfoViaje"
+        android:id="@+id/submitInfoMiViaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/blue"
         android:drawableEnd="@drawable/ic_add_white_24dp"
-        android:text="@string/reservar" />
+        android:text="Opinar" />
 
 
 

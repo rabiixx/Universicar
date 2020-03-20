@@ -63,7 +63,7 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
-        ParseUser user = ParseUser.getCurrentUser();
+        final ParseUser user = ParseUser.getCurrentUser();
         profileImagePIV = (ParseImageView)findViewById(R.id.imagenPerfil);
 
         if (user.getParseFile("imagenPerfil") != null) {
@@ -92,8 +92,14 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
         });
 
 
-
-        user = ParseUser.getCurrentUser();
+        findViewById(R.id.verOpiniones).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PerfilActivity.this, ListaOpinionesActivity.class);
+                intent.putExtra("userId", user.getObjectId());
+                startActivity(intent);
+            }
+        });
 
         Button btnLogout = (Button)findViewById(R.id.logoutPerfil);
 

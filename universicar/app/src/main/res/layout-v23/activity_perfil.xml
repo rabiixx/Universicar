@@ -90,6 +90,12 @@
 
 
     <Button
+        android:id="@+id/verOpiniones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Opiniones" />
+
+    <Button
         android:id="@+id/logoutPerfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

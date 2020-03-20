@@ -53,7 +53,7 @@ public class ListaViajes extends AppCompatActivity {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Viaje viaje = (Viaje) listaViajes.getItemAtPosition(position);
                 //Toast.makeText(ListaViajes.this, "Selected :" + " " + viaje.getOrigen()+", "+ viaje.getDestino(), Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(ListaViajes.this, MostrarViaje.class);
+                Intent i = new Intent(ListaViajes.this, MostrarViajeActivity.class);
                 i.putExtra("viaje", (Serializable) viaje);
                 startActivity(i);
 

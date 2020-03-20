@@ -19,16 +19,20 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
-public class MostrarViaje extends AppCompatActivity {
+public class MostrarMiViajeActivity extends AppCompatActivity {
 
     private static final String TAG = "debug";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mostrar_viaje);
+        setContentView(R.layout.activity_mostrar_mi_viaje);
 
         final Viaje viaje = (Viaje) getIntent().getSerializableExtra("viaje");
+
+        if (viaje == null) {
+            Log.i(TAG, "Viaje es null");
+        }
 
         TextView origen = (TextView)findViewById(R.id.origenInfoViaje);
         TextView destino = (TextView)findViewById(R.id.destinoInfoViaje);
@@ -40,9 +44,9 @@ public class MostrarViaje extends AppCompatActivity {
         final TextView cocheTv = (TextView)findViewById(R.id.cocheInfoViaje);
         final TextView colorTv = (TextView)findViewById(R.id.colorInfoViaje);
 
-        Button reservar = (Button)findViewById(R.id.submitInfoViaje);
+        Button reservar = (Button)findViewById(R.id.submitInfoMiViaje);
 
-        ParseUser user = viaje.getConductor();
+        final ParseUser user = viaje.getConductor();
 
         try {
             String nombreConductor = user.fetchIfNeeded().getString("name");
@@ -71,11 +75,10 @@ public class MostrarViaje extends AppCompatActivity {
             public void done(List<Coche> coches, com.parse.ParseException e) {
                 if (e == null) {
                     if (coches.isEmpty()) {
-                        Toast.makeText(MostrarViaje.this, "No CARS", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MostrarMiViajeActivity.this, "No CARS", Toast.LENGTH_SHORT).show();
                         LinearLayout ll = (LinearLayout)findViewById(R.id.cocheLayoutInfoViaje);
                         ll.setVisibility(LinearLayout.GONE);
                     } else {
-                        //Toast.makeText(MostrarViaje.this, coches.size(), Toast.LENGTH_SHORT).show();
                         assert coches.get(0) == null;
                         Coche coche = coches.get(0);
                         String color = coche.getColor();
@@ -89,27 +92,15 @@ public class MostrarViaje extends AppCompatActivity {
             }
         });
 
-
         reservar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                viaje.getPasajeros().getQuery().findInBackground(new FindCallback<ParseUser>() {
-                    @Override
-                    public void done(List<ParseUser> pasajeros, com.parse.ParseException e) {
-                        if (e == null) {
-                            viaje.addPasajero(ParseUser.getCurrentUser());
-                            viaje.setNPlazasDisp(viaje.getNPlazasDisp() - 1);
-                            viaje.saveInBackground();
-
-                            Toast.makeText(MostrarViaje.this, "Reserva Realizada", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MostrarViaje.this, MainActivity.class);
-                            startActivity(intent);
-                        } else {
-                            Log.d("Pasajeros", "Error: " + e.getMessage());
-                        }
-                    }
-
-                });
+            public void onClick(View v) {
+                if (user == null) {
+                    Log.i(TAG, "User 1 es null");
+                }
+                Intent intent = new Intent(MostrarMiViajeActivity.this, RatingActivity.class);
+                intent.putExtra("userId", user.getObjectId());
+                startActivity(intent);
             }
         });
 

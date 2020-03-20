@@ -65,7 +65,10 @@
             android:name="com.example.universicar.AddVehicleActivity"
             android:label="Add Vehicle" />
         <activity
-            android:name="com.example.universicar.MostrarViaje"
+            android:name="com.example.universicar.MostrarViajeActivity"
+            android:label="Add Vehicle" />
+        <activity
+            android:name="com.example.universicar.MostrarMiViajeActivity"
             android:label="Add Vehicle" />
         <activity
             android:name="com.example.universicar.BottomNavActivity"
@@ -79,6 +82,10 @@
 
         <activity
             android:name="com.example.universicar.RatingActivity"
+            android:label="User Admin)" />
+
+        <activity
+            android:name="com.example.universicar.ListaOpinionesActivity"
             android:label="User Admin)" />
 
 
