@@ -73,10 +73,10 @@ public class AdapterOpiniones extends ArrayAdapter<Opinion> {
             viewHolder.titulo.setText(opinion.getTitulo());
             viewHolder.descripcion.setText(opinion.getDescripcion());
             viewHolder.puntuacion.setRating(opinion.getPuntuacion().floatValue());
-           // Picasso.get().load(i.getUrl()).fit().centerInside().into(viewHolder.fotoPerfil);
+            Picasso.get().load(i.getUrl()).fit().centerInside().into(viewHolder.fotoPerfil);
 
 
-            Picasso.get().load("https://rabiixxserver.herokuapp.com/parse/files/universicar/5511d40e8eee17ee668432180a739b6f_JPEG_20200320_230636_8746756111615888408.jpg").into(viewHolder.fotoPerfil);
+            //Picasso.get().load("https://rabiixxserver.herokuapp.com/parse/files/universicar/5511d40e8eee17ee668432180a739b6f_JPEG_20200320_230636_8746756111615888408.jpg").into(viewHolder.fotoPerfil);
 
 //            Picasso.with(getApplicationContext()).load(imageUrl)
 //                    .placeholder(R.drawable.images).error(R.drawable.ic_launcher)

@@ -58,12 +58,12 @@ public class ListaOpinionesActivity extends AppCompatActivity {
 //                                    ParseFile pf = user.getParseFile("imagenPerfil");
 //                                    String url = pf.getUrl();
 //                                    Log.i(TAG, url);
-//
-//
-//                                    Glide.with(ListaOpinionesActivity.this).load("https://rabiixxserver.herokuapp.com/parse/files/universicar/5511d40e8eee17ee668432180a739b6f_JPEG_20200320_230636_8746756111615888408.jpg").into(iv);
-//
-//
-//                                    Picasso.get().load("https://rabiixxserver.herokuapp.com/parse/files/universicar/5511d40e8eee17ee668432180a739b6f_JPEG_20200320_230636_8746756111615888408.jpg").into(iv);
+////
+////
+//                                    Glide.with(ListaOpinionesActivity.this).load("http://rabiixxserver.herokuapp.com/parse/files/universicar/5511d40e8eee17ee668432180a739b6f_JPEG_20200320_230636_8746756111615888408.jpg").into(iv);
+////
+////
+////                                    Picasso.get().load("https://rabiixxserver.herokuapp.com/parse/files/universicar/5511d40e8eee17ee668432180a739b6f_JPEG_20200320_230636_8746756111615888408.jpg").into(iv);
 //                                } catch (ParseException ex) {
 //                                    ex.printStackTrace();
 //                                }
