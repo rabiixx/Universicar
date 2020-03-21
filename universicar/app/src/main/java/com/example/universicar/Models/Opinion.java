@@ -25,8 +25,12 @@ public class Opinion extends ParseObject implements Serializable {
 
     public String getDescripcion() { return getString("descripcion"); }
 
-    public void setCalidadConduccion(String calidadConduccion) {
-        put("calidadConduccion", calidadConduccion);
+    public void setHabilidadConduccion(int habilidadConduccion) {
+        put("habilidadConduccion", habilidadConduccion);
+    }
+
+    public int getHabilidadConduccion() {
+        return getInt("habilidadConduccion");
     }
 
     public void setPuntuacion(Double puntuacion) {
@@ -37,9 +41,6 @@ public class Opinion extends ParseObject implements Serializable {
         return getDouble("puntuacion");
     }
 
-    public String getCalidadConduccion() {
-        return getString("calidadConduccion");
-    }
 
     public void setCreador(ParseUser user) {
         put("creador", user);

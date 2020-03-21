@@ -65,25 +65,16 @@ public class AdapterOpiniones extends ArrayAdapter<Opinion> {
         ParseUser user = opinion.getCreador();
 
         try {
+
             String username = user.fetchIfNeeded().getUsername();
-            ParseFile i = user.fetchIfNeeded().getParseFile("imagenPerfil");
-            Log.i(TAG, "hack" + i.getUrl());
+            ParseFile parseFile = user.fetchIfNeeded().getParseFile("imagenPerfil");
 
             viewHolder.username.setText(username);
             viewHolder.titulo.setText(opinion.getTitulo());
             viewHolder.descripcion.setText(opinion.getDescripcion());
             viewHolder.puntuacion.setRating(opinion.getPuntuacion().floatValue());
-            Picasso.get().load(i.getUrl()).fit().centerInside().into(viewHolder.fotoPerfil);
 
-
-            //Picasso.get().load("https://rabiixxserver.herokuapp.com/parse/files/universicar/5511d40e8eee17ee668432180a739b6f_JPEG_20200320_230636_8746756111615888408.jpg").into(viewHolder.fotoPerfil);
-
-//            Picasso.with(getApplicationContext()).load(imageUrl)
-//                    .placeholder(R.drawable.images).error(R.drawable.ic_launcher)
-//                    .into(viewHolder.fotoPerfil);
-//
-//            viewHolder.fotoPerfil.setParseFile(i);
-//            viewHolder.fotoPerfil.loadInBackground();
+            Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(viewHolder.fotoPerfil);
         } catch (com.parse.ParseException e) {
             e.printStackTrace();
         }

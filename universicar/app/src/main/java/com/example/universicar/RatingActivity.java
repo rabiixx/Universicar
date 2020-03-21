@@ -1,10 +1,12 @@
 package com.example.universicar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,12 +66,32 @@ public class RatingActivity extends AppCompatActivity {
                             double puntuacion = ratingBar.getRating();
 
                             Button checkBtn = findViewById(mbtg.getCheckedButtonId());
-                            String calidadConduccion = checkBtn.getText().toString();
+                            int calidadConduccion = 4;
+
+                            switch (checkBtn.getText().toString()) {
+                                case "Muy Bien":
+                                    calidadConduccion = 4;
+                                    break;
+                                case "Bien":
+                                    calidadConduccion = 3;
+                                    break;
+                                case "Regular":
+                                    calidadConduccion = 2;
+                                    break;
+                                case "Mal":
+                                    calidadConduccion = 1;
+                                    break;
+                            }
 
                             Opinion opinion = new Opinion();
                             opinion.setTitulo(titulo);
                             opinion.setDescripcion(descripcion);
-                            opinion.setCalidadConduccion(calidadConduccion);
+                            opinion.setHabilidadConduccion(calidadConduccion);
+                            try {
+                                opinion.save();
+                            } catch (ParseException ex) {
+                                ex.printStackTrace();
+                            }
                             opinion.setPuntuacion(puntuacion);
                             opinion.setCreador(ParseUser.getCurrentUser());
                             opinion.setUsuario(usuario);

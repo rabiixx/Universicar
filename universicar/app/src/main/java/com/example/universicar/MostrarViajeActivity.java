@@ -14,10 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.universicar.Models.Coche;
 import com.example.universicar.Models.Viaje;
 import com.parse.FindCallback;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MostrarViajeActivity extends AppCompatActivity {
 
@@ -39,10 +43,13 @@ public class MostrarViajeActivity extends AppCompatActivity {
         TextView precio = (TextView)findViewById(R.id.precioInfoViaje);
         final TextView cocheTv = (TextView)findViewById(R.id.cocheInfoViaje);
         final TextView colorTv = (TextView)findViewById(R.id.colorInfoViaje);
+        LinearLayout conductorLL = findViewById(R.id.conductorLLInfoViaje);
+        CircleImageView imagenPerfil = findViewById(R.id.profileImageListaViajes);
+
 
         Button reservar = (Button)findViewById(R.id.submitInfoViaje);
 
-        ParseUser user = viaje.getConductor();
+        final ParseUser user = viaje.getConductor();
 
         try {
             String nombreConductor = user.fetchIfNeeded().getString("name");
@@ -50,8 +57,17 @@ public class MostrarViajeActivity extends AppCompatActivity {
             Log.e(TAG, "Something has gone terribly wrong with Parse", e);
         }
 
-        //Toast.makeText(MostrarViaje.this, user.getObjectId(), Toast.LENGTH_SHORT).show();
+        ParseFile parseFile = user.getParseFile("imagenPerfil");
+        Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(imagenPerfil);
 
+        conductorLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MostrarViajeActivity.this, ListaOpinionesActivity.class);
+                intent.putExtra("userId", user.getObjectId());
+                startActivity(intent);
+            }
+        });
 
         origen.setText(viaje.getOrigen());
         destino.setText(viaje.getDestino());

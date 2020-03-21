@@ -318,6 +318,7 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
 //                    } catch (ParseException e) {
 //                        e.printStackTrace();
 //                    }
+
                     user = ParseUser.getCurrentUser();
                     user.put("imagenPerfil", parseFile);
                     user.saveInBackground();

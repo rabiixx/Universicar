@@ -148,26 +148,34 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/conductorLLInfoViaje"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="15dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImageListaMisViajes"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/defavatar" />
 
         <TextView
             android:layout_height="match_parent"
-            android:layout_width="160dp"
-            android:drawablePadding="10dp"
+            android:layout_width="wrap_content"
             android:text="@string/conductor"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
             android:textColor="@color/black"
-            android:textAlignment="textStart"
-            android:drawableStart="@drawable/ic_account_circle_blue_30dp"
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/conductorInfoViaje"
+            android:id="@+id/conductorInfoMisViajes"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textAlignment="textEnd"
+            android:gravity="center_vertical"
             android:text="rabiixx"
             android:textColor="@color/black"
             android:textSize="24sp" />
@@ -274,14 +282,14 @@
 
 
     <Button
-        android:id="@+id/submitInfoMiViaje"
+        android:id="@+id/submitInfoViaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/blue"
         android:drawableEnd="@drawable/ic_add_white_24dp"
-        android:text="Opinar" />
+        android:text="@string/reservar" />
 
 
 

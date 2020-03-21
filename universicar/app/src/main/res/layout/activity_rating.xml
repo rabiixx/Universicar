@@ -62,7 +62,7 @@
 
 
     <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/descriptionRating"
+            android:id="@+id/titleRating"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="top"/>
@@ -84,7 +84,7 @@
         app:boxStrokeColor="@color/oranje">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/titleRating"
+            android:id="@+id/descriptionRating"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="top"/>

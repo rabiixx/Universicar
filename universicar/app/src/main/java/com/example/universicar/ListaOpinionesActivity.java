@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +21,8 @@ import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ListaOpinionesActivity extends AppCompatActivity {
 
@@ -39,6 +43,13 @@ public class ListaOpinionesActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (e == null) {
 
+                    CircleImageView imagenPerfil = findViewById(R.id.profileImageListaOpiniones);
+                    ParseFile parseFile = user.getParseFile("imagenPerfil");
+                    Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(imagenPerfil);
+
+                    TextView username = findViewById(R.id.usernameListaOpiniones);
+                    username.setText(user.getUsername());
+
                     ParseQuery<Opinion> query = ParseQuery.getQuery(Opinion.class);
 
                     query.whereEqualTo("usuario", user);
@@ -50,24 +61,25 @@ public class ListaOpinionesActivity extends AppCompatActivity {
                                 AdapterOpiniones adapterOpiniones = new AdapterOpiniones(ListaOpinionesActivity.this, opiniones);
                                 listaOpiniones.setAdapter(adapterOpiniones);
 
-//                                ImageView iv = findViewById(R.id.hola2);
-//                                ParseUser user = opiniones.get(0).getCreador();
-//                                try {
-//                                    String username = user.fetchIfNeeded().getUsername();
-//
-//                                    ParseFile pf = user.getParseFile("imagenPerfil");
-//                                    String url = pf.getUrl();
-//                                    Log.i(TAG, url);
-////
-////
-//                                    Glide.with(ListaOpinionesActivity.this).load("http://rabiixxserver.herokuapp.com/parse/files/universicar/5511d40e8eee17ee668432180a739b6f_JPEG_20200320_230636_8746756111615888408.jpg").into(iv);
-////
-////
-////                                    Picasso.get().load("https://rabiixxserver.herokuapp.com/parse/files/universicar/5511d40e8eee17ee668432180a739b6f_JPEG_20200320_230636_8746756111615888408.jpg").into(iv);
-//                                } catch (ParseException ex) {
-//                                    ex.printStackTrace();
-//                                }
+                                RatingBar puntuacion = findViewById(R.id.puntuacionListaOpiniones);
+                                puntuacion.setRating(puntuacionAVG(opiniones));
 
+                                TextView habilidad = findViewById(R.id.habilidadListaOpiniones);
+
+                                switch ((int) Math.round(habilidadAVG(opiniones))) {
+                                    case 1:
+                                        habilidad.append("Mal");
+                                        break;
+                                    case 2:
+                                        habilidad.append("Regular");
+                                        break;
+                                    case 3:
+                                        habilidad.append("Bien");
+                                        break;
+                                    case 4:
+                                        habilidad.append("Muy Bien");
+                                        break;
+                                }
 
                             } else {
                                 Log.d("item", "Error: " + e.getMessage());
@@ -82,5 +94,29 @@ public class ListaOpinionesActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    private double habilidadAVG(List <Opinion> opiniones) {
+        int sum = 0;
+        if(!opiniones.isEmpty()) {
+            for (Opinion opinion : opiniones) {
+                sum += opinion.getHabilidadConduccion();
+            }
+            return (double) sum / opiniones.size();
+        }
+        return sum;
+    }
+
+
+    private float puntuacionAVG(List <Opinion> opiniones) {
+        int sum = 0;
+        if(!opiniones.isEmpty()) {
+            for (Opinion opinion : opiniones) {
+                sum += opinion.getPuntuacion();
+            }
+            return (float) sum / opiniones.size();
+        }
+        return sum;
     }
 }
