@@ -7,42 +7,56 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="@color/blue">
+        android:background="@color/white">
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <ImageButton
+            android:id="@+id/backBtnListaViajes"
+            android:layout_width="55dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:src="@drawable/ic_keyboard_backspace_blue_24dp"
+            android:focusable="true"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/titleListaViaje"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-
-            <com.parse.ui.widget.ParseImageView
-                android:id="@+id/imagenPerfil"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:foreground="@drawable/rounded_fg"
-                android:layout_gravity="center"
-                android:src="@drawable/defavatar"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <TextView
-                android:id="@+id/usernamePerfil"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="23sp"
-                android:padding="7dp"
-                android:background="@color/blue"
-                android:textColor="@color/black"
-                android:fontFamily="@font/salsa"
-                android:gravity="center"/>
-
-        </LinearLayout>
-
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:layout_gravity="center_vertical" />
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImageListaOpiniones"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/defavatar"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/usernameListaOpiniones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/capriola"
+            android:text="rabiixx"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="23sp" />
+    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="300dp"
@@ -60,8 +74,7 @@
         app:endIconMode="custom"
         app:endIconTint="@color/oranje">
 
-
-    <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/titleRating"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -70,11 +83,9 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="300dp"
-        android:layout_height="210dp"
+        android:layout_height="180dp"
         android:layout_gravity="center"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_marginBottom="12dp"
@@ -92,7 +103,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
+    <TextView
+        android:id="@+id/tvHabilidadConduccionRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Que tal conduce " />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggleGroup"

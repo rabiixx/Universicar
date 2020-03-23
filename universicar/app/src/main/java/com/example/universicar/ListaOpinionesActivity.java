@@ -2,15 +2,12 @@ package com.example.universicar;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.module.AppGlideModule;
 import com.example.universicar.Models.Opinion;
 import com.parse.FindCallback;
 import com.parse.GetCallback;

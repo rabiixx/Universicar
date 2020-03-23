@@ -43,8 +43,8 @@ public class MostrarViajeActivity extends AppCompatActivity {
         TextView precio = (TextView)findViewById(R.id.precioInfoViaje);
         final TextView cocheTv = (TextView)findViewById(R.id.cocheInfoViaje);
         final TextView colorTv = (TextView)findViewById(R.id.colorInfoViaje);
-        LinearLayout conductorLL = findViewById(R.id.conductorLLInfoViaje);
-        CircleImageView imagenPerfil = findViewById(R.id.profileImageListaViajes);
+        LinearLayout conductorLL = findViewById(R.id.conductorLLMostrarViaje);
+        CircleImageView imagenPerfil = findViewById(R.id.profileImageMostrarViaje);
 
 
         Button reservar = (Button)findViewById(R.id.submitInfoViaje);

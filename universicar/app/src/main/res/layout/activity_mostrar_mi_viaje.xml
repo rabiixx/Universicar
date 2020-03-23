@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".MostrarViajeActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -34,6 +35,43 @@
             android:textSize="25sp"
             android:layout_gravity="center_vertical"
             tools:ignore="RtlCompat" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/conductorLLMostrarMiViaje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImageMostrarMiViaje"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/defavatar" />
+
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:text="@string/conductor"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:textColor="#0892d0"
+            android:textSize="24sp"
+            android:linksClickable="true"/>
+
+        <TextView
+            android:id="@+id/conductorInfoMisViajes"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:gravity="center_vertical"
+            android:text="rabiixx"
+            android:textColor="#0892d0"
+            android:textSize="24sp"
+            android:linksClickable="true"/>
 
     </LinearLayout>
 
@@ -147,40 +185,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/conductorLLInfoViaje"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="15dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profileImageListaMisViajes"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/defavatar" />
-
-        <TextView
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:text="@string/conductor"
-            android:layout_marginStart="10dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/conductorInfoMisViajes"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textAlignment="textEnd"
-            android:gravity="center_vertical"
-            android:text="rabiixx"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
-
-    </LinearLayout>
 
 
     <LinearLayout
@@ -263,7 +268,6 @@
                 android:layout_height="0dp"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
                 android:text="Blanco"
                 android:textSize="18sp"
                 tools:ignore="NestedWeights,RtlCompat" />
@@ -280,18 +284,12 @@
 
     </LinearLayout>
 
-
     <Button
-        android:id="@+id/submitInfoViaje"
+        android:id="@+id/opinarMostrarMiViaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="@color/blue"
-        android:drawableEnd="@drawable/ic_add_white_24dp"
-        android:text="@string/reservar" />
-
-
-
+        android:layout_gravity="center_horizontal"
+        android:drawableEnd="@drawable/ic_thumbs_up_down_black_24dp"
+        android:text="Opinar" />
 
 </LinearLayout>

@@ -33,6 +33,7 @@ import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ui.widget.ParseImageView;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -41,6 +42,8 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
@@ -54,22 +57,20 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
     private File profileImageFile;
     private TextView username;
     private String defaultImagePath;
-    ParseImageView profileImagePIV;
+    CircleImageView profileImage;
     Uri URI;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil);
+        setContentView(R.layout.mi_perfil_activity);
 
         final ParseUser user = ParseUser.getCurrentUser();
-        profileImagePIV = (ParseImageView)findViewById(R.id.imagenPerfil);
+        profileImage = findViewById(R.id.imagenPerfil);
 
-        if (user.getParseFile("imagenPerfil") != null) {
-            profileImagePIV.setParseFile(user.getParseFile("imagenPerfil"));
-            profileImagePIV.loadInBackground();
-        }
+        ParseFile parseFile = user.getParseFile("imagenPerfil");
+        Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(profileImage);
 
         username = (TextView)findViewById(R.id.usernamePerfil);
         username.setText(user.getUsername());
@@ -83,8 +84,7 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
             }
         });
 
-
-        profileImagePIV.setOnClickListener(new View.OnClickListener() {
+        profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                loadProfileImage();
@@ -92,14 +92,14 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
         });
 
 
-        findViewById(R.id.verOpiniones).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PerfilActivity.this, ListaOpinionesActivity.class);
-                intent.putExtra("userId", user.getObjectId());
-                startActivity(intent);
-            }
-        });
+//        findViewById(R.id.verOpiniones).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(PerfilActivity.this, ListaOpinionesActivity.class);
+//                intent.putExtra("userId", user.getObjectId());
+//                startActivity(intent);
+//            }
+//        });
 
         Button btnLogout = (Button)findViewById(R.id.logoutPerfil);
 
@@ -112,9 +112,9 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
             }
         });
 
-        Button btnAddCar = (Button)findViewById(R.id.añadirCochePerfil);
 
-        btnAddCar.setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.añadirCochePerfil).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(PerfilActivity.this, AddVehicleActivity.class));
@@ -287,10 +287,7 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
                     user.put("imagenPerfil", parseFile);
                     user.saveInBackground();
 
-                    profileImagePIV = (ParseImageView) findViewById(R.id.imagenPerfil);
-
-                    profileImagePIV.setParseFile(user.getParseFile("imagenPerfil"));
-                    profileImagePIV.loadInBackground();
+                    Picasso.get().load(user.getParseFile("imagenPerfil").getUrl()).error(R.mipmap.ic_launcher).into(profileImage);
 
                     break;
                 case GALLERY_REQUEST_CODE:
@@ -323,10 +320,7 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
                     user.put("imagenPerfil", parseFile);
                     user.saveInBackground();
 
-                    profileImagePIV = (ParseImageView) findViewById(R.id.imagenPerfil);
-
-                    profileImagePIV.setParseFile(user.getParseFile("imagenPerfil"));
-                    profileImagePIV.loadInBackground();
+                    Picasso.get().load(user.getParseFile("imagenPerfil").getUrl()).error(R.mipmap.ic_launcher).into(profileImage);
 
                     break;
 
@@ -393,10 +387,8 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
                 user.put("imagenPerfil", parseFile2);
                 user.saveInBackground();
 
-                profileImagePIV = (ParseImageView) findViewById(R.id.imagenPerfil);
+                Picasso.get().load(user.getParseFile("imagenPerfil").getUrl()).error(R.mipmap.ic_launcher).into(profileImage);
 
-                profileImagePIV.setParseFile(user.getParseFile("imagenPerfil"));
-                profileImagePIV.loadInBackground();
                 return true;
             default:
                 return false;

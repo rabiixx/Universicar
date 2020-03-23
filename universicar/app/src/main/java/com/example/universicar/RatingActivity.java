@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +38,9 @@ public class RatingActivity extends AppCompatActivity {
                 if (e == null) {
                     final MaterialButtonToggleGroup mbtg;
                     final RatingBar ratingBar = findViewById(R.id.ratingBar);
+
+                    final TextView habilidadConduccionTV = findViewById(R.id.tvHabilidadConduccionRating);
+                    habilidadConduccionTV.append(usuario.getUsername());
 
                     ratingBar.setRating(5);
 
@@ -97,6 +101,8 @@ public class RatingActivity extends AppCompatActivity {
                             opinion.setUsuario(usuario);
                             opinion.saveInBackground();
                             Toast.makeText(RatingActivity.this, "Opinion envidad correctamente", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RatingActivity.this, MainActivity.class);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(RatingActivity.this, "Rellene todos los campos", Toast.LENGTH_SHORT).show();
                         }
