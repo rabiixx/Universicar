@@ -50,22 +50,22 @@ public class PerfilCarAdapter extends BaseAdapter {
 
         switch (coches.get(position).getTipoCoche()) {
             case "Compacto":
-                icon.setImageResource(R.drawable.ic_car_compacto_80dp);
+                icon.setImageResource(R.drawable.ic_car_compacto_60dp);
                 break;
             case "Deportivo":
-                icon.setImageResource(R.drawable.ic_car_deportivo_80dp);
+                icon.setImageResource(R.drawable.ic_car_deportivo_60dp);
                 break;
             case "Familiar":
-                icon.setImageResource(R.drawable.ic_car_familiar_80dp);
+                icon.setImageResource(R.drawable.ic_car_familiar_60dp);
                 break;
             case "Descapotable":
-                icon.setImageResource(R.drawable.ic_car_descapotable_80dp);
+                icon.setImageResource(R.drawable.ic_car_descapotable_60dp);
                 break;
             case "Biplaza":
-                icon.setImageResource(R.drawable.ic_car_biplaza_80dp);
+                icon.setImageResource(R.drawable.ic_car_biplaza_60dp);
                 break;
             case "Todoterrno":
-                icon.setImageResource(R.drawable.ic_car_todoterreno_80dp);
+                icon.setImageResource(R.drawable.ic_car_todoterreno_60dp);
                 break;
             default:
                 Toast.makeText(context, "Han error has ocurred", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -21,31 +22,33 @@
             android:layout_marginStart="10dp"
             android:gravity="center_vertical"
             android:layout_marginEnd="15dp"
-            android:src="@drawable/ic_car_compacto_80dp" />
+            android:src="@drawable/ic_car_compacto_60dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
 
             <TextView
                 android:id="@+id/carBrandProfile"
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/capriola"
                 android:gravity="center_vertical"
                 android:text="Citroen"
-                android:textColor="@color/black"
-                android:textSize="28sp"
-                android:fontFamily="@font/salsa"
-                android:textAllCaps = "true" />
+                android:textAllCaps="true"
+                android:textColor="#000039"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/carColorProfile"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/capriola"
                 android:gravity="center_vertical"
                 android:text="Blanco"
-                android:textSize="21sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -57,10 +60,12 @@
         android:layout_height="match_parent"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:onClick="showPopup"
+        android:onClick="showPopup2"
         android:src="@drawable/ic_more_vert_black_30p"
         android:layout_marginBottom="35dp"
         android:background="@color/white" />
+
+
 
 
 </LinearLayout>

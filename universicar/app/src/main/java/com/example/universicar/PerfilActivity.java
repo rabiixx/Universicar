@@ -14,10 +14,12 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -32,7 +34,6 @@ import com.parse.FindCallback;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.ui.widget.ParseImageView;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -59,12 +60,16 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
     private String defaultImagePath;
     CircleImageView profileImage;
     Uri URI;
+    PerfilCarAdapter carAdapter;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mi_perfil_activity);
+
+        final ListView carList = findViewById(R.id.carListProfile);
 
         final ParseUser user = ParseUser.getCurrentUser();
         profileImage = findViewById(R.id.imagenPerfil);
@@ -113,14 +118,6 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
         });
 
 
-
-        findViewById(R.id.añadirCochePerfil).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(PerfilActivity.this, AddVehicleActivity.class));
-            }
-        });
-
         /* LISTA COCHES USUARIO */
 
         /* Consultamos los coches que tiene el usuario correspondiente */
@@ -130,18 +127,16 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
 
         query.findInBackground(new FindCallback<Coche>() {
 
-            final ListView carList = (ListView) findViewById(R.id.carListProfile);
-
             @Override
             public void done(List<Coche> coches, com.parse.ParseException e) {
                 if (e == null) {
                     if (coches.isEmpty()) {
                         carList.setVisibility(LinearLayout.GONE);
                     } else {
-                        PerfilCarAdapter customAdapter = new PerfilCarAdapter(PerfilActivity.this, coches);
-                        carList.setAdapter(customAdapter);
+                        carAdapter = new PerfilCarAdapter(PerfilActivity.this, coches);
+                        carList.setAdapter(carAdapter);
+                        justifyListViewHeightBasedOnChildren(carList);
 
-                        //loadCarSettings();
                         carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
@@ -150,6 +145,8 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
                                 Intent i = new Intent(PerfilActivity.this, AddVehicleActivity.class);
                                 i.putExtra("coche", (Serializable) coche);
                                 startActivity(i);
+                                carAdapter.notifyDataSetChanged();
+
                             }
                         });
                     }
@@ -160,6 +157,16 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
         });
 
 //        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        findViewById(R.id.añadirCochePerfil).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PerfilActivity.this, AddVehicleActivity.class));
+                carAdapter.notifyDataSetChanged();
+                justifyListViewHeightBasedOnChildren(carList);
+
+            }
+        });
 
 
         Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.defavatar);
@@ -280,12 +287,12 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
                 case CAMERA_REQUEST_CODE:
 
                     ParseFile parseFile = new ParseFile(profileImageFile);
-//                    profileImage = new Imagen();
-//                    profileImage.setMedia(parseFile);
 
                     user = ParseUser.getCurrentUser();
                     user.put("imagenPerfil", parseFile);
                     user.saveInBackground();
+
+                    Toast.makeText(this, "sdfsddffsd", Toast.LENGTH_SHORT).show();
 
                     Picasso.get().load(user.getParseFile("imagenPerfil").getUrl()).error(R.mipmap.ic_launcher).into(profileImage);
 
@@ -328,9 +335,6 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
         }
     }
 
-
-
-
     public void showPopup(View view) {
         PopupMenu popup = new PopupMenu(this, view);
         //popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
@@ -338,11 +342,17 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
         popup.show();
     }
 
-
+    public void showPopup2(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        //popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
+        popup.getMenuInflater().inflate(R.menu.popup_menu_perfil, popup.getMenu());
+        popup.show();
+    }
 
 
     private String cameraFilePath;
     private File createImageFile() throws IOException {
+
         // Create an image file name
         @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
@@ -359,15 +369,6 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
         cameraFilePath = "file://" + image.getAbsolutePath();
         return image;
     }
-
-//    public void showPopup2(View view) {
-//        PopupMenu popup = new PopupMenu(this, view);
-//        popup.getMenuInflater().inflate(R.menu.popup_menu_perfil, popup.getMenu());
-//        popup.show();
-//        popup.setOnMenuItemClickListener(PerfilActivity.this);
-//
-//    }
-
 
 
     @Override
@@ -395,16 +396,26 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
         }
     }
 
-    public void showPopup2(View view) {
-        PopupMenu popup = new PopupMenu(this, view);
-        popup.setOnMenuItemClickListener(this);
-        popup.inflate(R.menu.popup_menu_perfil);
-        popup.show();
+    public static void justifyListViewHeightBasedOnChildren (ListView listView) {
+
+        ListAdapter adapter = listView.getAdapter();
+
+        if (adapter == null) {
+            return;
+        }
+        ViewGroup vg = listView;
+        int totalHeight = 0;
+        for (int i = 0; i < adapter.getCount(); i++) {
+            View listItem = adapter.getView(i, null, vg);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams par = listView.getLayoutParams();
+        par.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
+        listView.setLayoutParams(par);
+        listView.requestLayout();
     }
-
-
-
-
 
 
 }

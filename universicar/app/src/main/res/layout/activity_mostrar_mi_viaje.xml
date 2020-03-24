@@ -280,7 +280,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:src="@drawable/ic_car_compacto_80dp"/>
+            android:src="@drawable/ic_car_compacto_60dp"/>
 
     </LinearLayout>
 
