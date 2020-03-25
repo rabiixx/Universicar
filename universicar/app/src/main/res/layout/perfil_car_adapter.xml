@@ -71,8 +71,7 @@
                 android:layout_marginStart="10dp"
                 android:src="@drawable/ic_brand_fiat_40dp"
                 android:clickable="true"
-                android:focusable="true"
-                android:onClick="showMenuCars"/>
+                android:focusable="true"/>
 
         </LinearLayout>
 

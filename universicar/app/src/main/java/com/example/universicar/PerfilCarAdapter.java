@@ -1,5 +1,6 @@
 package com.example.universicar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -138,7 +139,9 @@ public class PerfilCarAdapter extends BaseAdapter {
                             case R.id.editarCoche:
                                 Intent i = new Intent(parent.getContext(), AddVehicleActivity.class);
                                 i.putExtra("coche", (Serializable) getItem(position));
+                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 context.startActivity(i);
+                                ((Activity)context).finish();
                                 return true;
                             case R.id.eliminarCoche:
                                 getItem(position).deleteInBackground(new DeleteCallback() {

@@ -263,8 +263,9 @@
 
             <Button
                 android:id="@+id/logoutPerfil"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="20dp"
                 android:text="Cerrar Sesion"
                 android:layout_gravity="center_horizontal"
                 app:cornerRadius="20dp"

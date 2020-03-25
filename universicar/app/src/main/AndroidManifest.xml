@@ -78,17 +78,20 @@
             android:name="com.example.universicar.TravelNotFoundActivity"
             android:label="Add Vehicle" />
         <activity
-            android:name="com.example.universicar.PerfilActivity"
+            android:name="com.example.universicar.MiPerfilActivity"
             android:label="User Admin)" />
 
         <activity
             android:name="com.example.universicar.RatingActivity"
-            android:label="User Admin)" />
+            android:label="Rating" />
+
+        <activity
+            android:name="com.example.universicar.PerfilActivity"
+            android:label="User Profile" />
 
         <activity
             android:name="com.example.universicar.ListaOpinionesActivity"
-            android:label="User Admin)" />
-
+            android:label="Rating list" />
 
         <meta-data
             android:name="preloaded_fonts"

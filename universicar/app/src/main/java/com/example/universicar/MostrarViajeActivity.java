@@ -63,7 +63,7 @@ public class MostrarViajeActivity extends AppCompatActivity {
         conductorLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MostrarViajeActivity.this, ListaOpinionesActivity.class);
+                Intent intent = new Intent(MostrarViajeActivity.this, PerfilActivity.class);
                 intent.putExtra("userId", user.getObjectId());
                 startActivity(intent);
             }

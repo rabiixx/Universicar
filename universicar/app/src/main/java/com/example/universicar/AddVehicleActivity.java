@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.universicar.Models.Coche;
-import com.example.universicar.Models.Viaje;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -110,7 +109,10 @@ public class AddVehicleActivity extends AppCompatActivity {
                     coche.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
-                            startActivity(new Intent(AddVehicleActivity.this, PerfilActivity.class));
+                            Intent i = new Intent(AddVehicleActivity.this, MiPerfilActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                            finish();
                         }
                     });
 
@@ -136,7 +138,10 @@ public class AddVehicleActivity extends AppCompatActivity {
                     nuevoCoche.saveInBackground();
                     Toast.makeText(AddVehicleActivity.this, "Coche añadido correctamente", Toast.LENGTH_SHORT).show();
 
-                    startActivity(new Intent(AddVehicleActivity.this, PerfilActivity.class));
+                    Intent i = new Intent(AddVehicleActivity.this, MiPerfilActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                    finish();
                 }
             });
         }

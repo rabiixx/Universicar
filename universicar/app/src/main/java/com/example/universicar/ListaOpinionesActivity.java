@@ -2,97 +2,54 @@ package com.example.universicar;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.universicar.Models.Coche;
 import com.example.universicar.Models.Opinion;
-import com.parse.FindCallback;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class ListaOpinionesActivity extends AppCompatActivity {
-
-    private static final String TAG = "debug";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_opiniones);
+        setContentView(R.layout.lista_opiniones_activity);
 
-        final String userId = getIntent().getStringExtra("userId");
+        @SuppressWarnings("unchecked") final List<Opinion> opiniones = (List<Opinion>) getIntent().getSerializableExtra("opiniones");
 
-        ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
+        ListView listaOpiniones = findViewById(R.id.listaOpinionesPerfil);
+        AdapterOpiniones adapterOpiniones = new AdapterOpiniones(ListaOpinionesActivity.this, opiniones);
+        listaOpiniones.setAdapter(adapterOpiniones);
 
-        query.getInBackground(userId, new GetCallback<ParseUser>() {
-            @Override
-            public void done(ParseUser user, ParseException e) {
-                if (e == null) {
+        RatingBar puntuacion = findViewById(R.id.puntuacionListaOpiniones);
+        puntuacion.setRating(puntuacionAVG(opiniones));
 
-                    CircleImageView imagenPerfil = findViewById(R.id.profileImageListaOpiniones);
-                    ParseFile parseFile = user.getParseFile("imagenPerfil");
-                    Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(imagenPerfil);
+        TextView habilidad = findViewById(R.id.habilidadListaOpiniones);
 
-                    TextView username = findViewById(R.id.usernameListaOpiniones);
-                    username.setText(user.getUsername());
-
-                    ParseQuery<Opinion> query = ParseQuery.getQuery(Opinion.class);
-
-                    query.whereEqualTo("usuario", user);
-
-                    query.findInBackground(new FindCallback<Opinion>() {
-                        public void done(List<Opinion> opiniones, ParseException e) {
-                            if (e == null) {
-                                final ListView listaOpiniones = findViewById(R.id.listaOpiniones);
-                                AdapterOpiniones adapterOpiniones = new AdapterOpiniones(ListaOpinionesActivity.this, opiniones);
-                                listaOpiniones.setAdapter(adapterOpiniones);
-
-                                RatingBar puntuacion = findViewById(R.id.puntuacionListaOpiniones);
-                                puntuacion.setRating(puntuacionAVG(opiniones));
-
-                                TextView habilidad = findViewById(R.id.habilidadListaOpiniones);
-
-                                switch ((int) Math.round(habilidadAVG(opiniones))) {
-                                    case 1:
-                                        habilidad.append("Mal");
-                                        break;
-                                    case 2:
-                                        habilidad.append("Regular");
-                                        break;
-                                    case 3:
-                                        habilidad.append("Bien");
-                                        break;
-                                    case 4:
-                                        habilidad.append("Muy Bien");
-                                        break;
-                                }
-
-                            } else {
-                                Log.d("item", "Error: " + e.getMessage());
-                            }
-                        }
-                    });
-
-                } else {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-
+        switch ((int) Math.round(habilidadAVG(opiniones))) {
+            case 1:
+                habilidad.append("Mal");
+                break;
+            case 2:
+                habilidad.append("Regular");
+                break;
+            case 3:
+                habilidad.append("Bien");
+                break;
+            case 4:
+                habilidad.append("Muy Bien");
+                break;
+        }
+        //        justifyListViewHeightBasedOnChildren(listaOpiniones);
     }
-
 
     private double habilidadAVG(List <Opinion> opiniones) {
         int sum = 0;
@@ -115,5 +72,27 @@ public class ListaOpinionesActivity extends AppCompatActivity {
             return (float) sum / opiniones.size();
         }
         return sum;
+    }
+
+
+    public void justifyListViewHeightBasedOnChildren (ListView listView) {
+
+        ListAdapter adapter = listView.getAdapter();
+
+        if (adapter == null) {
+            return;
+        }
+        ViewGroup vg = listView;
+        int totalHeight = 0;
+        for (int i = 0; i < adapter.getCount(); i++) {
+            View listItem = adapter.getView(i, null, vg);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams par = listView.getLayoutParams();
+        par.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
+        listView.setLayoutParams(par);
+        listView.requestLayout();
     }
 }

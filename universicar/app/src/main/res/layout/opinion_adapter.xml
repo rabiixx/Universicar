@@ -17,7 +17,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:layout_margin="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,10 +38,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/salsa"
-                        android:textColor="@color/black"
-                        android:text="rabiixx" />
+                        android:fontFamily="@font/capriola"
+                        android:text="rabiixx"
+                        android:textColor="#000039"
+                        android:textSize="18sp" />
 
 
                     <RatingBar
@@ -59,8 +59,8 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_image"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
                         android:src="@drawable/defavatar"
                         app:civ_border_color="#FF000000"
                         app:civ_border_width="2dp" />
@@ -80,7 +80,7 @@
                 android:layout_weight="1"
                 android:textSize="18sp"
                 android:fontFamily="@font/salsa"
-                android:textColor="@color/black"
+                android:textColor="#000039"
                 android:text="Genial" />
 
 
@@ -91,7 +91,6 @@
             android:layout_marginTop="4dp"
             android:layout_weight="1"
             android:textSize="15sp"
-            android:textColor="@color/black"
             android:text="Descripcion" />
 
 

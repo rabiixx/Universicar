@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@color/blue">
+
+        <ImageButton
+            android:id="@+id/backBtnPerfil"
+            android:layout_width="55dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/blue"
+            android:clickable="true"
+            android:src="@drawable/ic_keyboard_backspace_white_24dp"
+            android:focusable="true"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/salsa"
+            android:text="@string/perfil"
+            android:layout_marginLeft="108dp"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout">
+
+        <ImageView
+            android:id="@+id/header_cover_image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/nav_header_bg1"
+            app:srcCompat="@drawable/nav_header_bg1" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            app:civ_border_width="3dp"
+            app:civ_border_color="#FFFFFFFF"
+            android:id="@+id/imagenPerfil"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/header_cover_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-130dp"
+            android:elevation="5dp"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/defavatar" />
+
+        <RelativeLayout
+            android:id="@+id/profile_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header_cover_image"
+            android:background="@color/white"
+            android:elevation="4dp"
+            android:paddingBottom="24dp">
+
+            <!--            android:background="#0892d0"-->
+
+            <ImageView
+                android:id="@+id/editProfileImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_more_vert_black_30p"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="showMenuProfileImage"/>
+
+            <TextView
+                android:id="@+id/usernamePerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="70dp"
+                android:text="rabiixx"
+                android:textColor="#000039"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/puntuacionListaOpiniones"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/usernamePerfil"
+                style="@style/foodRatingBar"
+                android:numStars="5"
+                android:rating="5"
+                android:isIndicator="true" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="10dp"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginVertical="8dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_volante_30dp"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/habilidadListaOpiniones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/capriola"
+            android:text="Habilidad Conduccion: "
+            android:textColor="#367588"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="10dp"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginVertical="8dp"
+        android:layout_marginStart="20dp">
+
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_star_30dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:textColor="#367588"
+            android:fontFamily="@font/capriola"
+            android:text="5.0/5 - 5 Opiniones" />
+
+        <ImageButton
+            android:id="@+id/verOpinionesPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginEnd="10dp"
+            app:srcCompat="@drawable/ic_navigate_next_30dp" />
+
+    </LinearLayout>
+</LinearLayout>

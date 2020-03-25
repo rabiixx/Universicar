@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                                     startActivity(new Intent(MainActivity.this, FormularioCrear.class));
                                     break;
                                 case R.id.perfilMenu:
-                                    startActivity(new Intent(MainActivity.this, PerfilActivity.class));
+                                    startActivity(new Intent(MainActivity.this, MiPerfilActivity.class));
                                     break;
                                 case R.id.misViajesMenu:
                                     startActivity(new Intent(MainActivity.this, MisViajes.class));
