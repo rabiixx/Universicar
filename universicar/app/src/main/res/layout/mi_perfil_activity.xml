@@ -87,10 +87,10 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
-                    android:clickable="true"
                     android:src="@drawable/ic_more_vert_black_30p"
+                    android:clickable="true"
                     android:focusable="true"
-                    android:onClick="showPopup"/>
+                    android:onClick="showMenuProfileImage"/>
 
                 <TextView
                     android:id="@+id/usernamePerfil"
@@ -272,6 +272,8 @@
                 app:strokeWidth="2dp"
                 android:textColor="@color/red"
                 app:strokeColor="@color/red"/>
+
+
 
 
         </LinearLayout>

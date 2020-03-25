@@ -31,6 +31,7 @@ import androidx.core.content.FileProvider;
 
 import com.example.universicar.Models.Coche;
 import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -53,11 +54,12 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
     static final int GALLERY_REQUEST_CODE = 2;
     final String TAG = "debug";
 
-    private ParseUser user;
+    private final ParseUser user = ParseUser.getCurrentUser();
     private ImageButton moreOptions;
     private File profileImageFile;
     private TextView username;
     private String defaultImagePath;
+    private ParseFile parseFile;
     CircleImageView profileImage;
     Uri URI;
     PerfilCarAdapter carAdapter;
@@ -70,8 +72,6 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
         setContentView(R.layout.mi_perfil_activity);
 
         final ListView carList = findViewById(R.id.carListProfile);
-
-        final ParseUser user = ParseUser.getCurrentUser();
         profileImage = findViewById(R.id.imagenPerfil);
 
         ParseFile parseFile = user.getParseFile("imagenPerfil");
@@ -288,11 +288,13 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
 
                     ParseFile parseFile = new ParseFile(profileImageFile);
 
-                    user = ParseUser.getCurrentUser();
-                    user.put("imagenPerfil", parseFile);
-                    user.saveInBackground();
-
-                    Toast.makeText(this, "sdfsddffsd", Toast.LENGTH_SHORT).show();
+                    try {
+                        parseFile.save();
+                        user.put("imagenPerfil", parseFile);
+                        user.saveInBackground();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
                     Picasso.get().load(user.getParseFile("imagenPerfil").getUrl()).error(R.mipmap.ic_launcher).into(profileImage);
 
@@ -315,41 +317,21 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
                     profileImageFile = new File(imgpath);
                     parseFile = new ParseFile(profileImageFile);
 
-//                    try {
-//                        parseFile.save();
-//                        profileImage.setMedia(parseFile);
-//                        img.save();
-//                    } catch (ParseException e) {
-//                        e.printStackTrace();
-//                    }
-
-                    user = ParseUser.getCurrentUser();
-                    user.put("imagenPerfil", parseFile);
-                    user.saveInBackground();
+                    try {
+                        parseFile.save();
+                        user.put("imagenPerfil", parseFile);
+                        user.saveInBackground();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
                     Picasso.get().load(user.getParseFile("imagenPerfil").getUrl()).error(R.mipmap.ic_launcher).into(profileImage);
 
                     break;
-
             }
         }
     }
-
-    public void showPopup(View view) {
-        PopupMenu popup = new PopupMenu(this, view);
-        //popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
-        popup.getMenuInflater().inflate(R.menu.popup_menu_perfil, popup.getMenu());
-        popup.show();
-    }
-
-    public void showPopup2(View view) {
-        PopupMenu popup = new PopupMenu(this, view);
-        //popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
-        popup.getMenuInflater().inflate(R.menu.popup_menu_perfil, popup.getMenu());
-        popup.show();
-    }
-
-
+    
     private String cameraFilePath;
     private File createImageFile() throws IOException {
 
@@ -371,30 +353,84 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
     }
 
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.editMenu:
-                loadProfileImage();
-                return true;
-            case R.id.deleteMenu:
+    //    public void showPopup(View view) {
+//        PopupMenu popup = new PopupMenu(this, view);
+//        popup.getMenuInflater().inflate(R.menu.popup_menu_perfil, popup.getMenu());
+//        popup.show();
+//    }
 
-                Log.i(TAG, getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File.separator + "defaultProfileImage.png");
+    public void showMenuProfileImage(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(PerfilActivity.this , "MENUEKJ 1", Toast.LENGTH_SHORT).show();
+                switch (item.getItemId()) {
+                    case R.id.editMenu:
+                        loadProfileImage();
+                        return true;
+                    case R.id.deleteMenu:
 
-                profileImageFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File.separator + "defaultProfileImage.png");
-                ParseFile parseFile2 = new ParseFile(profileImageFile);
+                        profileImageFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File.separator + "defaultProfileImage.png");
+                        ParseFile parseFile2 = new ParseFile(profileImageFile);
 
-                user = ParseUser.getCurrentUser();
-                user.put("imagenPerfil", parseFile2);
-                user.saveInBackground();
+                        try {
+                            parseFile2.save();
+                            user.put("imagenPerfil", parseFile2);
+                            user.saveInBackground();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
 
-                Picasso.get().load(user.getParseFile("imagenPerfil").getUrl()).error(R.mipmap.ic_launcher).into(profileImage);
+                        Picasso.get().load(user.getParseFile("imagenPerfil").getUrl()).error(R.mipmap.ic_launcher).into(profileImage);
 
-                return true;
-            default:
-                return false;
-        }
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+        popup.inflate(R.menu.popup_menu_perfil);
+        popup.show();
     }
+
+
+    public void showMenuCars(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.popup_menu_cars);
+        popup.show();
+    }
+
+
+
+
+//    @Override
+//    public boolean onMenuItemClick(MenuItem item) {
+//        Toast.makeText(this, "MENUEKJ", Toast.LENGTH_SHORT).show();
+//        switch (item.getItemId()) {
+//            case R.id.editMenu:
+//                loadProfileImage();
+//                return true;
+//            case R.id.deleteMenu:
+//
+//                profileImageFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File.separator + "defaultProfileImage.png");
+//                ParseFile parseFile2 = new ParseFile(profileImageFile);
+//
+//                try {
+//                    parseFile2.save();
+//                    user.put("imagenPerfil", parseFile2);
+//                    user.saveInBackground();
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                Picasso.get().load(user.getParseFile("imagenPerfil").getUrl()).error(R.mipmap.ic_launcher).into(profileImage);
+//
+//                return true;
+//            default:
+//                return false;
+//        }
+//    }
 
     public static void justifyListViewHeightBasedOnChildren (ListView listView) {
 
@@ -418,6 +454,10 @@ public class PerfilActivity extends AppCompatActivity implements PopupMenu.OnMen
     }
 
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        return false;
+    }
 }
 
 //https://medium.com/@sriramaripirala/android-10-open-failed-eacces-permission-denied-da8b630a89df

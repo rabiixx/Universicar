@@ -1,5 +1,6 @@
 package com.example.universicar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.universicar.Models.Coche;
 import com.example.universicar.Models.Viaje;
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.Arrays;
 
@@ -66,6 +69,17 @@ public class AddVehicleActivity extends AppCompatActivity {
 
         carColorSpinner.setAdapter(colorAdapter);
 
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtnAddCar);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        Button addCar = (Button)findViewById(R.id.addCar);
+
         final Coche coche = (Coche) getIntent().getSerializableExtra("coche");
         if (coche != null) {
             int index;
@@ -79,41 +93,60 @@ public class AddVehicleActivity extends AppCompatActivity {
             index = Arrays.asList(colors).indexOf(coche.getColor());
             carColorSpinner.setSelection(index);
 
+            addCar.setText("Guardar Coche");
+
+            addCar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final String brand = carBrandSpinner.getSelectedItem().toString();
+                    final String carType = carTypeSpinner.getSelectedItem().toString();
+                    final String carColor = carColorSpinner.getSelectedItem().toString();
+
+                    coche.setMarca(brand);
+                    coche.setTipoCoche(carType);
+                    coche.setColor(carColor);
+
+                    Toast.makeText(AddVehicleActivity.this, "Coche modificado correctamente", Toast.LENGTH_SHORT).show();
+                    coche.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            startActivity(new Intent(AddVehicleActivity.this, PerfilActivity.class));
+                        }
+                    });
+
+                }
+            });
+
+        } else {
+
+            addCar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    final String brand = carBrandSpinner.getSelectedItem().toString();
+                    final String carType = carTypeSpinner.getSelectedItem().toString();
+                    final String carColor = carColorSpinner.getSelectedItem().toString();
+
+                    Coche nuevoCoche = new Coche();
+                    nuevoCoche.setMarca(brand);
+                    nuevoCoche.setTipoCoche(carType);
+                    nuevoCoche.setColor(carColor);
+                    nuevoCoche.setConductor(ParseUser.getCurrentUser());
+
+                    nuevoCoche.saveInBackground();
+                    Toast.makeText(AddVehicleActivity.this, "Coche añadido correctamente", Toast.LENGTH_SHORT).show();
+
+                    startActivity(new Intent(AddVehicleActivity.this, PerfilActivity.class));
+                }
+            });
         }
 
 
-        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtnAddCar);
-
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
 
 
-        Button addCar = (Button)findViewById(R.id.addCar);
 
-        addCar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                final String brand = carBrandSpinner.getSelectedItem().toString();
-                final String carType = carTypeSpinner.getSelectedItem().toString();
-                final String carColor = carColorSpinner.getSelectedItem().toString();
 
-                Coche coche = new Coche();
-                coche.setMarca(brand);
-                coche.setTipoCoche(carType);
-                coche.setColor(carColor);
-                coche.setConductor(ParseUser.getCurrentUser());
-                //coche.put(USER_ID_KEY, ParseUser.getCurrentUser().getObjectId());
-                coche.saveInBackground();
-                Toast.makeText(AddVehicleActivity.this, "Coche añadido correctamente", Toast.LENGTH_SHORT).show();
 
-                onBackPressed();
-                //startActivity(new Intent(AddVehicleActivity.this, PerfilActivity));
-            }
-        });
     }
 }
