@@ -52,6 +52,8 @@ public class PerfilActivity extends AppCompatActivity {
                     TextView username = findViewById(R.id.usernamePerfil);
                     username.setText(user.getUsername());
 
+
+
                     ParseQuery<Opinion> query = ParseQuery.getQuery(Opinion.class);
 
                     query.whereEqualTo("usuario", user);
@@ -59,6 +61,24 @@ public class PerfilActivity extends AppCompatActivity {
                     query.findInBackground(new FindCallback<Opinion>() {
                         public void done(final List<Opinion> opiniones, ParseException e) {
                             if (e == null) {
+
+                                TextView opinionesTv = findViewById(R.id.opinionesTvPerfil);
+                                float puntuacionAVG =  puntuacionAVG(opiniones);
+                                String str = puntuacionAVG + "/5 - " + opiniones.size() + " opiniones";
+                                opinionesTv.setText(str);
+
+                                RatingBar ratingBar = findViewById(R.id.ratingBarPerfil);
+                                ratingBar.setRating(puntuacionAVG);
+
+
+                                findViewById(R.id.LlOpinionesPerfil).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent i = new Intent(PerfilActivity.this, ListaOpinionesActivity.class);
+                                        i.putExtra("opiniones", (Serializable) opiniones);
+                                        startActivity(i);
+                                    }
+                                });
 
                                 findViewById(R.id.verOpinionesPerfil).setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -68,6 +88,8 @@ public class PerfilActivity extends AppCompatActivity {
                                         startActivity(i);
                                     }
                                 });
+
+
 
                                 TextView habilidad = findViewById(R.id.habilidadListaOpiniones);
 
@@ -111,5 +133,17 @@ public class PerfilActivity extends AppCompatActivity {
         }
         return sum;
     }
+
+    private float puntuacionAVG(List <Opinion> opiniones) {
+        int sum = 0;
+        if(!opiniones.isEmpty()) {
+            for (Opinion opinion : opiniones) {
+                sum += opinion.getPuntuacion();
+            }
+            return (float) sum / opiniones.size();
+        }
+        return sum;
+    }
+
 
 }

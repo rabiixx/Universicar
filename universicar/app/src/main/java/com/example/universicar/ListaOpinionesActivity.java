@@ -30,7 +30,12 @@ public class ListaOpinionesActivity extends AppCompatActivity {
         listaOpiniones.setAdapter(adapterOpiniones);
 
         RatingBar puntuacion = findViewById(R.id.puntuacionListaOpiniones);
-        puntuacion.setRating(puntuacionAVG(opiniones));
+        float puntuacionAVG = puntuacionAVG(opiniones);
+        puntuacion.setRating(puntuacionAVG);
+
+        TextView puntuacionTv = findViewById(R.id.puntuacionTvListaOpiniones);
+        String str = puntuacionAVG + "/5 - " + opiniones.size() + " opiniones";
+        puntuacionTv.setText(str);
 
         TextView habilidad = findViewById(R.id.habilidadListaOpiniones);
 

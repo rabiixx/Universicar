@@ -99,7 +99,7 @@
                 android:textStyle="bold" />
 
             <RatingBar
-                android:id="@+id/puntuacionListaOpiniones"
+                android:id="@+id/ratingBarPerfil"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="10dp"
@@ -108,6 +108,7 @@
                 style="@style/foodRatingBar"
                 android:numStars="5"
                 android:rating="5"
+                android:stepSize="0.25"
                 android:isIndicator="true" />
 
         </RelativeLayout>
@@ -117,20 +118,21 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginVertical="10dp"
         android:background="@android:color/darker_gray"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginVertical="8dp">
+
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginVertical="8dp"
             app:srcCompat="@drawable/ic_volante_30dp"
             android:layout_gravity="center_vertical"/>
 
@@ -150,26 +152,30 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginVertical="10dp"
         android:background="@android:color/darker_gray"/>
 
     <LinearLayout
+        android:id="@+id/LlOpinionesPerfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginVertical="8dp"
-        android:layout_marginStart="20dp">
+        android:padding="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground">
 
 
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="20dp"
             app:srcCompat="@drawable/ic_star_30dp" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/opinionesTvPerfil"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -177,15 +183,24 @@
             android:textSize="18sp"
             android:textColor="#367588"
             android:fontFamily="@font/capriola"
-            android:text="5.0/5 - 5 Opiniones" />
+            android:text="5.0/5 - 5 Opiniones"
+            />
 
         <ImageButton
             android:id="@+id/verOpinionesPerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:layout_marginEnd="10dp"
-            app:srcCompat="@drawable/ic_navigate_next_30dp" />
+            app:srcCompat="@drawable/ic_navigate_next_30dp"
+            android:background="?android:attr/selectableItemBackground" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+
+
 </LinearLayout>
