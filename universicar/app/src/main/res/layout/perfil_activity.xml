@@ -74,19 +74,6 @@
 
             <!--            android:background="#0892d0"-->
 
-            <ImageView
-                android:id="@+id/editProfileImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/ic_more_vert_black_30p"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="showMenuProfileImage"/>
-
             <TextView
                 android:id="@+id/usernamePerfil"
                 android:layout_width="wrap_content"

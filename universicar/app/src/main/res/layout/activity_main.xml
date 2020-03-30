@@ -21,13 +21,6 @@
         android:textSize="40sp" />
 
     <Button
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:layout_gravity="center_horizontal"/>
-
-    <Button
         android:id="@+id/btn1Main"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"

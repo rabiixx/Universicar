@@ -52,8 +52,6 @@ public class PerfilActivity extends AppCompatActivity {
                     TextView username = findViewById(R.id.usernamePerfil);
                     username.setText(user.getUsername());
 
-
-
                     ParseQuery<Opinion> query = ParseQuery.getQuery(Opinion.class);
 
                     query.whereEqualTo("usuario", user);

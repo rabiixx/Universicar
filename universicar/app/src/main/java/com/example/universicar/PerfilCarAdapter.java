@@ -150,6 +150,7 @@ public class PerfilCarAdapter extends BaseAdapter {
                                         Toast.makeText(context, "Coche eliminado correctamente", Toast.LENGTH_SHORT).show();
                                         coches.remove(position);
                                         notifyDataSetChanged();
+//                                        MiPerfilActivity.justifyListViewHeightBasedOnChildren(coches);
                                     }
 
                                 });

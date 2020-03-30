@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -139,7 +140,13 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
                                 i.putExtra("coche", (Serializable) coche);
                                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
-                                //finish();
+                            }
+                        });
+
+                        carAdapter.registerDataSetObserver(new DataSetObserver() {
+                            @Override
+                            public void onChanged() {
+                                justifyListViewHeightBasedOnChildren(carList);
                             }
                         });
                     }
@@ -154,14 +161,14 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
         findViewById(R.id.añadirCochePerfil).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MiPerfilActivity.this, AddVehicleActivity.class));
-                finish();
+                Intent i = new Intent(MiPerfilActivity.this, AddVehicleActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
 //                carAdapter.notifyDataSetChanged();
 //                justifyListViewHeightBasedOnChildren(carList);
 
             }
         });
-
 
         Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.defavatar);
 
@@ -214,8 +221,9 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
         final CharSequence[] options = { "Hacer Foto", "Escoge desde la galeria", "Cancelar" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MiPerfilActivity.this);
-        builder.setTitle("Escoge tu foto de perfil");
-        builder.setIcon(R.drawable.ic_calendar_30dp);
+        builder.setTitle("Escoge tu foto de perfil").setIcon(R.drawable.ic_camera_24dp);
+//        builder.setIconAttribute("gravity=center_vertical", R.drawable.ic_camera_24dp);
+//        builder.setIcon(R.drawable.ic_camera_24dp);
 
         builder.setItems(options, new DialogInterface.OnClickListener() {
 
@@ -345,13 +353,6 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
         cameraFilePath = "file://" + image.getAbsolutePath();
         return image;
     }
-
-
-    //    public void showPopup(View view) {
-//        PopupMenu popup = new PopupMenu(this, view);
-//        popup.getMenuInflater().inflate(R.menu.popup_menu_perfil, popup.getMenu());
-//        popup.show();
-//    }
 
     public void showMenuProfileImage(View v) {
         PopupMenu popup = new PopupMenu(this, v);

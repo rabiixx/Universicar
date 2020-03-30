@@ -40,7 +40,7 @@ public class RatingActivity extends AppCompatActivity {
                     final RatingBar ratingBar = findViewById(R.id.ratingBar);
 
                     final TextView habilidadConduccionTV = findViewById(R.id.tvHabilidadConduccionRating);
-                    habilidadConduccionTV.append(usuario.getUsername());
+                    habilidadConduccionTV.append(usuario.getUsername() + "?");
 
                     ratingBar.setRating(5);
 
