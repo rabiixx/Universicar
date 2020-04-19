@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FormularioBuscar">
+    tools:context=".BuscarViajeActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    <RelativeLayout android:id="@+id/block1"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/Settings_phoneNumbersLbl"
         android:orientation="horizontal"
-        android:background="@color/blue">
+        android:background="#1dd1a1">
 
         <ImageButton
             android:id="@+id/backBtnBuscarViaje"
             android:layout_width="55dp"
             android:layout_height="50dp"
-            android:backgroundTint="@color/blue"
+            android:background="@android:color/transparent"
             android:clickable="true"
-            android:src="@drawable/ic_keyboard_backspace_white_24dp"
+            android:contentDescription="Back"
             android:focusable="true"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="Back" />
+            android:src="@drawable/ic_keyboard_backspace_white_24dp"
+            android:layout_centerVertical="true"/>
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Buscar_Viaje"
-            android:paddingStart="80dp"
-            android:textColor="@color/white"
             android:fontFamily="@font/salsa"
-            android:textSize="25sp"
-            android:layout_gravity="center_vertical" />
+            android:text="Buscar Viaje"
+            android:textAlignment="gravity"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
 
-    </LinearLayout>
-
-
+    </RelativeLayout>
 
     <CalendarView
         android:id="@+id/calendarView"
@@ -45,7 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp" />
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,20 +51,23 @@
         android:weightSum="2">
 
         <TextView
-            android:id="@+id/srcPlace"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/baloo_bhai"
             android:gravity="center"
             android:text="@string/Origen"
-            android:drawableRight="@drawable/ic_place_red_24dp"/>
+            android:textColor="@color/black"
+            android:textSize="18dp" />
 
         <TextView
-            android:id="@+id/destPlace"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/baloo_bhai"
             android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
             android:text="@string/destino" />
 
     </LinearLayout>
@@ -74,35 +75,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:orientation="horizontal">
 
         <Spinner
-        android:id="@+id/origenBuscarViaje"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="20dp"
-        android:padding="20dp"/>
+            android:id="@+id/origenBuscarViaje"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:padding="25dp"/>
 
         <Spinner
             android:id="@+id/destinoBuscarViaje"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="20dp"
-            android:padding="20dp"/>
-
-        <!--        <Spinner-->
-<!--            android:id="@+id/destinoBuscarViaje"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:padding="20dp" />-->
-
+            android:layout_marginEnd="20dp"
+            android:padding="25dp" />
     </LinearLayout>
-
 
     <EditText
         android:id="@+id/horaBuscarViaje"
@@ -114,10 +104,13 @@
 
     <Button
         android:id="@+id/searchSubmitBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="15dp"
         android:layout_gravity="center_horizontal"
-        android:text="@string/buscar" />
+        android:textSize="17sp"
+        android:backgroundTint="#1dd1a1"
+        android:text="Buscar Viaje" />
 
 
 

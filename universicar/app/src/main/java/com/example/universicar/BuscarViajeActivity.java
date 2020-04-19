@@ -1,7 +1,5 @@
 package com.example.universicar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,16 +14,19 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.universicar.Models.Viaje;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-public class FormularioBuscar extends AppCompatActivity {
+public class BuscarViajeActivity extends AppCompatActivity {
 
     TimePickerDialog timePicker;
     final Calendar cal = Calendar.getInstance();
@@ -34,8 +35,7 @@ public class FormularioBuscar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_formulario_buscar);
-
+        setContentView(R.layout.activity_buscar_viaje);
 
         final Spinner srcSpinner = findViewById(R.id.origenBuscarViaje);
         final Spinner destSpinner = findViewById(R.id.destinoBuscarViaje);
@@ -48,14 +48,14 @@ public class FormularioBuscar extends AppCompatActivity {
         srcSpinner.setAdapter(adapter);
         destSpinner.setAdapter(adapter);
 
-        final EditText horaEditText = (EditText)findViewById(R.id.horaBuscarViaje);
+        final EditText horaEditText = findViewById(R.id.horaBuscarViaje);
         horaEditText.requestFocus();
 
         // Calendario
-        final CalendarView calendarView = (CalendarView)findViewById(R.id.calendarView);
+        final CalendarView calendarView = findViewById(R.id.calendarView);
         calendarView.setMinDate(calendarView.getDate());
 
-        ImageButton backBtn = (ImageButton)findViewById(R.id.backBtnBuscarViaje);
+        ImageButton backBtn = findViewById(R.id.backBtnBuscarViaje);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +75,6 @@ public class FormularioBuscar extends AppCompatActivity {
             }
         });
 
-
         horaEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +82,7 @@ public class FormularioBuscar extends AppCompatActivity {
                 int hour = cldr.get(Calendar.HOUR_OF_DAY);
                 int minutes = cldr.get(Calendar.MINUTE);
 
-                timePicker = new TimePickerDialog(FormularioBuscar.this,
+                timePicker = new TimePickerDialog(BuscarViajeActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker timePicker, int sHour, int sMinute) {
@@ -108,10 +107,6 @@ public class FormularioBuscar extends AppCompatActivity {
                 String srcPlace = srcSpinner.getSelectedItem().toString();
                 String destPlace = destSpinner.getSelectedItem().toString();
 
-                //Toast.makeText(FormularioBuscar.this, cal.getTime().toString(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(FormularioBuscar.this, srcPlace, Toast.LENGTH_SHORT).show();
-                Toast.makeText(FormularioBuscar.this, destPlace, Toast.LENGTH_SHORT).show();
-
                 // Define the class to query
                 ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
 
@@ -120,22 +115,30 @@ public class FormularioBuscar extends AppCompatActivity {
                 query.whereEqualTo("destino", destPlace);
                 query.whereGreaterThanOrEqualTo("fecha", cal.getTime());
                 query.addAscendingOrder("fecha");
+                query.whereGreaterThanOrEqualTo("nPlazasDisp", 1);
+
+                if ( ParseUser.getCurrentUser().getUsername() != null ){
+                    ParseUser user = ParseUser.getCurrentUser();
+                    Log.i("debug", user.getUsername());
+                    query.whereNotEqualTo("pasajeros", ParseUser.getCurrentUser());
+                }
 
                 query.findInBackground(new FindCallback<Viaje>() {
                     @Override
                     public void done(List<Viaje> viajeList, ParseException e) {
                         if (e == null) {
                             if (viajeList.isEmpty()) {
-                                Intent i = new Intent(FormularioBuscar.this, TravelNotFoundActivity.class);
+                                Intent i = new Intent(BuscarViajeActivity.this, TravelNotFoundActivity.class);
                                 startActivity(i);
                             } else {
-                                Intent i = new Intent(FormularioBuscar.this, ListaViajes.class);
+                                Intent i = new Intent(BuscarViajeActivity.this, ListaViajes.class);
                                 i.putExtra("list", (Serializable) viajeList);
                                 startActivity(i);
                             }
                         } else {
-                            Toast.makeText(FormularioBuscar.this,e.getMessage() , Toast.LENGTH_SHORT).show();
-                            Log.d("Viaje", "Error" + e.getMessage());
+                            Log.i("debug1", e.getMessage());
+//                            Toast.makeText(BuscarViajeActivity.this, e.getMessage() , Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });

@@ -1,7 +1,6 @@
 package com.example.universicar;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.universicar.Models.Coche;
 import com.example.universicar.Models.Opinion;
 
 import java.util.List;

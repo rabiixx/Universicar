@@ -46,21 +46,21 @@ public class MainActivity extends AppCompatActivity {
                 public void done(com.parse.ParseException e) {
                     if (e == null ){
                         btn1.setText("Crear Viaje");
-                        btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_black_24dp, 0, 0, 0);
+//                        btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_black_24dp, 0, 0, 0);
                         btn2.setText("Buscar Viaje");
-                        btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_white_24dp, 0, 0, 0);
+//                        btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search_black_30dp, 0, 0, 0);
 
                         btn1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity(new Intent(MainActivity.this, FormularioCrear.class));
+                                startActivity(new Intent(MainActivity.this, CrearViajeActivity.class));
                             }
                         });
 
                         btn2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity(new Intent(MainActivity.this, FormularioBuscar.class));
+                                startActivity(new Intent(MainActivity.this, BuscarViajeActivity.class));
                             }
                         });
                     }}});
@@ -73,10 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
                             switch (item.getItemId()) {
                                 case R.id.buscarMenu:
-                                    startActivity(new Intent(MainActivity.this, FormularioBuscar.class));
+                                    startActivity(new Intent(MainActivity.this, BuscarViajeActivity.class));
                                     break;
                                 case R.id.crearMenu:
-                                    startActivity(new Intent(MainActivity.this, FormularioCrear.class));
+                                    startActivity(new Intent(MainActivity.this, CrearViajeActivity.class));
                                     break;
                                 case R.id.perfilMenu:
                                     startActivity(new Intent(MainActivity.this, MiPerfilActivity.class));
@@ -89,10 +89,6 @@ public class MainActivity extends AppCompatActivity {
                             return true;
                         }
                     });
-
-
-
-
 
         } else {
 
@@ -117,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.buscarMenu:
-                                startActivity(new Intent(MainActivity.this, FormularioBuscar.class));
+                                startActivity(new Intent(MainActivity.this, BuscarViajeActivity.class));
                                 break;
                             case R.id.crearMenu:
                             case R.id.misViajesMenu:

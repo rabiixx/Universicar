@@ -10,35 +10,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+        <RelativeLayout android:id="@+id/block1"
+            android:layout_width="fill_parent"
+            android:layout_height="55dp"
+            android:layout_below="@+id/Settings_phoneNumbersLbl"
             android:orientation="horizontal"
-            android:background="@color/blue">
+            android:background="#1dd1a1">
 
             <ImageButton
                 android:id="@+id/backBtnPerfil"
                 android:layout_width="55dp"
                 android:layout_height="50dp"
-                android:backgroundTint="@color/blue"
+                android:background="@android:color/transparent"
                 android:clickable="true"
-                android:src="@drawable/ic_keyboard_backspace_white_24dp"
+                android:contentDescription="Back"
                 android:focusable="true"
-                android:layout_gravity="center_vertical"
-                android:contentDescription="Back" />
+                android:src="@drawable/ic_keyboard_backspace_white_24dp"
+                android:layout_centerVertical="true"/>
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:fontFamily="@font/salsa"
-                android:text="@string/perfil"
-                android:layout_marginLeft="108dp"
+                android:text="Perfil"
+                android:textAlignment="gravity"
                 android:textColor="@color/white"
-                android:textSize="30sp" />
+                android:textSize="26sp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -164,11 +166,12 @@
                     android:id="@+id/usernamePerfil2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-                    android:text="Ruben Cherif"/>
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Ruben Cherif"
+                    android:textColor="#273c75"
+                    android:textSize="17sp" />
 
                 <ImageButton
                     android:id="@+id/editUsername"
@@ -199,11 +202,12 @@
                     android:id="@+id/emailPerfil"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-                    android:text="99rubenche@gmail.com"/>
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="99rubenche@gmail.com"
+                    android:textColor="#273c75"
+                    android:textSize="17sp" />
 
                 <ImageButton
                     android:id="@+id/editEmail"
@@ -213,6 +217,93 @@
                     android:background="@color/white"/>
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView89"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:textColor="#130f40"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:text="Opiniones"
+                />
+
+            <LinearLayout
+                android:id="@+id/LlOpinionesPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground">
+
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginStart="20dp"
+                    app:srcCompat="@drawable/ic_star_30dp" />
+
+                <TextView
+                    android:id="@+id/opinionesTvMiPerfil"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:textSize="18sp"
+                    android:textColor="#273c75"
+                    android:fontFamily="@font/capriola"
+                    android:text="5.0/5 - 5 Opiniones"
+                    />
+
+                <ImageButton
+                    android:id="@+id/verOpinionesPerfil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    app:srcCompat="@drawable/ic_navigate_next_30dp"
+                    android:background="?android:attr/selectableItemBackground" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginVertical="8dp"
+                    app:srcCompat="@drawable/ic_volante_30dp"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:id="@+id/habilidadCondMiPerfil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/capriola"
+                    android:text="Habilidad Conduccion: "
+                    android:textColor="#273c75"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -273,9 +364,6 @@
                 app:strokeWidth="2dp"
                 android:textColor="@color/red"
                 app:strokeColor="@color/red"/>
-
-
-
 
         </LinearLayout>
 

@@ -1,8 +1,8 @@
 package com.example.universicar.Models;
 
 import com.parse.ParseClassName;
-import com.parse.ParseUser;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.io.Serializable;
 

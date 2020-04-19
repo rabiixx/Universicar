@@ -4,15 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.universicar.Models.Coche;
+import com.example.universicar.Models.Opinion;
 import com.example.universicar.Models.Viaje;
 import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -74,6 +80,53 @@ public class MostrarMiViajeActivity extends AppCompatActivity {
             nPlazas.setText(asientosDisp);
             precio.setText(String.valueOf(viaje.getPrecio()));
 
+            ParseQuery<Opinion> query = ParseQuery.getQuery(Opinion.class);
+
+            query.whereEqualTo("usuario", user);
+            query.whereEqualTo("creador", ParseUser.getCurrentUser());
+
+            query.findInBackground(new FindCallback<Opinion>() {
+                @Override
+                public void done(List<Opinion> opinion, com.parse.ParseException e) {
+                    if (e == null) {
+                        Button btn = findViewById(R.id.opinarMostrarMiViaje);
+                        CardView cv = findViewById(R.id.opinionMiViaje);
+                        if (opinion.isEmpty()) {
+                            Log.i("debug", "null opinion");
+                            cv.setVisibility(View.GONE);
+                            btn.setVisibility(View.VISIBLE);
+                        } else {
+                            Log.i("debug", "not null opinion");
+                            cv.setVisibility(View.VISIBLE);
+                            btn.setVisibility(View.GONE);
+
+                            TextView username = findViewById(R.id.userOpinionMiViaje);
+                            TextView titulo = findViewById(R.id.tituloOpinionMiViaje);
+                            RatingBar puntuacion = findViewById(R.id.puntOpinionMiViaje);
+                            TextView descripcion = findViewById(R.id.descOpinionMiViaje);
+                            CircleImageView fotoPerfil = findViewById(R.id.imagenPerfilOpinionMiViaje);
+
+                            try {
+                                username.setText(opinion.get(0).getCreador().fetchIfNeeded().getUsername());
+                            } catch (ParseException ex) {
+                                ex.printStackTrace();
+                            }
+
+                            titulo.setText(opinion.get(0).getTitulo());
+                            descripcion.setText(opinion.get(0).getDescripcion());
+                            puntuacion.setRating(opinion.get(0).getPuntuacion().floatValue());
+
+                            ParseFile parseFile = opinion.get(0).getCreador().getParseFile("imagenPerfil");
+                            Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(fotoPerfil);
+
+
+                        }
+                    } else {
+                        Log.d("Coche", "Error: " + e.getMessage());
+                    }
+                }
+            });
+
             findViewById(R.id.opinarMostrarMiViaje).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -83,11 +136,11 @@ public class MostrarMiViajeActivity extends AppCompatActivity {
                 }
             });
 
-            ParseQuery<Coche> query = ParseQuery.getQuery(Coche.class);
+            ParseQuery<Coche> query2 = ParseQuery.getQuery(Coche.class);
 
-            query.whereEqualTo("Conductor", user);
+            query2.whereEqualTo("Conductor", user);
 
-            query.findInBackground(new FindCallback<Coche>() {
+            query2.findInBackground(new FindCallback<Coche>() {
                 @Override
                 public void done(List<Coche> coches, com.parse.ParseException e) {
                     if (e == null) {

@@ -7,29 +7,27 @@
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
-
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
-        android:name="com.example.universicar.ParseApplication"
+        android:name=".ParseApplication"
         android:icon="@mipmap/app_logo"
         android:label="@string/universicar"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:requestLegacyExternalStorage="true"
-        tools:targetApi="q"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="q">
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -38,11 +36,10 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths">
-            </meta-data>
+                android:resource="@xml/file_paths"></meta-data>
         </provider>
 
-        <activity android:name="com.example.universicar.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,47 +47,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.universicar.LoginActivity"
+            android:name=".LoginActivity"
             android:label="Sign In" />
         <activity
-            android:name="com.example.universicar.RegistrationActivity"
+            android:name=".RegistrationActivity"
             android:label="Registration" />
-        <activity android:name="com.example.universicar.FormularioCrear" />
-        <activity android:name="com.example.universicar.FormularioBuscar" />
-        <activity android:name="com.example.universicar.MisViajes" />
-        <activity android:name="com.example.universicar.testActivity" />
+        <activity android:name=".CrearViajeActivity" />
+        <activity android:name=".BuscarViajeActivity" />
+        <activity android:name=".MisViajes" />
         <activity
-            android:name="com.example.universicar.ListaViajes"
+            android:name=".ListaViajes"
             android:label="Lista Viajes" />
         <activity
-            android:name="com.example.universicar.AddVehicleActivity"
+            android:name=".AnadirCocheActivity"
             android:label="Add Vehicle" />
         <activity
-            android:name="com.example.universicar.MostrarViajeActivity"
+            android:name=".MostrarViajeActivity"
             android:label="Add Vehicle" />
         <activity
-            android:name="com.example.universicar.MostrarMiViajeActivity"
+            android:name=".MostrarMiViajeActivity"
             android:label="Add Vehicle" />
         <activity
-            android:name="com.example.universicar.BottomNavActivity"
+            android:name=".BottomNavActivity"
             android:label="Add Vehicle" />
         <activity
-            android:name="com.example.universicar.TravelNotFoundActivity"
+            android:name=".TravelNotFoundActivity"
             android:label="Add Vehicle" />
         <activity
-            android:name="com.example.universicar.MiPerfilActivity"
+            android:name=".MiPerfilActivity"
             android:label="User Admin)" />
-
         <activity
-            android:name="com.example.universicar.RatingActivity"
+            android:name=".RatingActivity"
             android:label="Rating" />
-
         <activity
-            android:name="com.example.universicar.PerfilActivity"
+            android:name=".PerfilActivity"
             android:label="User Profile" />
-
         <activity
-            android:name="com.example.universicar.ListaOpinionesActivity"
+            android:name=".ListaOpinionesActivity"
             android:label="Rating list" />
 
         <meta-data

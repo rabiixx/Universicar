@@ -1,7 +1,7 @@
 package com.example.universicar.Models;
 
-import com.parse.ParseObject;
 import com.parse.ParseClassName;
+import com.parse.ParseObject;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
@@ -38,6 +38,10 @@ public class Viaje extends ParseObject implements Serializable {
         String myFormat = "dd/MM/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
         return (sdf.format(fecha));
+    }
+
+    public Date getFechaDate() {
+        return getDate("fecha");
     }
 
     public void setFecha(Date fecha) {

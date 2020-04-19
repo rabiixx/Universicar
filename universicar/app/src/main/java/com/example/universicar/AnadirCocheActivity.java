@@ -17,12 +17,12 @@ import com.parse.SaveCallback;
 
 import java.util.Arrays;
 
-public class AddVehicleActivity extends AppCompatActivity {
+public class AnadirCocheActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_vehicle);
+        setContentView(R.layout.activity_anadir_coche);
 
 
         final Spinner carBrandSpinner = (Spinner)findViewById(R.id.brandSpinner);
@@ -105,11 +105,11 @@ public class AddVehicleActivity extends AppCompatActivity {
                     coche.setTipoCoche(carType);
                     coche.setColor(carColor);
 
-                    Toast.makeText(AddVehicleActivity.this, "Coche modificado correctamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AnadirCocheActivity.this, "Coche modificado correctamente", Toast.LENGTH_SHORT).show();
                     coche.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
-                            Intent i = new Intent(AddVehicleActivity.this, MiPerfilActivity.class);
+                            Intent i = new Intent(AnadirCocheActivity.this, MiPerfilActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
                             finish();
@@ -136,9 +136,9 @@ public class AddVehicleActivity extends AppCompatActivity {
                     nuevoCoche.setConductor(ParseUser.getCurrentUser());
 
                     nuevoCoche.saveInBackground();
-                    Toast.makeText(AddVehicleActivity.this, "Coche añadido correctamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AnadirCocheActivity.this, "Coche añadido correctamente", Toast.LENGTH_SHORT).show();
 
-                    Intent i = new Intent(AddVehicleActivity.this, MiPerfilActivity.class);
+                    Intent i = new Intent(AnadirCocheActivity.this, MiPerfilActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                     finish();

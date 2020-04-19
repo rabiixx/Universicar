@@ -1,8 +1,12 @@
 package com.example.universicar;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,8 +16,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -32,6 +41,13 @@ public class RegistrationActivity extends AppCompatActivity {
                 startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
             }
         });
+
+        File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/defaultProfileImage.png");
+        if ( !getExternalFilesDir(Environment.DIRECTORY_PICTURES).exists() ) {
+
+        }
+
+
 
         Button submit = findViewById(R.id.btnLogin);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +70,27 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void done(ParseException e) {
                         if (e == null) {
+
+                            /* Save default Profile Image */
+                            File defaultProfileImage = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/defaultProfileImage.png");
+                            if ( !defaultProfileImage.exists() ) {
+                                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.defavatar);
+                                saveBitmapToFile( getExternalFilesDir(Environment.DIRECTORY_PICTURES),"defaultProfileImage.png", bm, Bitmap.CompressFormat.PNG,100);
+                            }
+
+                            ParseFile parseFile = new ParseFile(defaultProfileImage);
+
+                            try {
+                                parseFile.save();
+                                ParseUser user = ParseUser.getCurrentUser();
+                                user.put("imagenPerfil", parseFile);
+                                user.saveInBackground();
+                            } catch (ParseException ex) {
+                                ex.printStackTrace();
+                            }
+
+
+
                             Toast.makeText(RegistrationActivity.this, "Register Success", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                         } else {
@@ -65,5 +102,34 @@ public class RegistrationActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+
+    public boolean saveBitmapToFile(File dir, String fileName, Bitmap bm, Bitmap.CompressFormat format, int quality) {
+
+        File imageFile = new File(dir, fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(imageFile);
+
+            bm.compress(format, quality, fos);
+
+            fos.close();
+
+            return true;
+        }
+        catch (IOException e) {
+            Log.e("app",e.getMessage());
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+        return false;
     }
 }

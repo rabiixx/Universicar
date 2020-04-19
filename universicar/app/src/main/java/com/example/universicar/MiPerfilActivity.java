@@ -1,13 +1,13 @@
 package com.example.universicar;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.DataSetObserver;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,11 +26,15 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.example.universicar.Models.Coche;
+import com.example.universicar.Models.Opinion;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -39,7 +43,6 @@ import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -48,19 +51,27 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
 public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
 
     static final int CAMERA_REQUEST_CODE = 1;
     static final int GALLERY_REQUEST_CODE = 2;
+    private static final int CAMERA_PERMISSION_CODE = 48;
+    private static final int READ_STORAGE_PERMISSION_CODE = 501;
+    private static final int WRITE_STORAGE_PERMISSION_CODE = 747;
+
+
     final String TAG = "debug";
 
     private final ParseUser user = ParseUser.getCurrentUser();
     private ImageButton moreOptions;
     private File profileImageFile;
     private TextView username;
+    private TextView usernameTv;
+    private TextView emailTv;
     private String defaultImagePath;
     private ParseFile parseFile;
+    private TextView opinionesTv;
+    private TextView habilidadCondTv;
     CircleImageView profileImage;
     Uri URI;
     PerfilCarAdapter carAdapter;
@@ -78,10 +89,16 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
         ParseFile parseFile = user.getParseFile("imagenPerfil");
         Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(profileImage);
 
-        username = (TextView)findViewById(R.id.usernamePerfil);
+        username = findViewById(R.id.usernamePerfil);
         username.setText(user.getUsername());
 
-        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtnPerfil);
+        usernameTv = findViewById(R.id.usernamePerfil2);
+        usernameTv.setText(user.getUsername());
+
+        emailTv = findViewById(R.id.emailPerfil);
+        emailTv.setText(user.getEmail());
+
+        ImageButton backBtn = findViewById(R.id.backBtnPerfil);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +113,61 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
                loadProfileImage();
             }
         });
+
+        /* Consultamos las opiniones sobre el usuario */
+        ParseQuery<Opinion> query = ParseQuery.getQuery(Opinion.class);
+        query.whereEqualTo("usuario", ParseUser.getCurrentUser());
+
+        query.findInBackground(new FindCallback<Opinion>() {
+            public void done(final List<Opinion> opiniones, ParseException e) {
+                if (e == null) {
+
+                    opinionesTv = findViewById(R.id.opinionesTvMiPerfil);
+                    float puntuacionAVG = PerfilActivity.puntuacionAVG(opiniones);
+                    String str = puntuacionAVG + "/5 - " + opiniones.size() + " opiniones";
+                    opinionesTv.setText(str);
+
+                    findViewById(R.id.LlOpinionesPerfil).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(MiPerfilActivity.this, ListaOpinionesActivity.class);
+                            i.putExtra("opiniones", (Serializable) opiniones);
+                            startActivity(i);
+                        }
+                    });
+
+                    findViewById(R.id.verOpinionesPerfil).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(MiPerfilActivity.this, ListaOpinionesActivity.class);
+                            i.putExtra("opiniones", (Serializable) opiniones);
+                            startActivity(i);
+                        }
+                    });
+
+                    habilidadCondTv = findViewById(R.id.habilidadCondMiPerfil);
+
+                    switch ((int) Math.round(PerfilActivity.habilidadAVG(opiniones))) {
+                        case 1:
+                            habilidadCondTv.append("Mal");
+                            break;
+                        case 2:
+                            habilidadCondTv.append("Regular");
+                            break;
+                        case 3:
+                            habilidadCondTv.append("Bien");
+                            break;
+                        case 4:
+                            habilidadCondTv.append("Muy Bien");
+                            break;
+                    }
+
+                } else {
+                    Log.d("item", "Error: " + e.getMessage());
+                }
+            }
+        });
+
 
         Button btnLogout = (Button)findViewById(R.id.logoutPerfil);
 
@@ -115,11 +187,11 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
         /* LISTA COCHES USUARIO */
 
         /* Consultamos los coches que tiene el usuario correspondiente */
-        ParseQuery<Coche> query = ParseQuery.getQuery(Coche.class);
+        ParseQuery<Coche> queryCoches = ParseQuery.getQuery(Coche.class);
 
-        query.whereEqualTo("Conductor", user);
+        queryCoches.whereEqualTo("Conductor", user);
 
-        query.findInBackground(new FindCallback<Coche>() {
+        queryCoches.findInBackground(new FindCallback<Coche>() {
 
             @Override
             public void done(List<Coche> coches, com.parse.ParseException e) {
@@ -136,7 +208,7 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
                             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                                 Coche coche = (Coche) carList.getItemAtPosition(position);
                                 Toast.makeText(MiPerfilActivity.this, "Selected :" , Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(MiPerfilActivity.this, AddVehicleActivity.class);
+                                Intent i = new Intent(MiPerfilActivity.this, AnadirCocheActivity.class);
                                 i.putExtra("coche", (Serializable) coche);
                                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
@@ -156,12 +228,10 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
             }
         });
 
-//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
         findViewById(R.id.añadirCochePerfil).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MiPerfilActivity.this, AddVehicleActivity.class);
+                Intent i = new Intent(MiPerfilActivity.this, AnadirCocheActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
 //                carAdapter.notifyDataSetChanged();
@@ -170,55 +240,41 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
             }
         });
 
-        Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.defavatar);
-
-//        boolean doSave = true;
-//        if (!dir.exists()) {
-//            Log.i(TAG, "BUGUGUGUGUGU");
-//            doSave = dir.mkdirs();
-//        }
-//
-//        if (doSave) {
-            saveBitmapToFile( getExternalFilesDir(Environment.DIRECTORY_PICTURES),"defaultProfileImage.png",bm,Bitmap.CompressFormat.PNG,100);
-//        }
-//        else {
-//            Log.e("app","Couldn't create target directory.");
-//        }
-
-
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-    public boolean saveBitmapToFile(File dir, String fileName, Bitmap bm, Bitmap.CompressFormat format, int quality) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        File imageFile = new File(dir,fileName);
+        if ( hasAllPermissionsGranted(grantResults) ) {
+            Log.i("debug", "estamos dentro julio");
 
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(imageFile);
+            if (requestCode == CAMERA_PERMISSION_CODE ) {
+                captureFromCamera();
+            } else {
+                captureFromGallery();
+            }
 
-            bm.compress(format,quality,fos);
-
-            fos.close();
-
-            return true;
+        } else {
+            Log.i("debug", "estamos fuera julio");
         }
-        catch (IOException e) {
-            Log.e("app",e.getMessage());
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+    }
+
+    public boolean hasAllPermissionsGranted(@NonNull int[] grantResults) {
+        for (int grantResult : grantResults) {
+            if (grantResult == PackageManager.PERMISSION_DENIED) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
+
+
 
 
     public void loadProfileImage() {
-        final CharSequence[] options = { "Hacer Foto", "Escoge desde la galeria", "Cancelar" };
+        final CharSequence[] options = { "Hacer Foto", "Escoger desde la galeria", "Cancelar" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MiPerfilActivity.this);
         builder.setTitle("Escoge tu foto de perfil").setIcon(R.drawable.ic_camera_24dp);
@@ -230,17 +286,37 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
             @SuppressLint("IntentReset")
             @Override
             public void onClick(DialogInterface dialog, int item) {
+                Log.i("debug", "click");
 
                 if (options[item].equals("Hacer Foto")) {
-                    captureFromCamera();
-                } else if (options[item].equals("Escoge desde la galeria")) {
-                    captureFromGallery();
+
+                    Log.i("debug", "foto");
+
+                    /* Check for Granted Permissions */
+                    if(ContextCompat.checkSelfPermission(MiPerfilActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                        && ContextCompat.checkSelfPermission(MiPerfilActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ) {
+
+                        ActivityCompat.requestPermissions(MiPerfilActivity.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_CODE);
+                    } else {
+                        captureFromCamera();
+                    }
+
+                } else if (options[item].equals("Escoger desde la galeria")) {
+
+                    if ( ContextCompat.checkSelfPermission(MiPerfilActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(MiPerfilActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_STORAGE_PERMISSION_CODE);
+                    } else {
+                        captureFromGallery();
+                    }
+
                 } else if (options[item].equals("Cancelar")) {
                     dialog.dismiss();
                 }
             }
         });
         builder.show();
+
+
     }
 
     private void captureFromCamera() {

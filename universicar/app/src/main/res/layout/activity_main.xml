@@ -6,45 +6,60 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:background="@drawable/bg1"
+    android:background="@drawable/bg8"
     android:scaleType = "centerCrop">
+
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:fontFamily="@font/salsa"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/baloo_bhai"
+        android:letterSpacing="0.15"
         android:text="Universicar"
         android:textAlignment="center"
-        android:textSize="40sp" />
-
-    <Button
-        android:id="@+id/btn1Main"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="450dp"
-        android:layout_gravity="center_horizontal"
-        android:backgroundTint="#ffffff"
-        android:textColor="@color/black"
-        android:text="Iniciar Sesion" />
-
-    <Button
-        android:id="@+id/btn2Main"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:backgroundTint="#ae5002"
-        android:textColor="@color/black"
-        android:text="Registrarse" />
-
+        android:textColor="@color/white"
+        android:textSize="45sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center|bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn1Main"
+            android:layout_height="55dp"
+            android:layout_width="350dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center|center_vertical"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="#1dd1a1"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:text="Iniciar Sesion" />
+
+        <Button
+            android:id="@+id/btn2Main"
+            android:layout_height="55dp"
+            android:layout_width="350dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="#0abde3"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:text="Registrarse" />
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
         android:orientation="vertical" >
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -52,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/blue"
+            android:background="#1dd1a1"
             app:itemIconTint="@color/white"
             app:itemTextColor="@color/white"
             app:menu="@menu/bottom_nav_items">

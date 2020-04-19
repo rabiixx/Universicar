@@ -6,21 +6,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.universicar.Models.Viaje;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CustomAdapter extends ArrayAdapter<Viaje> {
 
     private static final String TAG = "debug";
     List<Viaje> viajes;
+    int code = 1;
 
-    CustomAdapter(Context context,  List<Viaje> viajes) {
+    CustomAdapter(Context context,  List<Viaje> viajes, int code) {
         super(context, 0, viajes);
         this.viajes = viajes;
+        this.code = code;
     }
 
     @Override
@@ -44,10 +53,33 @@ public class CustomAdapter extends ArrayAdapter<Viaje> {
             Log.e(TAG, "Something has gone terribly wrong with Parse", e);
         }
 
-        TextView origen = (TextView) convertView.findViewById(R.id.txtSrc);
-        TextView destino = (TextView) convertView.findViewById(R.id.txtDest);
-        TextView username = (TextView)convertView.findViewById(R.id.username);
-        TextView precio = (TextView)convertView.findViewById(R.id.price);
+        TextView origen = convertView.findViewById(R.id.txtSrc);
+        TextView destino = convertView.findViewById(R.id.txtDest);
+        TextView username = convertView.findViewById(R.id.username);
+        TextView precio = convertView.findViewById(R.id.price);
+        ImageView disp = convertView.findViewById(R.id.dispImage);
+
+        if (code == 1) {
+            TextView fecha = convertView.findViewById(R.id.fechaListaViajes);
+            fecha.setText(viaje.getFecha());
+            Date date = viaje.getFechaDate();
+            Date currentTime = Calendar.getInstance().getTime();
+
+            if ( date.after(currentTime) ) {
+                disp.setColorFilter(getContext().getResources().getColor(R.color.green));
+            } else {
+                disp.setColorFilter(getContext().getResources().getColor(R.color.red));
+            }
+
+        } else {
+            disp.setVisibility(View.GONE);
+        }
+
+
+
+        ParseFile parseFile = user.getParseFile("imagenPerfil");
+        CircleImageView imagenPerfil = convertView.findViewById(R.id.profileImageListaViajes);
+        Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(imagenPerfil);
 
         origen.setText(viaje.getOrigen());
         destino.setText(viaje.getDestino());

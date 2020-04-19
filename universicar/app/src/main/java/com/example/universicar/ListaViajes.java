@@ -23,11 +23,10 @@ public class ListaViajes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_viajes);
 
-
-        TextView title = (TextView)findViewById(R.id.titleListaViaje);
+        TextView title = findViewById(R.id.titleListaViaje);
         title.setText("Viajes Disponibles");
 
-        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtnListaViajes);
+        ImageButton backBtn = findViewById(R.id.backBtnListaViajes);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,21 +37,17 @@ public class ListaViajes extends AppCompatActivity {
 
         @SuppressWarnings("unchecked") final List<Viaje> viajes = (List<Viaje>) getIntent().getSerializableExtra("list");
 
-        //Toast.makeText(ListaViajes.this, viajes.get(2).getDestino(), Toast.LENGTH_SHORT).show();
-
-        //ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);ç
-        //query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
-
         final ListView listaViajes = findViewById(R.id.travelList);
-        CustomAdapter customAdapter = new CustomAdapter(this, viajes);
+        CustomAdapter customAdapter = new CustomAdapter(this, viajes, 2);
         listaViajes.setAdapter(customAdapter);
 
 
         listaViajes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+
                 Viaje viaje = (Viaje) listaViajes.getItemAtPosition(position);
-                //Toast.makeText(ListaViajes.this, "Selected :" + " " + viaje.getOrigen()+", "+ viaje.getDestino(), Toast.LENGTH_SHORT).show();
+
                 Intent i = new Intent(ListaViajes.this, MostrarViajeActivity.class);
                 i.putExtra("viaje", (Serializable) viaje);
                 startActivity(i);

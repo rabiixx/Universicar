@@ -3,7 +3,6 @@ package com.example.universicar;
 import android.app.Application;
 
 import com.example.universicar.Models.Coche;
-import com.example.universicar.Models.Imagen;
 import com.example.universicar.Models.Opinion;
 import com.example.universicar.Models.Viaje;
 import com.parse.Parse;
@@ -19,7 +18,6 @@ public class ParseApplication extends Application {
         // Parse Models Registration
         ParseObject.registerSubclass(Viaje.class);
         ParseObject.registerSubclass(Coche.class);
-        ParseObject.registerSubclass(Imagen.class);
         ParseObject.registerSubclass(Opinion.class);
 
 

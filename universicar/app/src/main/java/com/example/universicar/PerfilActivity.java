@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -121,7 +118,7 @@ public class PerfilActivity extends AppCompatActivity {
 
     }
 
-    private double habilidadAVG(List <Opinion> opiniones) {
+    static double habilidadAVG(List <Opinion> opiniones) {
         int sum = 0;
         if(!opiniones.isEmpty()) {
             for (Opinion opinion : opiniones) {
@@ -132,7 +129,7 @@ public class PerfilActivity extends AppCompatActivity {
         return sum;
     }
 
-    private float puntuacionAVG(List <Opinion> opiniones) {
+    static float puntuacionAVG(List <Opinion> opiniones) {
         int sum = 0;
         if(!opiniones.isEmpty()) {
             for (Opinion opinion : opiniones) {

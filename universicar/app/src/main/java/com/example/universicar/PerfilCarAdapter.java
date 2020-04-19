@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -137,7 +136,7 @@ public class PerfilCarAdapter extends BaseAdapter {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.editarCoche:
-                                Intent i = new Intent(parent.getContext(), AddVehicleActivity.class);
+                                Intent i = new Intent(parent.getContext(), AnadirCocheActivity.class);
                                 i.putExtra("coche", (Serializable) getItem(position));
                                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 context.startActivity(i);
