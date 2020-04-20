@@ -19,13 +19,20 @@ public class ListaOpinionesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.lista_opiniones_activity);
+        setContentView(R.layout.activity_lista_opiniones);
 
         @SuppressWarnings("unchecked") final List<Opinion> opiniones = (List<Opinion>) getIntent().getSerializableExtra("opiniones");
 
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         ListView listaOpiniones = findViewById(R.id.listaOpinionesPerfil);
-        AdapterOpiniones adapterOpiniones = new AdapterOpiniones(ListaOpinionesActivity.this, opiniones);
-        listaOpiniones.setAdapter(adapterOpiniones);
+        AdapterOpinion adapterOpinion = new AdapterOpinion(ListaOpinionesActivity.this, opiniones);
+        listaOpiniones.setAdapter(adapterOpinion);
 
         RatingBar puntuacion = findViewById(R.id.puntuacionListaOpiniones);
         float puntuacionAVG = puntuacionAVG(opiniones);

@@ -9,7 +9,6 @@
     <RelativeLayout android:id="@+id/block1"
         android:layout_width="fill_parent"
         android:layout_height="55dp"
-        android:layout_below="@+id/Settings_phoneNumbersLbl"
         android:orientation="horizontal"
         android:background="#1dd1a1">
 
@@ -25,11 +24,10 @@
             android:layout_centerVertical="true"/>
 
         <TextView
-            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/salsa"
-            android:text="Buscar Viaje"
+            android:text="Buscar Viajes"
             android:textAlignment="gravity"
             android:textColor="@color/white"
             android:textSize="26sp"
@@ -42,7 +40,7 @@
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -99,8 +97,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:hint="Hora"/>
+        android:ems="5"
+        android:hint="Hora"
+        android:textAlignment="center"/>
 
     <Button
         android:id="@+id/searchSubmitBtn"
@@ -110,8 +109,6 @@
         android:layout_gravity="center_horizontal"
         android:textSize="17sp"
         android:backgroundTint="#1dd1a1"
-        android:text="Buscar Viaje" />
-
-
+        android:text="Buscar Viajes" />
 
 </LinearLayout>

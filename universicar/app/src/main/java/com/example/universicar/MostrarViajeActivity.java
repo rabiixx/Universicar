@@ -5,15 +5,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.universicar.Models.Coche;
+import com.example.universicar.Models.Opinion;
 import com.example.universicar.Models.Viaje;
 import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -32,35 +36,32 @@ public class MostrarViajeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostrar_viaje);
 
+        final int code = getIntent().getIntExtra("code", 1);
         final Viaje viaje = (Viaje) getIntent().getSerializableExtra("viaje");
 
-        TextView origen = (TextView)findViewById(R.id.origenInfoViaje);
-        TextView destino = (TextView)findViewById(R.id.destinoInfoViaje);
-        TextView fecha = (TextView)findViewById(R.id.fechaInfoViaje);
-        TextView hora = (TextView)findViewById(R.id.horaInfoViaje);
-        TextView conductor = (TextView)findViewById(R.id.conductorInfoViaje);
-        TextView nPlazas = (TextView)findViewById(R.id.plazasInfoViaje);
-        TextView precio = (TextView)findViewById(R.id.precioInfoViaje);
-        final TextView cocheTv = (TextView)findViewById(R.id.cocheInfoViaje);
-        final TextView colorTv = (TextView)findViewById(R.id.colorInfoViaje);
-        LinearLayout conductorLL = findViewById(R.id.conductorLLMostrarViaje);
-        CircleImageView imagenPerfil = findViewById(R.id.profileImageMostrarViaje);
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
+        CircleImageView imagenPerfil = findViewById(R.id.imagenPerfil);
+        TextView conductor = findViewById(R.id.conductor);
+        TextView origen = findViewById(R.id.origen);
+        TextView destino = findViewById(R.id.destino);
+        TextView fecha = findViewById(R.id.fecha);
+        TextView hora = findViewById(R.id.hora);
+        TextView nPlazas = findViewById(R.id.nAsientos);
+        TextView precio = findViewById(R.id.precio);
 
-        Button reservar = (Button)findViewById(R.id.submitInfoViaje);
 
         final ParseUser user = viaje.getConductor();
-
-        try {
-            String nombreConductor = user.fetchIfNeeded().getString("name");
-        } catch (com.parse.ParseException e) {
-            Log.e(TAG, "Something has gone terribly wrong with Parse", e);
-        }
 
         ParseFile parseFile = user.getParseFile("imagenPerfil");
         Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(imagenPerfil);
 
-        conductorLL.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.conductor).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MostrarViajeActivity.this, PerfilActivity.class);
@@ -78,26 +79,79 @@ public class MostrarViajeActivity extends AppCompatActivity {
         nPlazas.setText(asientosDisp);
         precio.setText(String.valueOf(viaje.getPrecio()));
 
-        ParseQuery<Coche> query = ParseQuery.getQuery(Coche.class);
+        ParseQuery<Coche> queryCoche = ParseQuery.getQuery(Coche.class);
+        queryCoche.whereEqualTo("Conductor", user);
 
-        query.whereEqualTo("Conductor", user);
-
-        query.findInBackground(new FindCallback<Coche>() {
+        queryCoche.findInBackground(new FindCallback<Coche>() {
             @Override
             public void done(List<Coche> coches, com.parse.ParseException e) {
                 if (e == null) {
-                    if (coches.isEmpty()) {
-                        Toast.makeText(MostrarViajeActivity.this, "No CARS", Toast.LENGTH_SHORT).show();
-                        LinearLayout ll = (LinearLayout)findViewById(R.id.cocheLayoutInfoViaje);
-                        ll.setVisibility(LinearLayout.GONE);
-                    } else {
-                        //Toast.makeText(MostrarViaje.this, coches.size(), Toast.LENGTH_SHORT).show();
-                        assert coches.get(0) == null;
+                    if (!coches.isEmpty()) {
+
+                        LinearLayout cocheLL = findViewById(R.id.cocheLL);
+                        cocheLL.setVisibility(LinearLayout.VISIBLE);
+
+                        TextView marcaCoche = findViewById(R.id.marcaCoche);
+                        TextView corlorCoche = findViewById(R.id.colorCoche);
+                        ImageView iconoCoche = findViewById(R.id.iconoCoche);
+
                         Coche coche = coches.get(0);
-                        String color = coche.getColor();
-                        String marca = coches.get(0).getMarca();
-                        cocheTv.setText(marca);
-                        colorTv.setText(color);
+                        corlorCoche.setText(coche.getColor());
+                        marcaCoche.setText(coche.getMarca());
+
+                        switch (coche.getTipoCoche()) {
+                            case "Compacto":
+                            default:
+                                iconoCoche.setImageResource(R.drawable.ic_car_compacto_60dp);
+                                break;
+                            case "Deportivo":
+                                iconoCoche.setImageResource(R.drawable.ic_car_deportivo_60dp);
+                                break;
+                            case "Familiar":
+                                iconoCoche.setImageResource(R.drawable.ic_car_familiar_60dp);
+                                break;
+                            case "Descapotable":
+                                iconoCoche.setImageResource(R.drawable.ic_car_descapotable_60dp);
+                                break;
+                            case "Biplaza":
+                                iconoCoche.setImageResource(R.drawable.ic_car_biplaza_60dp);
+                                break;
+                            case "Todoterrno":
+                                iconoCoche.setImageResource(R.drawable.ic_car_todoterreno_60dp);
+                                break;
+                        }
+                        switch (coche.getColor()) {
+                            case "Negro":
+                                iconoCoche.setColorFilter(getResources().getColor(R.color.black));
+                                break;
+                            case "Azul":
+                                iconoCoche.setColorFilter(getResources().getColor(R.color.blue));
+                                break;
+                            case "Verde":
+                                iconoCoche.setColorFilter(getResources().getColor(R.color.green));
+                                break;
+                            case "Gris":
+                                iconoCoche.setColorFilter(getResources().getColor(R.color.grey));
+                                break;
+                            case "Naranja":
+                                iconoCoche.setColorFilter(getResources().getColor(R.color.oranje));
+                                break;
+                            case "Rosa":
+                                iconoCoche.setColorFilter(getResources().getColor(R.color.pink));
+                                break;
+                            case "Rojo":
+                                iconoCoche.setColorFilter(getResources().getColor(R.color.red));
+                                break;
+                            case "Blanco":
+                                iconoCoche.setColorFilter(getResources().getColor(R.color.snow));
+                                break;
+                            case "Amarillo":
+                                iconoCoche.setColorFilter(getResources().getColor(R.color.yellow));
+                                break;
+                            default:
+                                Log.i("debug", "Problem loading car color");
+                                break;
+                        }
                     }
                 } else {
                     Log.d("Coche", "Error: " + e.getMessage());
@@ -105,29 +159,93 @@ public class MostrarViajeActivity extends AppCompatActivity {
             }
         });
 
+        /* Mis Viajes */
+        if (code == 1) {
 
-        reservar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viaje.getPasajeros().getQuery().findInBackground(new FindCallback<ParseUser>() {
-                    @Override
-                    public void done(List<ParseUser> pasajeros, com.parse.ParseException e) {
-                        if (e == null) {
-                            viaje.addPasajero(ParseUser.getCurrentUser());
-                            viaje.setNPlazasDisp(viaje.getNPlazasDisp() - 1);
-                            viaje.saveInBackground();
+            Log.i("debug", "code 1");
 
-                            Toast.makeText(MostrarViajeActivity.this, "Reserva Realizada", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MostrarViajeActivity.this, MainActivity.class);
-                            startActivity(intent);
+            ParseQuery<Opinion> queryOpinion = ParseQuery.getQuery(Opinion.class);
+
+            queryOpinion.whereEqualTo("usuario", user);
+            queryOpinion.whereEqualTo("creador", ParseUser.getCurrentUser());
+
+            queryOpinion.findInBackground(new FindCallback<Opinion>() {
+                @Override
+                public void done(List<Opinion> opinion, ParseException e) {
+                    if (e == null) {
+
+                        Button btnOpinar = findViewById(R.id.btnOpinar);
+
+                        if (opinion.isEmpty()) {
+                            btnOpinar.setVisibility(View.VISIBLE);
+
+                            btnOpinar.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Log.i("debug", "opinat btn pressed");
+                                    Intent intent = new Intent(MostrarViajeActivity.this, OpinarActivity.class);
+                                    intent.putExtra("userId", user.getObjectId());
+                                    startActivity(intent);
+                                }
+                            });
                         } else {
-                            Log.d("Pasajeros", "Error: " + e.getMessage());
+
+                            findViewById(R.id.opinion).setVisibility(View.VISIBLE);
+
+                            TextView username = findViewById(R.id.userOpinionMiViaje);
+                            TextView titulo = findViewById(R.id.tituloOpinionMiViaje);
+                            RatingBar puntuacion = findViewById(R.id.puntOpinionMiViaje);
+                            TextView descripcion = findViewById(R.id.descOpinionMiViaje);
+                            CircleImageView fotoPerfil = findViewById(R.id.imagenPerfilOpinionMiViaje);
+
+                            try {
+                                username.setText(opinion.get(0).getCreador().fetchIfNeeded().getUsername());
+                            } catch (ParseException ex) {
+                                ex.printStackTrace();
+                            }
+
+                            titulo.setText(opinion.get(0).getTitulo());
+                            descripcion.setText(opinion.get(0).getDescripcion());
+                            puntuacion.setRating(opinion.get(0).getPuntuacion().floatValue());
+
+                            ParseFile parseFile = opinion.get(0).getCreador().getParseFile("imagenPerfil");
+                            Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(fotoPerfil);
                         }
+                    } else {
+                        Log.d("debug", "Error: " + e.getMessage());
                     }
+                }
+            });
 
-                });
-            }
-        });
+        } else {
+            Log.i("debug", "code 2");
 
+            Button btnReservar = findViewById(R.id.btnReservar);
+            btnReservar.setVisibility(View.VISIBLE);
+
+            btnReservar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    viaje.getPasajeros().getQuery().findInBackground(new FindCallback<ParseUser>() {
+                        @Override
+                        public void done(List<ParseUser> pasajeros, com.parse.ParseException e) {
+                            if (e == null) {
+                                viaje.addPasajero(ParseUser.getCurrentUser());
+                                viaje.setNPlazasDisp(viaje.getNPlazasDisp() - 1);
+                                viaje.saveInBackground();
+
+                                Toast.makeText(MostrarViajeActivity.this, "Reserva Realizada Correctamente", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MostrarViajeActivity.this, MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            } else {
+                                Log.d("Pasajeros", "Error: " + e.getMessage());
+                            }
+                        }
+
+                    });
+                }
+            });
+        }
     }
 }

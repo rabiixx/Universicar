@@ -61,8 +61,6 @@ public class Coche extends ParseObject implements Serializable {
         this.estadoVehiculo = estadoVehiculo;
     }
 
-
-
     public String getDescripcion() {
         return descripcion;
     }

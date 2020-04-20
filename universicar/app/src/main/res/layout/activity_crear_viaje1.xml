@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CrearViajeActivity">
+    tools:context=".CrearViajeActivity1">
 
     <RelativeLayout android:id="@+id/block1"
         android:layout_width="fill_parent"
         android:layout_height="55dp"
         android:layout_below="@+id/Settings_phoneNumbersLbl"
         android:orientation="horizontal"
-        android:background="#2ed573">
+        android:background="#1dd1a1">
 
         <ImageButton
             android:id="@+id/backBtnCrearViaje1"

@@ -31,11 +31,18 @@ public class PerfilActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.perfil_activity);
+        setContentView(R.layout.activity_perfil);
 
         final String userId = getIntent().getStringExtra("userId");
 
         ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
+
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         query.getInBackground(userId, new GetCallback<ParseUser>() {
             @Override
@@ -84,8 +91,6 @@ public class PerfilActivity extends AppCompatActivity {
                                     }
                                 });
 
-
-
                                 TextView habilidad = findViewById(R.id.habilidadListaOpiniones);
 
                                 switch ((int) Math.round(habilidadAVG(opiniones))) {
@@ -114,8 +119,6 @@ public class PerfilActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     static double habilidadAVG(List <Opinion> opiniones) {

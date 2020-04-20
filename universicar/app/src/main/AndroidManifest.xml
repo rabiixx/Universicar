@@ -36,27 +36,31 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".LoginActivity"
             android:label="Sign In" />
+
         <activity
             android:name=".RegistrationActivity"
             android:label="Registration" />
-        <activity android:name=".CrearViajeActivity" />
+
+        <activity android:name=".CrearViajeActivity1" />
+        <activity android:name=".CrearViajeActivity2" />
+        <activity android:name=".CrearViajeActivity3" />
+
         <activity android:name=".BuscarViajeActivity" />
-        <activity android:name=".MisViajes" />
         <activity
-            android:name=".ListaViajes"
+            android:name=".ListaViajesActivity"
             android:label="Lista Viajes" />
         <activity
             android:name=".AnadirCocheActivity"
@@ -64,12 +68,7 @@
         <activity
             android:name=".MostrarViajeActivity"
             android:label="Add Vehicle" />
-        <activity
-            android:name=".MostrarMiViajeActivity"
-            android:label="Add Vehicle" />
-        <activity
-            android:name=".BottomNavActivity"
-            android:label="Add Vehicle" />
+
         <activity
             android:name=".TravelNotFoundActivity"
             android:label="Add Vehicle" />
@@ -77,7 +76,7 @@
             android:name=".MiPerfilActivity"
             android:label="User Admin)" />
         <activity
-            android:name=".RatingActivity"
+            android:name=".OpinarActivity"
             android:label="Rating" />
         <activity
             android:name=".PerfilActivity"

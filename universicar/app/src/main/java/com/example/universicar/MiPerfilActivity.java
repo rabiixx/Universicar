@@ -73,15 +73,13 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
     private TextView opinionesTv;
     private TextView habilidadCondTv;
     CircleImageView profileImage;
-    Uri URI;
-    PerfilCarAdapter carAdapter;
-
+    AdapterCoche carAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mi_perfil_activity);
+        setContentView(R.layout.activity_mi_perfil);
 
         final ListView carList = findViewById(R.id.carListProfile);
         profileImage = findViewById(R.id.imagenPerfil);
@@ -199,7 +197,7 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
                     if (coches.isEmpty()) {
                         carList.setVisibility(LinearLayout.GONE);
                     } else {
-                        carAdapter = new PerfilCarAdapter(MiPerfilActivity.this, coches);
+                        carAdapter = new AdapterCoche(MiPerfilActivity.this, coches);
                         carList.setAdapter(carAdapter);
                         justifyListViewHeightBasedOnChildren(carList);
 
@@ -207,7 +205,6 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
                             @Override
                             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                                 Coche coche = (Coche) carList.getItemAtPosition(position);
-                                Toast.makeText(MiPerfilActivity.this, "Selected :" , Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(MiPerfilActivity.this, AnadirCocheActivity.class);
                                 i.putExtra("coche", (Serializable) coche);
                                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -413,14 +410,9 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
     private String cameraFilePath;
     private File createImageFile() throws IOException {
 
-        // Create an image file name
         @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         String imageFileName = "JPEG_" + timeStamp + "_";
-
-        //This is the directory in which the file will be created. This is the default location of Camera photos
-
-//        File storageDir = new File(Environment.getExternalStoragePublicDirectory(nvironment.DIRECTORY_DCIM), "Camera");
 
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
@@ -435,7 +427,6 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(MiPerfilActivity.this , "MENUEKJ 1", Toast.LENGTH_SHORT).show();
                 switch (item.getItemId()) {
                     case R.id.editMenu:
                         loadProfileImage();
@@ -472,37 +463,6 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
         popup.show();
     }
 
-
-
-
-//    @Override
-//    public boolean onMenuItemClick(MenuItem item) {
-//        Toast.makeText(this, "MENUEKJ", Toast.LENGTH_SHORT).show();
-//        switch (item.getItemId()) {
-//            case R.id.editMenu:
-//                loadProfileImage();
-//                return true;
-//            case R.id.deleteMenu:
-//
-//                profileImageFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File.separator + "defaultProfileImage.png");
-//                ParseFile parseFile2 = new ParseFile(profileImageFile);
-//
-//                try {
-//                    parseFile2.save();
-//                    user.put("imagenPerfil", parseFile2);
-//                    user.saveInBackground();
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                Picasso.get().load(user.getParseFile("imagenPerfil").getUrl()).error(R.mipmap.ic_launcher).into(profileImage);
-//
-//                return true;
-//            default:
-//                return false;
-//        }
-//    }
-
     public static void justifyListViewHeightBasedOnChildren (ListView listView) {
 
         ListAdapter adapter = listView.getAdapter();
@@ -524,86 +484,8 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
         listView.requestLayout();
     }
 
-
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         return false;
     }
 }
-
-//https://medium.com/@sriramaripirala/android-10-open-failed-eacces-permission-denied-da8b630a89df
-
-
-
-
-
-/* UPLOAD IMAGES WITH FIREBASE STORAGE AND PICCASSO */
-
-
-    // Firebase
-//    FirebaseStorage storage;
-//    StorageReference storageReference;
-
-// Firebase Init
-//        storage = FirebaseStorage.getInstance();
-//                storageReference = storage.getReference();
-
-
-//    public void uploadImage() {
-//
-//        if (filePath != null) {
-//            Toast.makeText(this, "ENTERED 1", Toast.LENGTH_SHORT).show();
-//            final ProgressDialog progressDialog = new ProgressDialog(this);
-//            progressDialog.setTitle("Subiendo...");
-//            progressDialog.show();
-//
-//            StorageReference ref = storageReference.child("images/" + user.getUsername() + "Profile");
-//            ref.putFile(filePath)
-//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                            progressDialog.dismiss();
-//                            Toast.makeText(PerfilActivity.this, "Subida Correctamente", Toast.LENGTH_SHORT).show();
-//                            loadProfilePhoto();
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            progressDialog.dismiss();
-//                            Toast.makeText(PerfilActivity.this, "Failed" + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    })
-//                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-//                            double progress = (100.0 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-//                            progressDialog.setMessage("Subida " + (int)progress + "%");
-//                        }
-//                    });
-//        }
-//    }
-
-//
-//    public void loadProfilePhoto() {
-//        // Get the image stored on Firebase via "User id/Images/Profile Pic.jpg".
-//        storageReference.child("images").child(user.getUsername() + "Profile").getDownloadUrl()
-//            .addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                @Override
-//                public void onSuccess(Uri uri) {
-//                    Picasso.get().load(uri).fit().centerInside().into(profilePhoto);
-//                }
-//            })
-//            .addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    profilePhoto.setImageResource(R.drawable.defavatar);
-//                }
-//            });
-//
-
-
-//    }
-//                    Picasso.get().load(photoURI).fit().centerInside().into(iv);
-//                    iv.setImageURI(Uri.parse(cameraFilePath));
-

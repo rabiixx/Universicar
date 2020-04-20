@@ -41,7 +41,6 @@ public class Opinion extends ParseObject implements Serializable {
         return getDouble("puntuacion");
     }
 
-
     public void setCreador(ParseUser user) {
         put("creador", user);
     }

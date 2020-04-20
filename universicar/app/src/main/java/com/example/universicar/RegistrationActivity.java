@@ -47,8 +47,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
         }
 
-
-
         Button submit = findViewById(R.id.btnLogin);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,13 +86,9 @@ public class RegistrationActivity extends AppCompatActivity {
                             } catch (ParseException ex) {
                                 ex.printStackTrace();
                             }
-
-
-
-                            Toast.makeText(RegistrationActivity.this, "Register Success", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                         } else {
-                            Toast.makeText(RegistrationActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.i("debug", e.getMessage());
                         }
                     }
                 });
@@ -103,8 +97,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     }
-
-
 
     public boolean saveBitmapToFile(File dir, String fileName, Bitmap bm, Bitmap.CompressFormat format, int quality) {
 

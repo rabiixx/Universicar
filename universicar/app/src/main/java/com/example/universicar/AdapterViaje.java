@@ -20,13 +20,13 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class CustomAdapter extends ArrayAdapter<Viaje> {
+public class AdapterViaje extends ArrayAdapter<Viaje> {
 
     private static final String TAG = "debug";
     List<Viaje> viajes;
-    int code = 1;
+    private int code;
 
-    CustomAdapter(Context context,  List<Viaje> viajes, int code) {
+    AdapterViaje(Context context, List<Viaje> viajes, int code) {
         super(context, 0, viajes);
         this.viajes = viajes;
         this.code = code;
@@ -43,7 +43,7 @@ public class CustomAdapter extends ArrayAdapter<Viaje> {
         Viaje viaje = getItem(position);
 
         if (convertView == null)
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_view, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_lista_viajes, parent, false);
 
         ParseUser user = viaje.getConductor();
 
@@ -58,10 +58,21 @@ public class CustomAdapter extends ArrayAdapter<Viaje> {
         TextView username = convertView.findViewById(R.id.username);
         TextView precio = convertView.findViewById(R.id.price);
         ImageView disp = convertView.findViewById(R.id.dispImage);
+        TextView rol = convertView.findViewById(R.id.rol);
+        ImageView iconoRol = convertView.findViewById(R.id.iconoRol);
+
+        if ( viaje.getConductor().getUsername().equals(ParseUser.getCurrentUser().getUsername()) ) {
+            rol.setText("Conductor");
+            iconoRol.setImageResource(R.drawable.ic_conductor_30dp);
+        } else {
+            rol.setText("Pasajero");
+            iconoRol.setImageResource(R.drawable.ic_pasajero_30dp);
+        }
 
         if (code == 1) {
             TextView fecha = convertView.findViewById(R.id.fechaListaViajes);
             fecha.setText(viaje.getFecha());
+            fecha.append(" - " + viaje.getHoraSalida());
             Date date = viaje.getFechaDate();
             Date currentTime = Calendar.getInstance().getTime();
 

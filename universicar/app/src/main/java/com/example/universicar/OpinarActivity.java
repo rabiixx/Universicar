@@ -15,17 +15,21 @@ import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
 
-public class RatingActivity extends AppCompatActivity {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class OpinarActivity extends AppCompatActivity {
 
     private static final String TAG = "debug";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rating);
+        setContentView(R.layout.activity_opinar);
 
         final String userId = getIntent().getStringExtra("userId");
 
@@ -40,19 +44,42 @@ public class RatingActivity extends AppCompatActivity {
                     final TextView habilidadConduccionTV = findViewById(R.id.tvHabilidadConduccionRating);
                     habilidadConduccionTV.append(usuario.getUsername() + "?");
 
+                    findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onBackPressed();
+                        }
+                    });
+
+                    CircleImageView fotoPerfil = findViewById(R.id.fotoPerfil);
+                    ParseFile parseFile = usuario.getParseFile("imagenPerfil");
+                    Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(fotoPerfil);
+
+                    TextView nombre = findViewById(R.id.nombre);
+                    nombre.setText(usuario.getUsername());
+
+                    fotoPerfil.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(OpinarActivity.this, PerfilActivity.class);
+                            intent.putExtra("userId", userId);
+                            startActivity(intent);
+                        }
+                    });
+
+                    nombre.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(OpinarActivity.this, PerfilActivity.class);
+                            intent.putExtra("userId", userId);
+                            startActivity(intent);
+                        }
+                    });
+
                     ratingBar.setRating(5);
 
                     mbtg = findViewById(R.id.toggleGroup);
                     mbtg.check(R.id.btnMuyBien);
-
-                    mbtg.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
-                        @Override
-                        public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
-                            Button checkBtn = findViewById(checkedId);
-                            checkBtn.getText();
-                            Toast.makeText(RatingActivity.this, checkBtn.getText(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
 
                     findViewById(R.id.submitRating).setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -98,11 +125,11 @@ public class RatingActivity extends AppCompatActivity {
                             opinion.setCreador(ParseUser.getCurrentUser());
                             opinion.setUsuario(usuario);
                             opinion.saveInBackground();
-                            Toast.makeText(RatingActivity.this, "Opinion envidad correctamente", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RatingActivity.this, MainActivity.class);
+                            Toast.makeText(OpinarActivity.this, "Opinion enviada correctamente", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(OpinarActivity.this, MainActivity.class);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(RatingActivity.this, "Rellene todos los campos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(OpinarActivity.this, "Rellene todos los campos", Toast.LENGTH_SHORT).show();
                         }
                         }
                     });

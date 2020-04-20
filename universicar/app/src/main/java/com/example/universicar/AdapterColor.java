@@ -8,14 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ColorsAdapter extends BaseAdapter {
+public class AdapterColor extends BaseAdapter {
 
     private Context context;
     private int[] colorIcons;
     private String[] colors;
     private LayoutInflater inflater;
 
-    public ColorsAdapter(Context appContext, int[] colorIcons, String[] colors) {
+    public AdapterColor(Context appContext, int[] colorIcons, String[] colors) {
         this.context = appContext;
         this.colorIcons = colorIcons;
         this.colors = colors;
@@ -39,7 +39,7 @@ public class ColorsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = inflater.inflate(R.layout.colors_adapter, null);
+        convertView = inflater.inflate(R.layout.adapter_colores, null);
         ImageView icon = (ImageView) convertView.findViewById(R.id.colorIcon);
         TextView color = (TextView) convertView.findViewById(R.id.color);
         icon.setImageResource(colorIcons[position]);

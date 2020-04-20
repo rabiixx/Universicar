@@ -20,13 +20,13 @@ import com.parse.ParseException;
 import java.io.Serializable;
 import java.util.List;
 
-public class PerfilCarAdapter extends BaseAdapter {
+public class AdapterCoche extends BaseAdapter {
 
     private Context context;
     private List<Coche> coches;
     private LayoutInflater inflater;
 
-    public PerfilCarAdapter(Context appContext, List<Coche> coches) {
+    public AdapterCoche(Context appContext, List<Coche> coches) {
         this.context = appContext;
         this.coches = coches;
         inflater = (LayoutInflater.from(appContext));
@@ -50,7 +50,7 @@ public class PerfilCarAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
-        convertView = inflater.inflate(R.layout.perfil_car_adapter, null);
+        convertView = inflater.inflate(R.layout.adapter_lista_coches, null);
         ImageView icon = convertView.findViewById(R.id.carIconProfile);
         TextView brand = convertView.findViewById(R.id.carBrandProfile);
         ImageView brandIcon = convertView.findViewById(R.id.carBrandIconProfile);
@@ -80,9 +80,6 @@ public class PerfilCarAdapter extends BaseAdapter {
                 Toast.makeText(context, "Han error has ocurred", Toast.LENGTH_SHORT).show();
                 break;
         }
-
-
-        String[] colors = {"Negro", "Azul", "Verde", "Gris", "Naranja", "Rosa", "Rojo", "Blanco", "Amarillo"};
 
         switch (coches.get(position).getColor()) {
             case "Negro":

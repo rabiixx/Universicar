@@ -7,42 +7,41 @@
     android:orientation="vertical"
     tools:context=".MostrarViajeActivity">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
         android:orientation="horizontal"
-        android:background="@color/blue">
+        android:background="#1dd1a1">
 
         <ImageButton
-            android:id="@+id/button"
+            android:id="@+id/backBtn"
             android:layout_width="55dp"
             android:layout_height="50dp"
-            android:backgroundTint="@color/blue"
+            android:layout_centerVertical="true"
+            android:background="@null"
             android:clickable="true"
-            android:src="@drawable/ic_keyboard_backspace_white_24dp"
             android:focusable="true"
-            android:layout_gravity="center_vertical"/>
+            android:src="@drawable/ic_keyboard_backspace_white_24dp" />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:id="@+id/headerTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="@string/info_viaje"
-            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/salsa"
             android:textColor="@color/white"
-            android:textSize="25sp"
-            android:layout_gravity="center_vertical"
-            tools:ignore="RtlCompat" />
+            android:textSize="26sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/conductorLLMostrarMiViaje"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
         android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -66,8 +65,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textAlignment="textEnd"
-            android:gravity="center_vertical"
+            android:textAlignment="viewEnd"
+            android:gravity="end|center_vertical"
             android:text="rabiixx"
             android:textColor="#0892d0"
             android:textSize="24sp"
@@ -78,7 +77,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:layout_marginHorizontal="10dp"
+        android:padding="10dp">
 
         <TextView
             android:layout_height="match_parent"
@@ -106,7 +106,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:layout_marginHorizontal="10dp"
+        android:padding="10dp">
 
         <TextView
             android:layout_height="match_parent"
@@ -134,7 +135,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:layout_marginHorizontal="10dp"
+        android:padding="10dp">
 
         <TextView
             android:layout_height="match_parent"
@@ -161,7 +163,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:layout_marginHorizontal="10dp"
+        android:padding="10dp">
 
         <TextView
             android:layout_height="match_parent"
@@ -189,12 +192,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:layout_marginHorizontal="10dp"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/plazasInfoViaje"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:drawableStart="@drawable/ic_car_seat_30dp"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"
@@ -206,18 +210,20 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/precioInfoViaje"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginRight="10dp"
                 android:drawableEnd="@drawable/ic_euro_symbol_black_24dp"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:text="50"
-                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="23sp" />
 
@@ -225,22 +231,21 @@
                 android:layout_height="0dp"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="center"
+                android:layout_gravity="end"
+                android:layout_marginLeft="5dp"
                 android:text="por plaza"
-                android:textSize="18sp"
-                tools:ignore="RtlCompat" />
+                android:textSize="18sp" />
 
         </LinearLayout>
     </LinearLayout>
 
-
-
-    <!-- COCHE + COLOR + ICONO-->
     <LinearLayout
         android:id="@+id/cocheLayoutInfoViaje"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:layout_marginHorizontal="10dp"
+        android:padding="10dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -249,7 +254,7 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/cocheInfoViaje"
+                android:id="@+id/cocheMostrarMiViaje"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:gravity="center_vertical"
@@ -260,7 +265,7 @@
                 tools:ignore="RtlCompat" />
 
             <TextView
-                android:id="@+id/colorInfoViaje"
+                android:id="@+id/colorMostrarMiViaje"
                 android:layout_height="0dp"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
@@ -286,8 +291,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:cardCornerRadius="8dp"
-        app:cardUseCompatPadding="true">
-        <!--    app:cardElevation="6dp"-->
+        app:cardUseCompatPadding="true"
+        app:cardElevation="6dp"
+        android:visibility="gone">
+
 
         <LinearLayout
             android:orientation="vertical"
@@ -319,7 +326,6 @@
                         android:textColor="#000039"
                         android:textSize="18sp" />
 
-
                     <RatingBar
                         android:id="@+id/puntOpinionMiViaje"
                         android:layout_height="wrap_content"
@@ -331,7 +337,6 @@
                         android:isIndicator="true"/>
 
                 </LinearLayout>
-
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imagenPerfilOpinionMiViaje"
@@ -363,17 +368,19 @@
                 android:textSize="15sp"
                 android:text="Descripcion" />
 
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/opinarMostrarMiViaje"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
-        android:drawableEnd="@drawable/ic_thumbs_up_down_black_24dp"
-        android:text="Opinar" />
+        android:layout_marginTop="10dp"
+        android:textSize="17sp"
+        android:backgroundTint="#1dd1a1"
+        android:text="Opinar"
+        android:visibility="gone"/>
 
 </LinearLayout>

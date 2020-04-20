@@ -17,11 +17,10 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AdapterOpiniones extends ArrayAdapter<Opinion> {
+public class AdapterOpinion extends ArrayAdapter<Opinion> {
 
     private static final String TAG = "debug";
 
-    // View lookup cache
     private static class ViewHolder {
         TextView username;
         CircleImageView fotoPerfil;
@@ -30,8 +29,8 @@ public class AdapterOpiniones extends ArrayAdapter<Opinion> {
         RatingBar puntuacion;
     }
 
-    public AdapterOpiniones(Context context, List<Opinion> opiniones) {
-        super(context, R.layout.opinion_adapter, opiniones);
+    public AdapterOpinion(Context context, List<Opinion> opiniones) {
+        super(context, R.layout.adapter_opiniones, opiniones);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class AdapterOpiniones extends ArrayAdapter<Opinion> {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.opinion_adapter, parent, false);
+            convertView = inflater.inflate(R.layout.adapter_opiniones, parent, false);
 
             viewHolder.username = convertView.findViewById(R.id.usernameOpiniones);
             viewHolder.titulo = convertView.findViewById(R.id.tituloOpiniones);

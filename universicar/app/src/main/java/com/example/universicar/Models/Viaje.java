@@ -97,14 +97,6 @@ public class Viaje extends ParseObject implements Serializable {
         saveInBackground();
     }
 
-//    public String[] getEstado() {
-//        return estado;
-//    }
-
-//    public void setEstado(String[] estado) {
-//        this.estado = estado;
-//    }
-
     public int getPrecio() {
         return getInt("precio");
     }

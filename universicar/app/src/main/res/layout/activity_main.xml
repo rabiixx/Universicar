@@ -39,7 +39,7 @@
             android:backgroundTint="#1dd1a1"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="Iniciar Sesion" />
+            android:text="" />
 
         <Button
             android:id="@+id/btn2Main"
@@ -50,7 +50,7 @@
             android:backgroundTint="#0abde3"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="Registrarse" />
+            android:text="" />
     </LinearLayout>
 
 

@@ -4,26 +4,24 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
         android:orientation="horizontal"
-        android:background="@color/blue">
+        android:background="#1dd1a1">
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:fontFamily="@font/salsa"
-            android:text="@string/iniciar_sesion"
-            android:textAlignment="center"
+            android:textAlignment="gravity"
             android:textColor="@color/white"
-            android:textSize="25sp"
-            tools:ignore="RtlCompat" />
+            android:textSize="27sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Iniciar Sesion"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <TextView
@@ -77,12 +75,13 @@
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
-        android:text="@string/login"
-        android:backgroundTint="@color/blue"/>
+        android:layout_marginTop="20dp"
+        android:textSize="17sp"
+        android:backgroundTint="#1dd1a1"
+        android:text="Iniciar Sesion" />
 
     <TextView android:id="@+id/lnkLogin"
         android:layout_width="match_parent"

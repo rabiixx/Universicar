@@ -23,14 +23,17 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.SimpleTimeZone;
 
 public class BuscarViajeActivity extends AppCompatActivity {
 
     TimePickerDialog timePicker;
     final Calendar cal = Calendar.getInstance();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +53,14 @@ public class BuscarViajeActivity extends AppCompatActivity {
 
         final EditText horaEditText = findViewById(R.id.horaBuscarViaje);
         horaEditText.requestFocus();
+        String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
+        horaEditText.setText(currentTime);
 
-        // Calendario
-        final CalendarView calendarView = findViewById(R.id.calendarView);
+        /* Calendario */
+        CalendarView calendarView = findViewById(R.id.calendarView);
         calendarView.setMinDate(calendarView.getDate());
 
-        ImageButton backBtn = findViewById(R.id.backBtnBuscarViaje);
-
-        backBtn.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.backBtnBuscarViaje).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
@@ -99,53 +102,50 @@ public class BuscarViajeActivity extends AppCompatActivity {
             }
         });
 
-        Button searchSubmitBtn = (Button)findViewById(R.id.searchSubmitBtn);
+        Button searchSubmitBtn = findViewById(R.id.searchSubmitBtn);
 
         searchSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String srcPlace = srcSpinner.getSelectedItem().toString();
                 String destPlace = destSpinner.getSelectedItem().toString();
 
-                // Define the class to query
-                ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
+                if (srcPlace == destPlace) {
+                    Toast.makeText(BuscarViajeActivity.this, "El origen y desetino no pueden ser iguales", Toast.LENGTH_SHORT).show();
+                } else {
+                    ParseQuery<Viaje> query = ParseQuery.getQuery(Viaje.class);
+                    query.whereEqualTo("origen", srcPlace);
+                    query.whereEqualTo("destino", destPlace);
+                    query.whereGreaterThanOrEqualTo("fecha", cal.getTime());
+                    query.addAscendingOrder("fecha");
+                    query.whereGreaterThanOrEqualTo("nPlazasDisp", 1);
 
-                // Define query conditions
-                query.whereEqualTo("origen", srcPlace);
-                query.whereEqualTo("destino", destPlace);
-                query.whereGreaterThanOrEqualTo("fecha", cal.getTime());
-                query.addAscendingOrder("fecha");
-                query.whereGreaterThanOrEqualTo("nPlazasDisp", 1);
+                    if ( ParseUser.getCurrentUser().getUsername() != null ){
+                        ParseUser user = ParseUser.getCurrentUser();
+                        query.whereNotEqualTo("pasajeros", ParseUser.getCurrentUser());
+                    }
 
-                if ( ParseUser.getCurrentUser().getUsername() != null ){
-                    ParseUser user = ParseUser.getCurrentUser();
-                    Log.i("debug", user.getUsername());
-                    query.whereNotEqualTo("pasajeros", ParseUser.getCurrentUser());
-                }
-
-                query.findInBackground(new FindCallback<Viaje>() {
-                    @Override
-                    public void done(List<Viaje> viajeList, ParseException e) {
+                    query.findInBackground(new FindCallback<Viaje>() {
+                        @Override
+                        public void done(List<Viaje> viajeList, ParseException e) {
                         if (e == null) {
                             if (viajeList.isEmpty()) {
                                 Intent i = new Intent(BuscarViajeActivity.this, TravelNotFoundActivity.class);
                                 startActivity(i);
                             } else {
-                                Intent i = new Intent(BuscarViajeActivity.this, ListaViajes.class);
-                                i.putExtra("list", (Serializable) viajeList);
+                                Intent i = new Intent(BuscarViajeActivity.this, ListaViajesActivity.class);
+                                i.putExtra("code", 2);
+                                i.putExtra("viajes", (Serializable) viajeList);
                                 startActivity(i);
                             }
                         } else {
-                            Log.i("debug1", e.getMessage());
-//                            Toast.makeText(BuscarViajeActivity.this, e.getMessage() , Toast.LENGTH_SHORT).show();
-
+                            Log.i("debug", e.getMessage());
                         }
-                    }
-                });
-
+                        }
+                    });
+                }
             }
         });
-
     }
-
 }

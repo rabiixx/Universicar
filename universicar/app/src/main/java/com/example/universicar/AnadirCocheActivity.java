@@ -37,7 +37,7 @@ public class AnadirCocheActivity extends AppCompatActivity {
                 R.drawable.ic_brand_opel, R.drawable.ic_brand_peugeot, R.drawable.ic_brand_toyota,
         };
 
-        final ColorsAdapter carBrandAdapter = new ColorsAdapter(this, carBrandIcons, carBrand);
+        final AdapterColor carBrandAdapter = new AdapterColor(this, carBrandIcons, carBrand);
 
         carBrandSpinner.setAdapter(carBrandAdapter);
 
@@ -50,7 +50,7 @@ public class AnadirCocheActivity extends AppCompatActivity {
                 R.drawable.ic_car_familiar_24dp, R.drawable.ic_car_todoterrenno_24dp, R.drawable.ic_car_biplaza_24dp
         };
 
-        ColorsAdapter carTypesAdapter = new ColorsAdapter(this, carTypesIcons, carTypes);
+        AdapterColor carTypesAdapter = new AdapterColor(this, carTypesIcons, carTypes);
 
         carTypeSpinner.setAdapter(carTypesAdapter);
 
@@ -63,8 +63,8 @@ public class AnadirCocheActivity extends AppCompatActivity {
         };
 
 
-        ColorsAdapter colorAdapter = new ColorsAdapter(this, colorIcons, colors);
-        //colorAdapter.setDropDownViewResource(R.layout.colors_adapter);
+        AdapterColor colorAdapter = new AdapterColor(this, colorIcons, colors);
+        //colorAdapter.setDropDownViewResource(R.layout.adapter_colores);
 
         carColorSpinner.setAdapter(colorAdapter);
 

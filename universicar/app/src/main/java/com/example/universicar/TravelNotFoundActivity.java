@@ -11,7 +11,7 @@ public class TravelNotFoundActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.travel_not_found);
+        setContentView(R.layout.activity_travel_not_found);
 
 
         ImageButton backBtn = (ImageButton)findViewById(R.id.backBtnTravelNotFound);

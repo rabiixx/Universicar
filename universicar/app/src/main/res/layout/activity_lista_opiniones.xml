@@ -4,35 +4,35 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
         android:orientation="horizontal"
-        android:background="@color/blue">
+        android:background="#1dd1a1">
 
         <ImageButton
-            android:id="@+id/backBtnPerfil"
+            android:id="@+id/backBtn"
             android:layout_width="55dp"
             android:layout_height="50dp"
-            android:backgroundTint="@color/blue"
+            android:background="@android:color/transparent"
             android:clickable="true"
-            android:src="@drawable/ic_keyboard_backspace_white_24dp"
+            android:contentDescription="Back"
             android:focusable="true"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="Back" />
+            android:src="@drawable/ic_keyboard_backspace_white_24dp"
+            android:layout_centerVertical="true"/>
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:fontFamily="@font/salsa"
-            android:text="@string/perfil"
-            android:layout_marginLeft="108dp"
+            android:text="Opiniones"
+            android:textAlignment="gravity"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="26sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/capriola"
-            android:text="Habilidad Conduccion: Muy Bien"
+            android:text="Habilidad Conduccion: "
             android:textColor="#000039"
             android:textSize="18sp" />
 
