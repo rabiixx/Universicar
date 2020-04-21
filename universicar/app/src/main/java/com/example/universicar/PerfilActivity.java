@@ -66,7 +66,7 @@ public class PerfilActivity extends AppCompatActivity {
 
                                 TextView opinionesTv = findViewById(R.id.opinionesTvPerfil);
                                 float puntuacionAVG =  puntuacionAVG(opiniones);
-                                String str = puntuacionAVG + "/5 - " + opiniones.size() + " opiniones";
+                                String str = String.format("%.1f", puntuacionAVG) + "/5 - " + opiniones.size() + " opiniones";
                                 opinionesTv.setText(str);
 
                                 RatingBar ratingBar = findViewById(R.id.ratingBarPerfil);
@@ -133,12 +133,12 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     static float puntuacionAVG(List <Opinion> opiniones) {
-        int sum = 0;
+        float sum = 0;
         if(!opiniones.isEmpty()) {
             for (Opinion opinion : opiniones) {
                 sum += opinion.getPuntuacion();
             }
-            return (float) sum / opiniones.size();
+            return sum / opiniones.size();
         }
         return sum;
     }

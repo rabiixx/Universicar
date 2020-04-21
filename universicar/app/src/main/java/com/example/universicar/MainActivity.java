@@ -1,13 +1,14 @@
 package com.example.universicar;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
@@ -36,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        /* Save default Profile Image */
+        File defaultProfileImage = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/defaultProfileImage.png");
+        if ( !defaultProfileImage.exists() ) {
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.defavatar);
+            RegistrationActivity.saveBitmapToFile( getExternalFilesDir(Environment.DIRECTORY_PICTURES),"defaultProfileImage.png", bm, Bitmap.CompressFormat.PNG,100);
+        }
 
         final Button btn1 = findViewById(R.id.btn1Main);
         final Button btn2 = findViewById(R.id.btn2Main);

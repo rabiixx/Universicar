@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,6 +30,13 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration);
 
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         TextView login = findViewById(R.id.lnkLogin);
         login.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -42,12 +48,7 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
-        File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/defaultProfileImage.png");
-        if ( !getExternalFilesDir(Environment.DIRECTORY_PICTURES).exists() ) {
-
-        }
-
-        Button submit = findViewById(R.id.btnLogin);
+        Button submit = findViewById(R.id.btnRegister);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +87,9 @@ public class RegistrationActivity extends AppCompatActivity {
                             } catch (ParseException ex) {
                                 ex.printStackTrace();
                             }
-                            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                            Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                         } else {
                             Log.i("debug", e.getMessage());
                         }
@@ -98,7 +101,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
-    public boolean saveBitmapToFile(File dir, String fileName, Bitmap bm, Bitmap.CompressFormat format, int quality) {
+    public static boolean saveBitmapToFile(File dir, String fileName, Bitmap bm, Bitmap.CompressFormat format, int quality) {
 
         File imageFile = new File(dir, fileName);
 

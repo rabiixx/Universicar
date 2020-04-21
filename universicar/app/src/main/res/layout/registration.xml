@@ -4,25 +4,36 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
         android:orientation="horizontal"
-        android:background="@color/blue">
+        android:background="#1dd1a1">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="55dp"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:contentDescription="Back"
+            android:focusable="true"
+            android:src="@drawable/ic_keyboard_backspace_white_24dp"
+            android:layout_centerVertical="true"/>
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:fontFamily="@font/salsa"
-            android:text="@string/registrarse"
-            android:textAlignment="center"
+            android:text="Registrarse"
+            android:textAlignment="gravity"
             android:textColor="@color/white"
-            android:textSize="25sp"
-            tools:ignore="RtlCompat" />
+            android:textSize="26sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/loginscrn"
@@ -31,28 +42,32 @@
         android:layout_gravity="center"
         android:layout_marginTop="80dp"
         android:fontFamily="@font/salsa"
-        android:text="@string/registration"
+        android:text="Registro"
         android:textSize="25sp"
         android:textStyle="bold" />
+
     <TextView
         android:id="@+id/fstTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="20dp"
-        android:text="@string/full_name"/>
+        android:text="Nombre"/>
+
     <EditText
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100sp"
         android:ems="10"/>
+
     <TextView
         android:id="@+id/secTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/email"
         android:layout_marginStart="100sp" />
+
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
@@ -62,12 +77,14 @@
         android:autofillHints="email"
         android:inputType="textEmailAddress"
         tools:ignore="LabelFor" />
+
     <TextView
         android:id="@+id/thirdTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/password"
+        android:text="Contraseña"
         android:layout_marginStart="100dp" />
+
     <EditText
         android:id="@+id/txtPwd"
         android:layout_width="wrap_content"
@@ -77,13 +94,16 @@
         android:ems="10"
         android:autofillHints="password"
         tools:ignore="LabelFor" />
+
     <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:id="@+id/btnRegister"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
-        android:text="@string/registrarse" />
+        android:layout_marginTop="20dp"
+        android:textSize="17sp"
+        android:backgroundTint="#1dd1a1"
+        android:text="Registrarse" />
 
     <TextView android:id="@+id/lnkLogin"
         android:layout_width="match_parent"

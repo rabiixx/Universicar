@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,6 +38,12 @@ public class ListaViajesActivity extends AppCompatActivity {
         });
 
         @SuppressWarnings("unchecked") final List<Viaje> viajes = (List<Viaje>) getIntent().getSerializableExtra("viajes");
+
+        if ( (code == 1) && (viajes.isEmpty()) ) {
+            findViewById(R.id.textView).setVisibility(View.VISIBLE);
+            findViewById(R.id.imageView).setVisibility(View.VISIBLE);
+            findViewById(R.id.travelList).setVisibility(View.GONE);
+        }
 
         final ListView listaViajes = findViewById(R.id.travelList);
         AdapterViaje adapterViaje = new AdapterViaje(this, viajes, code);

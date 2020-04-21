@@ -40,8 +40,8 @@ public class AdapterColor extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflater.inflate(R.layout.adapter_colores, null);
-        ImageView icon = (ImageView) convertView.findViewById(R.id.colorIcon);
-        TextView color = (TextView) convertView.findViewById(R.id.color);
+        ImageView icon = convertView.findViewById(R.id.colorIcon);
+        TextView color = convertView.findViewById(R.id.color);
         icon.setImageResource(colorIcons[position]);
         color.setText(colors[position]);
         return convertView;

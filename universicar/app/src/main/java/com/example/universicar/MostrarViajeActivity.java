@@ -75,7 +75,7 @@ public class MostrarViajeActivity extends AppCompatActivity {
         fecha.setText(viaje.getFecha());
         hora.setText(viaje.getHoraSalida());
         conductor.setText(user.getString("username"));
-        final String asientosDisp = String.valueOf(viaje.getNPlazasDisp()) + " Plazas disponibles";
+        final String asientosDisp = viaje.getNPlazasDisp() + " Plazas disponibles";
         nPlazas.setText(asientosDisp);
         precio.setText(String.valueOf(viaje.getPrecio()));
 
@@ -176,41 +176,45 @@ public class MostrarViajeActivity extends AppCompatActivity {
 
                         Button btnOpinar = findViewById(R.id.btnOpinar);
 
-                        if (opinion.isEmpty()) {
-                            btnOpinar.setVisibility(View.VISIBLE);
+                        if ( !ParseUser.getCurrentUser().getUsername().equals(user.getUsername()) ) {
+                            if ( opinion.isEmpty() ) {
+                                btnOpinar.setVisibility(View.VISIBLE);
 
-                            btnOpinar.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Log.i("debug", "opinat btn pressed");
-                                    Intent intent = new Intent(MostrarViajeActivity.this, OpinarActivity.class);
-                                    intent.putExtra("userId", user.getObjectId());
-                                    startActivity(intent);
+                                btnOpinar.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Log.i("debug", "opinat btn pressed");
+                                        Intent intent = new Intent(MostrarViajeActivity.this, OpinarActivity.class);
+                                        intent.putExtra("userId", user.getObjectId());
+                                        startActivity(intent);
+                                    }
+                                });
+                            } else {
+
+                                findViewById(R.id.opinion).setVisibility(View.VISIBLE);
+
+                                TextView username = findViewById(R.id.userOpinionMiViaje);
+                                TextView titulo = findViewById(R.id.tituloOpinionMiViaje);
+                                RatingBar puntuacion = findViewById(R.id.puntOpinionMiViaje);
+                                TextView descripcion = findViewById(R.id.descOpinionMiViaje);
+                                CircleImageView fotoPerfil = findViewById(R.id.imagenPerfilOpinionMiViaje);
+
+                                try {
+                                    username.setText(opinion.get(0).getCreador().fetchIfNeeded().getUsername());
+                                } catch (ParseException ex) {
+                                    ex.printStackTrace();
                                 }
-                            });
-                        } else {
 
-                            findViewById(R.id.opinion).setVisibility(View.VISIBLE);
+                                titulo.setText(opinion.get(0).getTitulo());
+                                descripcion.setText(opinion.get(0).getDescripcion());
+                                puntuacion.setRating(opinion.get(0).getPuntuacion().floatValue());
 
-                            TextView username = findViewById(R.id.userOpinionMiViaje);
-                            TextView titulo = findViewById(R.id.tituloOpinionMiViaje);
-                            RatingBar puntuacion = findViewById(R.id.puntOpinionMiViaje);
-                            TextView descripcion = findViewById(R.id.descOpinionMiViaje);
-                            CircleImageView fotoPerfil = findViewById(R.id.imagenPerfilOpinionMiViaje);
-
-                            try {
-                                username.setText(opinion.get(0).getCreador().fetchIfNeeded().getUsername());
-                            } catch (ParseException ex) {
-                                ex.printStackTrace();
+                                ParseFile parseFile = opinion.get(0).getCreador().getParseFile("imagenPerfil");
+                                Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(fotoPerfil);
                             }
-
-                            titulo.setText(opinion.get(0).getTitulo());
-                            descripcion.setText(opinion.get(0).getDescripcion());
-                            puntuacion.setRating(opinion.get(0).getPuntuacion().floatValue());
-
-                            ParseFile parseFile = opinion.get(0).getCreador().getParseFile("imagenPerfil");
-                            Picasso.get().load(parseFile.getUrl()).error(R.mipmap.ic_launcher).into(fotoPerfil);
                         }
+
+
                     } else {
                         Log.d("debug", "Error: " + e.getMessage());
                     }

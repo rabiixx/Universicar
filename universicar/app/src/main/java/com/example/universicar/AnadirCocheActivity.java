@@ -25,7 +25,7 @@ public class AnadirCocheActivity extends AppCompatActivity {
         setContentView(R.layout.activity_anadir_coche);
 
 
-        final Spinner carBrandSpinner = (Spinner)findViewById(R.id.brandSpinner);
+        final Spinner carBrandSpinner = findViewById(R.id.brandSpinner);
         String[] carBrand = {"Audi", "BMW", "Chevrolet", "Citroen", "Ferrari", "Fiat", "Ford",
                         "Hyundai", "Jeep", "Kia", "Mercedes", "Nissan", "Opel", "Peugeot", "Toyota"};
 
@@ -43,7 +43,7 @@ public class AnadirCocheActivity extends AppCompatActivity {
 
 
 
-        final Spinner carTypeSpinner = (Spinner)findViewById(R.id.typeSpinner);
+        final Spinner carTypeSpinner = findViewById(R.id.typeSpinner);
         String[] carTypes = {"Compacto", "Deportivo", "Descapotable", "Familiar", "Todoterrno", "Biplaza"};
         int[] carTypesIcons = {
                 R.drawable.ic_car_compacto_24dp, R.drawable.ic_car_deportivo_24dp, R.drawable.ic_car_descapotable_24dp,
@@ -54,7 +54,7 @@ public class AnadirCocheActivity extends AppCompatActivity {
 
         carTypeSpinner.setAdapter(carTypesAdapter);
 
-        final Spinner carColorSpinner = (Spinner)findViewById(R.id.colorSpinner);
+        final Spinner carColorSpinner = findViewById(R.id.colorSpinner);
         String[] colors = {"Negro", "Azul", "Verde", "Gris", "Naranja", "Rosa", "Rojo", "Blanco", "Amarillo"};
         int[] colorIcons = {
                 R.drawable.ic_circle_black_24dp, R.drawable.ic_circle_blue_24dp, R.drawable.ic_circle_green_24dp,
@@ -68,7 +68,7 @@ public class AnadirCocheActivity extends AppCompatActivity {
 
         carColorSpinner.setAdapter(colorAdapter);
 
-        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtnAddCar);
+        ImageButton backBtn = findViewById(R.id.backBtnAddCar);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +77,7 @@ public class AnadirCocheActivity extends AppCompatActivity {
             }
         });
 
-        Button addCar = (Button)findViewById(R.id.addCar);
+        Button addCar = findViewById(R.id.addCar);
 
         final Coche coche = (Coche) getIntent().getSerializableExtra("coche");
         if (coche != null) {

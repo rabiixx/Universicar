@@ -21,9 +21,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final EditText email = (EditText)findViewById(R.id.emailLogin);
-        final EditText password = (EditText)findViewById(R.id.pwdLogin);
-        final Button submit = (Button)findViewById(R.id.btnLogin);
+        final EditText email = findViewById(R.id.emailLogin);
+        final EditText password = findViewById(R.id.pwdLogin);
+        final Button submit = findViewById(R.id.btnLogin);
         final TextView lnkLogin = findViewById(R.id.lnkLogin);
 
         lnkLogin.setMovementMethod(LinkMovementMethod.getInstance());

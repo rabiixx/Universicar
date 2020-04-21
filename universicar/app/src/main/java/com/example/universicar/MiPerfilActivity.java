@@ -24,7 +24,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -122,7 +121,7 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
 
                     opinionesTv = findViewById(R.id.opinionesTvMiPerfil);
                     float puntuacionAVG = PerfilActivity.puntuacionAVG(opiniones);
-                    String str = puntuacionAVG + "/5 - " + opiniones.size() + " opiniones";
+                    String str = String.format("%.1f", puntuacionAVG) + "/5 - " + opiniones.size() + " opiniones";
                     opinionesTv.setText(str);
 
                     findViewById(R.id.LlOpinionesPerfil).setOnClickListener(new View.OnClickListener() {
@@ -167,7 +166,7 @@ public class MiPerfilActivity extends AppCompatActivity implements PopupMenu.OnM
         });
 
 
-        Button btnLogout = (Button)findViewById(R.id.logoutPerfil);
+        Button btnLogout = findViewById(R.id.logoutPerfil);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
